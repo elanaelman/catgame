@@ -2,8 +2,13 @@ class Station {
 	constructor(name,task) {
 	this.name = name;
 	}
-	task() {
+
+	playerTask() {
 		console.log(this.name,'has an alert!');
+	}
+
+	catTask() {
+		prompt cat to come do a thing
 	}
 }
 
@@ -44,7 +49,6 @@ const clumsy = new Cat('Clumsy',easle);
 const sneazy = new Cat('Sneazy',bathroom);
 const sneaky = new Cat('Sneaky',easle);
 const picky = new Cat('Picky',couch);
- 
 
 
 function randomColor(){
@@ -57,5 +61,3 @@ function randomColor(){
 }
 
 alert(Hungry.name);
-
-
