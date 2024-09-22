@@ -16,9 +16,9 @@ class Station {
 class kitchen extends Station{
 	constructor(name,taskListCat) {
 		super(name);
-		this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyHide];
+		this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
 	}
-
+	let seed = 99;
 	sendTask(seed);
 
 	function sendTask(id){
@@ -32,7 +32,7 @@ class kitchen extends Station{
 			screamyFood();
 		}
 		else if (id=96){
-			sneakyHide();
+			sneakyKitchen();
 		]
 	}
 
@@ -41,19 +41,19 @@ class kitchen extends Station{
 	}
 
 	function pickyFood(){
-
+		pickyList.push('pickyFood');
 	}
 
 	function screamyFood(){
-
+		screamyList.push('screamyFood');
 	}
 
 	function sneakyHide(){
-
+		sneakyList.push('sneakyKitchen')
 	}
 }
 
-
+//*
 class bathroom extends Station{
 	
 }
@@ -72,7 +72,7 @@ class easle extends Station{
 class couch extends Station{
 	
 }
-
+*//
 function randInt(max) {
 	let value=Math.floor(Math.random()*max);
 	return value;
@@ -100,6 +100,9 @@ class Apmt {
 		const sneaky = new Cat('Sneaky',easle);
 		const picky = new Cat('Picky',couch);
 		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
+
+		//test
+		this.hungryList=[];
 	}
 }
 
@@ -129,7 +132,7 @@ class Player {
 	}
 
 	goDo() {
-		go to the place you click
+		//go to the place you click
 	}
 }
 
@@ -145,3 +148,4 @@ function randomColor(){
 }
 
 alert(Hungry.name);
+alert(
