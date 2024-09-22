@@ -54,7 +54,7 @@ class Cat {
 	}
 
 	onUpdate() {
-		//raed toDoList and do it
+		//read toDoList and do it
 	}
 }
 
@@ -106,65 +106,138 @@ class Station {
 }
 
 class kitchen extends Station{
-	constructor(name,taskListCat) {
+	constructor(name,catList) {
 		super(name);
-		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
+		this.catList=[hungry,picky,screamy,sneaky];
 
-		//Testing
-		let seed = 99;
-		sendTask(seed);
+		let hungry=this.catList[0];
+		let picky=this.catList[1];
+		let screamy=this.catList[2];
+		let sneaky=this.catList[3];
 	}
 
 	sendTask(id){
 		if (id = 99) {
-			hungryFood();
+			hungry.toDoList.push('hungryFood');
 		}
-		else if (id = 98) {
-			pickyFood();
+		else if (id = 98){
+			picky.toDoList.push('pickyFood');
 		}
 		else if (id = 97) {
-			screamyFood();
+			screamy.toDoList.push('screamyFood');
 		}
 		else if (id = 96) {
-			sneakyKitchen();
+			sneaky.toDoList.push('sneakyKitchen');
 		}
-	}
-
-	hungryFood(){
-		hungryList.push('hungryFood');
-	}
-
-	pickyFood(){
-		pickyList.push('pickyFood');
-	}
-
-	screamyFood(){
-		screamyList.push('screamyFood');
-	}
-
-	sneakyHide(){
-		sneakyList.push('sneakyKitchen')
 	}
 }
 
 
 class bathroom extends Station{
-	
+	constructor(name,catList) {
+		super(name);
+		this.catList=[stinky,clumsy,sneaky];
+
+		let stinky=this.catList[0];
+		let clumsy=this.catList[1];
+		let sneaky=this.catList[2];
+	}
+
+	sendTask(id){
+		if (id = 99) {
+			stinky.toDoList.push('stinkyBathroom');
+		}
+		else if (id = 98){
+			picky.toDoList.push('clumsyBathroom');
+		}
+		else if (id = 97) {
+			sneaky.toDoList.push('sneakyBathroom');
+		}
+	}
 }
 
 
 class computer extends Station{
-	
+	constructor(name,catList) {
+		super(name);
+		this.catList=[lazy,cranky,needy,sneaky];
+
+		let lazy=this.catList[0];
+		let cranky=this.catList[1];
+		let needy=this.catList[2];
+		let sneaky=this.catList[3];
+	}
+
+	sendTask(id){
+		if (id = 99) {
+			lazy.toDoList.push('lazyComp');
+		}
+		else if (id = 98){
+			cranky.toDoList.push('crankyComp');
+		}
+		else if (id = 97) {
+			needy.toDoList.push('needyComp');
+		}
+		else if (id = 96) {
+			sneaky.toDoList.push('sneakyComp');
+		}
+	}
 }
 
 
 class easle extends Station{
-	
+	constructor(name,catList) {
+		super(name);
+		this.catList=[lazy,sneazy,clumsy,sneaky];
+
+		let lazy=this.catList[0];
+		let sneazy=this.catList[1];
+		let clumsy=this.catList[2];
+		let sneaky=this.catList[3];
+	}
+
+	sendTask(id){
+		if (id = 99) {
+			lazy.toDoList.push('lazyEasle');
+		}
+		else if (id = 98){
+			sneaky.toDoList.push('sneakyEasle');
+		}
+		else if (id = 97) {
+			clumsy.toDoList.push('clumsyEasle');
+		}
+		else if (id = 96) {
+			sneaky.toDoList.push('sneakyEasle');
+		}
+	}
 }
 
 
 class couch extends Station{
-	
+	constructor(name,catList) {
+		super(name);
+		this.catList=[lazy,cranky,needy,sneaky];
+
+		let lazy=this.catList[0];
+		let cranky=this.catList[1];
+		let needy=this.catList[2];
+		let sneaky=this.catList[3];
+	}
+
+	sendTask(id){
+		if (id = 99) {
+			lazy.toDoList.push('lazyCouch');
+		}
+		else if (id = 98){
+			cranky.toDoList.push('crankyCouch');
+		}
+		else if (id = 97) {
+			needy.toDoList.push('needyCouch');
+		}
+		else if (id = 96) {
+			sneaky.toDoList.push('sneakyCouch');
+		}
+	}
 }
 
 
