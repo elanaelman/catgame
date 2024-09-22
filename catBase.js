@@ -1,14 +1,105 @@
 class Station {
-	constructor(name,task) {
+	constructor(name) {
 	this.name = name;
 	}
 
 	playerTask() {
 		console.log(this.name,'has an alert!');
+		// pass task to player
 	}
 
-	catTask() {
-		prompt cat to come do a thing
+	onUpdate() {
+		let seed=randInt(100);
+	}
+}
+
+class kitchen extends Station{
+	constructor(name,taskListCat) {
+		super(name);
+		this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyHide];
+	}
+
+	sendTask(seed);
+
+	function sendTask(id){
+		if (id=99){
+			hungryFood();
+		}
+		else if (id=98){
+			pickyFood();
+		}
+		else if (id=97){
+			screamyFood();
+		}
+		else if (id=96){
+			sneakyHide();
+		]
+	}
+
+	function hungryFood(){
+		hungryList.push('hungryFood');
+	}
+
+	function pickyFood(){
+
+	}
+
+	function screamyFood(){
+
+	}
+
+	function sneakyHide(){
+
+	}
+}
+
+
+class bathroom extends Station{
+	
+}
+
+
+class computer extends Station{
+	
+}
+
+
+class easle extends Station{
+	
+}
+
+
+class couch extends Station{
+	
+}
+
+function randInt(max) {
+	let value=Math.floor(Math.random()*max);
+	return value;
+}
+
+class Apmt {
+	constructor {
+		//station objects
+		const kitchen = new Station('Kitchen');
+		const bathroom = new Station('Bathroom');
+		const computer = new Station('Computer');
+		const easle = new Station('Easle');
+		const couch = new Station('Couch');
+		const this.stationList = [kitchen, bathroom, computer, easle, couch];
+
+		//cats object
+		const hungry = new Cat('Hungry',kitchen);
+		const lazy = new Cat('Lazy',couch);
+		const cranky = new Cat('Cranky',computer);
+		const needy = new Cat('Needy',computer);
+		const screamy = new Cat('Screamy',kitchen);
+		const stinky = new Cat('Stinky',bathroom);
+		const clumsy = new Cat('Clumsy',easle);
+		const sneazy = new Cat('Sneazy',bathroom);
+		const sneaky = new Cat('Sneaky',easle);
+		const picky = new Cat('Picky',couch);
+		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
 	}
 }
 
@@ -21,6 +112,15 @@ class Cat {
 		this.name = name;
 		this.station = station;
 		this.color = randomColor();
+		this.toDoList = [wander()];
+	}
+
+	function wander() {
+		//lorum ipsum blah blah
+	}
+
+	function onUpdate() {
+		//raed toDoList and do it
 	}
 }
 
@@ -33,22 +133,6 @@ class Player {
 	}
 }
 
-const kitchen = new Station('Kitchen');
-const bathroom = new Station('Bathroom');
-const computer = new Station('Computer');
-const easle = new Station('Easle');
-const couch = new Station('Couch');
-
-const hungry = new Cat('Hungry',kitchen);
-const lazy = new Cat('Lazy',couch);
-const cranky = new Cat('Cranky',computer);
-const needy = new Cat('Needy',computer);
-const screamy = new Cat('Screamy',kitchen);
-const stinky = new Cat('Stinky',bathroom);
-const clumsy = new Cat('Clumsy',easle);
-const sneazy = new Cat('Sneazy',bathroom);
-const sneaky = new Cat('Sneaky',easle);
-const picky = new Cat('Picky',couch);
 
 
 function randomColor(){
