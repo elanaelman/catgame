@@ -15,6 +15,79 @@ class Screen {
 		}
 	}
 }
+class Sprite {
+	constructor(img_name, x, y, width, height) {
+		this.img = new Image();
+		this.img.src = img_name;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		//TODO add moved flag
+	}
+
+	//kitchen: 320, 20, 50, 50
+}
+
+
+
+class Player extends Sprite {
+	constructor(x, y, width, height) {
+		super("vampire.svg", x, y, width, height);
+	}
+
+	goDo() {
+		//go to the place you click
+	}
+}
+
+class Cat {
+	constructor(name, station) {
+		this.name = name;
+		this.station = station;
+		this.color = randomColor();
+		this.toDoList = [this.wander()];
+	}
+
+	wander() {
+		//lorum ipsum blah blah
+	}
+
+	onUpdate() {
+		//raed toDoList and do it
+	}
+}
+
+
+class Apmt {
+	constructor() {
+		//station objects
+		const kitchen = new Station('Kitchen');
+		const bathroom = new Station('Bathroom');
+		const computer = new Station('Computer');
+		const easle = new Station('Easle');
+		const couch = new Station('Couch');
+
+		this.stationList = [kitchen, bathroom, computer, easle, couch];
+
+		//cats object
+		const hungry = new Cat('Hungry', kitchen);
+		const lazy = new Cat('Lazy', couch);
+		const cranky = new Cat('Cranky', computer);
+		const needy = new Cat('Needy', computer);
+		const screamy = new Cat('Screamy', kitchen);
+		const stinky = new Cat('Stinky', bathroom);
+		const clumsy = new Cat('Clumsy', easle);
+		const sneazy = new Cat('Sneazy', bathroom);
+		const sneaky = new Cat('Sneaky', easle);
+		const picky = new Cat('Picky', couch);
+		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
+
+		//test
+		//		this.hungryList=[];
+	}
+}
+
 
 class Station {
 	constructor(name,task, x, y, width, height) {
@@ -94,82 +167,15 @@ class couch extends Station{
 	
 }
 
+
+
+
+
+
 function randInt(max) {
-	let value=Math.floor(Math.random()*max);
+	let value = Math.floor(Math.random() * max);
 	return value;
 }
-
-class Apmt {
-	constructor() {
-		//station objects
-		const kitchen = new Station('Kitchen');
-		const bathroom = new Station('Bathroom');
-		const computer = new Station('Computer');
-		const easle = new Station('Easle');
-		const couch = new Station('Couch');
-
-		this.stationList = [kitchen, bathroom, computer, easle, couch];
-
-		//cats object
-		const hungry = new Cat('Hungry',kitchen);
-		const lazy = new Cat('Lazy',couch);
-		const cranky = new Cat('Cranky',computer);
-		const needy = new Cat('Needy',computer);
-		const screamy = new Cat('Screamy',kitchen);
-		const stinky = new Cat('Stinky',bathroom);
-		const clumsy = new Cat('Clumsy',easle);
-		const sneazy = new Cat('Sneazy',bathroom);
-		const sneaky = new Cat('Sneaky',easle);
-		const picky = new Cat('Picky',couch);
-		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
-
-		//test
-//		this.hungryList=[];
-	}
-}
-
-class Sprite {
-	constructor(img_name, x, y, width, height) {
-		this.img = new Image();
-		this.img.src = img_name;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		//TODO add moved flag
-	}
-
-	//kitchen: 320, 20, 50, 50
-}
-
-class Cat {
-	constructor(name,station) {
-		this.name = name;
-		this.station = station;
-		this.color = randomColor();
-		this.toDoList = [this.wander()];
-	}
-
-	wander() {
-		//lorum ipsum blah blah
-	}
-
-	onUpdate() {
-		//raed toDoList and do it
-	}
-}
-
-class Player extends Sprite {
-	constructor(x, y, width, height) {
-		super("vampire.svg", x, y, width, height);
-	}
-
-	goDo() {
-		//go to the place you click
-	}
-}
-
-
 
 function randomColor(){
 	let colorType = Math.floor(Math.random()*3);
