@@ -42,7 +42,7 @@ class Player extends Sprite {
 }
 
 class Cat extends Sprite {
-	constructor(name, station) {
+	constructor(name,station,apmt) {
 
 		super("cat.svg", station.x, station.y, 50, 50);
 
@@ -50,13 +50,15 @@ class Cat extends Sprite {
 		this.station = station;
 		this.color = randomColor();
 		this.toDoList = [this.wander()];
+		this.apmt=apmt
 	}
 
 	wander() {
-		//lorum ipsum blah blah
+		let room=apmt.stationList[randInt(5)];
+		//start moving your xy coordinates to dest room xy coordinates
 	}
 
-	clumsyBathroom() {
+//*	clumsyBathroom() {
 
 	}
 
@@ -71,11 +73,11 @@ class Cat extends Sprite {
 	crankyCouch() {
 
 	}
-
+*/
 	hungryFood() {
-
+		//start moving to kitchen
 	}
-
+//*
 	lazyComp() {
 
 	}
@@ -99,27 +101,41 @@ class Cat extends Sprite {
 	screamyFood() {
 
 	}
-
+*/
 	sneakyKitchen() {
-
+		//move to kitchen and disapear
+		//create invisible top-priority task at kitchen 'sneaky suprise'
+		//create visible text at center of screen after 30 seconds 'where's sneaky'
 	}
 
 	sneakyBathroom() {
+		//move to bathroom and disapear
+		//create invisible top-priority task at bathroom 'sneaky suprise'
+		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
 	sneakyEasle() {
+		//move to easle and disapear
+		//create invisible top-priority task at easle 'sneaky suprise'
+		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
 	sneakyComp() {
+		//move to computer and disapear
+		//create invisible top-priority task at computer 'sneaky suprise'
+		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
 	sneakyCouch() {
+		//move to couch and disapear
+		//create invisible top-priority task at couch 'sneaky suprise'
+		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
-
+//*
 	sneazyEasle() {
 
 	}
@@ -127,7 +143,7 @@ class Cat extends Sprite {
 	stinkyBathroom() {
 
 	}
-
+*/
 	onUpdate() {
 		//read toDoList and do it
 	}
@@ -199,13 +215,13 @@ class kitchen extends Station{
 		if (id = 99) {
 			hungry.toDoList.push(hungryFood());
 		}
-		else if (id = 98){
+//*		else if (id = 98){
 			picky.toDoList.push(pickyFood());
 		}
 		else if (id = 97) {
 			screamy.toDoList.push(screamyFood());
 		}
-		else if (id = 96) {
+*/		else if (id = 96) {
 			sneaky.toDoList.push(sneakyKitchen());
 		}
 	}
@@ -223,13 +239,13 @@ class bathroom extends Station{
 	}
 
 	sendTask(id){
-		if (id = 99) {
+//*		if (id = 99) {
 			stinky.toDoList.push(stinkyBathroom());
 		}
 		else if (id = 98){
 			clumsy.toDoList.push(clumsyBathroom());
 		}
-		else if (id = 97) {
+*/		else if (id = 97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
 	}
@@ -248,7 +264,7 @@ class computer extends Station{
 	}
 
 	sendTask(id){
-		if (id = 99) {
+//*		if (id = 99) {
 			lazy.toDoList.push(lazyComp());
 		}
 		else if (id = 98){
@@ -257,7 +273,7 @@ class computer extends Station{
 		else if (id = 97) {
 			needy.toDoList.push(needyComp());
 		}
-		else if (id = 96) {
+*/		else if (id = 96) {
 			sneaky.toDoList.push(sneakyComp());
 		}
 	}
@@ -276,7 +292,7 @@ class easle extends Station{
 	}
 
 	sendTask(id){
-		if (id = 99) {
+//*		if (id = 99) {
 			lazy.toDoList.push(lazyEasle());
 		}
 		else if (id = 98){
@@ -285,7 +301,7 @@ class easle extends Station{
 		else if (id = 97) {
 			clumsy.toDoList.push(clumsyEasle());
 		}
-		else if (id = 96) {
+*/		else if (id = 96) {
 			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
@@ -304,7 +320,7 @@ class couch extends Station{
 	}
 
 	sendTask(id){
-		if (id = 99) {
+//*		if (id = 99) {
 			lazy.toDoList.push(lazyCouch());
 		}
 		else if (id = 98){
@@ -313,7 +329,7 @@ class couch extends Station{
 		else if (id = 97) {
 			needy.toDoList.push(needyCouch());
 		}
-		else if (id = 96) {
+*/		else if (id = 96) {
 			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
