@@ -15,7 +15,9 @@ function draw() {
 
 function startGame() {
     setInterval(draw, 10); //redraw every 10 seconds
+
     apmt = new Apmt();
+    screen = new Screen(canvas, ctx, apmt.catList.concat([new Player(300, 200, 50, 50)]));
 
     alert(apmt.catList[0].name);
 }

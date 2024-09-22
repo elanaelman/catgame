@@ -32,8 +32,8 @@ class Sprite {
 
 
 class Player extends Sprite {
-	constructor(x, y, width, height) {
-		super("vampire.svg", x, y, width, height);
+	constructor(x, y) {
+		super("vampire.svg", x, y, 50, 50);
 	}
 
 	goDo() {
@@ -41,8 +41,11 @@ class Player extends Sprite {
 	}
 }
 
-class Cat {
+class Cat extends Sprite {
 	constructor(name, station) {
+
+		super("cat.svg", station.x, station.y, 50, 50);
+
 		this.name = name;
 		this.station = station;
 		this.color = randomColor();
@@ -92,7 +95,11 @@ class Apmt {
 class Station {
 	constructor(name,task, x, y, width, height) {
 		this.name = name;
-		this.task = task;
+		this.task = task
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 	playerTask() {
 		console.log(this.name,'has an alert!');
