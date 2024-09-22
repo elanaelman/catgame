@@ -3,26 +3,25 @@
 const canvas = document.getElementById("catCanvas");
 const ctx = canvas.getContext("2d");
 
-screen = new Screen(canvas, ctx, [new Player(300, 200, 50, 50)]);
+apmt = new Apmt();
+player = new Player(300, 200, 50, 50);
+spriteList = this.apmt.catList.concat([this.player]);
+screen = new Screen(canvas, ctx, this.spriteList);
 
 function draw() {
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "blue";
     ctx.fillRect(320, 20, 50, 50);
-    screen.onUpdate();
+
+    for (const sprite of this.spriteList) {
+        ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
+        alert(sprite.x);
+    }
+
 }
 
-function startGame() {
-    setInterval(draw, 10); //redraw every 10 seconds
-
-    apmt = new Apmt();
-    screen = new Screen(canvas, ctx, apmt.catList.concat([new Player(300, 200, 50, 50)]));
-
-    alert(apmt.catList[0].name);
-}
+draw();
 
 
-window.addEventListener("load", startGame);
 
 
