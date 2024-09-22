@@ -2,7 +2,7 @@ class Station {
 	constructor(name) {
 	this.name = name;
 	}
-
+//*
 	playerTask() {
 		console.log(this.name,'has an alert!');
 		// pass task to player
@@ -11,12 +11,13 @@ class Station {
 	onUpdate() {
 		let seed=randInt(100);
 	}
+
 }
 
 class kitchen extends Station{
 	constructor(name,taskListCat) {
 		super(name);
-		this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
+		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
 	}
 	let seed = 99;
 	sendTask(seed);
@@ -53,7 +54,7 @@ class kitchen extends Station{
 	}
 }
 
-//*
+
 class bathroom extends Station{
 	
 }
@@ -72,7 +73,7 @@ class easle extends Station{
 class couch extends Station{
 	
 }
-*//
+*/
 function randInt(max) {
 	let value=Math.floor(Math.random()*max);
 	return value;
@@ -102,7 +103,7 @@ class Apmt {
 		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
 
 		//test
-		this.hungryList=[];
+//		this.hungryList=[];
 	}
 }
 
