@@ -1,6 +1,25 @@
+class Screen {
+	constructor(canvas, context, spriteList) {
+		this.canvas = canvas;
+		this.context = context;
+		this.spriteList = spriteList;
+	}
+
+	drawObject(img, x, y, width, height) {
+		ctx.drawImage(img, x, y, width, height);
+	}
+
+	onUpdate() {
+		for (const sprite of this.spriteList) {
+			this.drawObject(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
+		}
+	}
+}
+
 class Station {
-	constructor(name,task) {
-	this.name = name;
+	constructor(name,task, x, y, width, height) {
+		this.name = name;
+		this.task = task;
 	}
 
 	playerTask() {
@@ -8,12 +27,22 @@ class Station {
 	}
 
 	catTask() {
-		prompt cat to come do a thing
+		//prompt cat to come do a thing
 	}
 }
 
 class Sprite {
+	constructor(img_name, x, y, width, height) {
+		this.img = new Image();
+		this.img.src = img_name;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		//TODO add moved flag
+	}
 
+	//kitchen: 320, 20, 50, 50
 }
 
 class Cat {
@@ -24,12 +53,13 @@ class Cat {
 	}
 }
 
-class Player {
-	constructor(){
+class Player extends Sprite {
+	constructor(x, y, width, height) {
+		super("vampire.svg", x, y, width, height);
 	}
 
 	goDo() {
-		go to the place you click
+		//go to the place you click
 	}
 }
 
@@ -60,4 +90,4 @@ function randomColor(){
 	}
 }
 
-alert(Hungry.name);
+alert(hungry.name);
