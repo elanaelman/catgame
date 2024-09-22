@@ -56,6 +56,78 @@ class Cat extends Sprite {
 		//lorum ipsum blah blah
 	}
 
+	clumsyBathroom() {
+
+	}
+
+	clumsyEasle() {
+
+	}
+
+	crankyComp() {
+
+	}
+
+	crankyCouch() {
+
+	}
+
+	hungryFood() {
+
+	}
+
+	lazyComp() {
+
+	}
+
+	lazyCouch() {
+
+	}
+
+	needyComp() {
+
+	}
+
+	needyCouch() {
+
+	}
+
+	pickyFood() {
+
+	}
+
+	screamyFood() {
+
+	}
+
+	sneakyKitchen() {
+
+	}
+
+	sneakyBathroom() {
+
+	}
+
+	sneakyEasle() {
+
+	}
+
+	sneakyComp() {
+
+	}
+
+	sneakyCouch() {
+
+	}
+
+	sneazyEasle() {
+
+	}
+
+	stinkyBathroom() {
+
+	}
+
 	onUpdate() {
 		//read toDoList and do it
 	}
@@ -125,16 +197,16 @@ class kitchen extends Station{
 
 	sendTask(id){
 		if (id = 99) {
-			hungry.toDoList.push('hungryFood');
+			hungry.toDoList.push(hungryFood());
 		}
 		else if (id = 98){
-			picky.toDoList.push('pickyFood');
+			picky.toDoList.push(pickyFood());
 		}
 		else if (id = 97) {
-			screamy.toDoList.push('screamyFood');
+			screamy.toDoList.push(screamyFood());
 		}
 		else if (id = 96) {
-			sneaky.toDoList.push('sneakyKitchen');
+			sneaky.toDoList.push(sneakyKitchen());
 		}
 	}
 }
@@ -152,13 +224,13 @@ class bathroom extends Station{
 
 	sendTask(id){
 		if (id = 99) {
-			stinky.toDoList.push('stinkyBathroom');
+			stinky.toDoList.push(stinkyBathroom());
 		}
 		else if (id = 98){
-			picky.toDoList.push('clumsyBathroom');
+			clumsy.toDoList.push(clumsyBathroom());
 		}
 		else if (id = 97) {
-			sneaky.toDoList.push('sneakyBathroom');
+			sneaky.toDoList.push(sneakyBathroom());
 		}
 	}
 }
@@ -177,16 +249,16 @@ class computer extends Station{
 
 	sendTask(id){
 		if (id = 99) {
-			lazy.toDoList.push('lazyComp');
+			lazy.toDoList.push(lazyComp());
 		}
 		else if (id = 98){
-			cranky.toDoList.push('crankyComp');
+			cranky.toDoList.push(crankyComp());
 		}
 		else if (id = 97) {
-			needy.toDoList.push('needyComp');
+			needy.toDoList.push(needyComp());
 		}
 		else if (id = 96) {
-			sneaky.toDoList.push('sneakyComp');
+			sneaky.toDoList.push(sneakyComp());
 		}
 	}
 }
@@ -205,16 +277,16 @@ class easle extends Station{
 
 	sendTask(id){
 		if (id = 99) {
-			lazy.toDoList.push('lazyEasle');
+			lazy.toDoList.push(lazyEasle());
 		}
 		else if (id = 98){
-			sneaky.toDoList.push('sneakyEasle');
+			sneazy.toDoList.push(sneazyEasle());
 		}
 		else if (id = 97) {
-			clumsy.toDoList.push('clumsyEasle');
+			clumsy.toDoList.push(clumsyEasle());
 		}
 		else if (id = 96) {
-			sneaky.toDoList.push('sneakyEasle');
+			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
 }
@@ -233,16 +305,16 @@ class couch extends Station{
 
 	sendTask(id){
 		if (id = 99) {
-			lazy.toDoList.push('lazyCouch');
+			lazy.toDoList.push(lazyCouch());
 		}
 		else if (id = 98){
-			cranky.toDoList.push('crankyCouch');
+			cranky.toDoList.push(crankyCouch());
 		}
 		else if (id = 97) {
-			needy.toDoList.push('needyCouch');
+			needy.toDoList.push(needyCouch());
 		}
 		else if (id = 96) {
-			sneaky.toDoList.push('sneakyCouch');
+			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
 }
