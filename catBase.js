@@ -36,38 +36,40 @@ class kitchen extends Station{
 	constructor(name,taskListCat) {
 		super(name);
 		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
-	}
-	let seed = 99;
-	sendTask(seed);
 
-	function sendTask(id){
-		if (id=99){
+		//Testing
+		let seed = 99;
+		sendTask(seed);
+	}
+
+	sendTask(id){
+		if (id = 99) {
 			hungryFood();
 		}
-		else if (id=98){
+		else if (id = 98) {
 			pickyFood();
 		}
-		else if (id=97){
+		else if (id = 97) {
 			screamyFood();
 		}
-		else if (id=96){
+		else if (id = 96) {
 			sneakyKitchen();
-		]
+		}
 	}
 
-	function hungryFood(){
+	hungryFood(){
 		hungryList.push('hungryFood');
 	}
 
-	function pickyFood(){
+	pickyFood(){
 		pickyList.push('pickyFood');
 	}
 
-	function screamyFood(){
+	screamyFood(){
 		screamyList.push('screamyFood');
 	}
 
-	function sneakyHide(){
+	sneakyHide(){
 		sneakyList.push('sneakyKitchen')
 	}
 }
@@ -98,14 +100,15 @@ function randInt(max) {
 }
 
 class Apmt {
-	constructor {
+	constructor() {
 		//station objects
 		const kitchen = new Station('Kitchen');
 		const bathroom = new Station('Bathroom');
 		const computer = new Station('Computer');
 		const easle = new Station('Easle');
 		const couch = new Station('Couch');
-		const this.stationList = [kitchen, bathroom, computer, easle, couch];
+
+		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
 		//cats object
 		const hungry = new Cat('Hungry',kitchen);
@@ -144,14 +147,14 @@ class Cat {
 		this.name = name;
 		this.station = station;
 		this.color = randomColor();
-		this.toDoList = [wander()];
+		this.toDoList = [this.wander()];
 	}
 
-	function wander() {
+	wander() {
 		//lorum ipsum blah blah
 	}
 
-	function onUpdate() {
+	onUpdate() {
 		//raed toDoList and do it
 	}
 }
@@ -176,5 +179,3 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
-
-alert(hungry.name);
