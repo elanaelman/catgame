@@ -15,6 +15,8 @@ class Screen {
 		}
 	}
 }
+
+
 class Sprite {
 	constructor(img_name, x, y, width, height) {
 		this.img = new Image();
@@ -30,7 +32,6 @@ class Sprite {
 }
 
 
-
 class Player extends Sprite {
 	constructor(x, y) {
 		super("vampire.svg", x, y, 50, 50);
@@ -41,6 +42,7 @@ class Player extends Sprite {
 	}
 }
 
+
 class Cat extends Sprite {
 	constructor(name,station,apmt) {
 
@@ -50,7 +52,7 @@ class Cat extends Sprite {
 		this.station = station;
 		this.color = randomColor();
 		this.toDoList = [this.wander()];
-		this.apmt=apmt
+	//	this.apmt=apmt
 	}
 
 	wander() {
@@ -201,8 +203,8 @@ class Station {
 
 }
 
+
 class kitchen extends Station{
-	static food=0;
 	constructor(name,catList) {
 
 		super(name);
@@ -212,8 +214,8 @@ class kitchen extends Station{
 		let picky=this.catList[1];
 		let screamy=this.catList[2];
 		let sneaky=this.catList[3];
+		let food=0;
 	}
-
 	sendTask(id){
 		if (id==99) {
 			hungry.toDoList.push(hungryFood());
@@ -229,7 +231,7 @@ class kitchen extends Station{
 		}
 		else if (true) {
 			food=food+1
-			else if (food==200) {
+			else if (food%200=0) {
 				player.toDoList.push(ohNom());
 			}
 		}
@@ -245,6 +247,7 @@ class bathroom extends Station{
 		let stinky=this.catList[0];
 		let clumsy=this.catList[1];
 		let sneaky=this.catList[2];
+		let teeth=-100;
 	}
 
 	sendTask(id){
@@ -257,6 +260,11 @@ class bathroom extends Station{
 */		else if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
+		else if (true)
+			teeth=teeth+1;
+			else if (teeth%200=0) {
+				player.toDoList.push(brushyBrushy());
+			}
 	}
 }
 
@@ -362,3 +370,6 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
+
+
+alert('test');
