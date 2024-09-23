@@ -229,11 +229,7 @@ class Kitchen extends Station{
 			sneaky.toDoList.push(sneakyKitchen());
 		}
 		if (true) {
-<<<<<<< HEAD
-			food=food+1
-=======
 			food=food+1;
->>>>>>> a6b37217fd025019e64c9f96b7b6f5b42264fd60
 			if (food%200==0) {
 				player.toDoList.push(ohNom());
 			}
