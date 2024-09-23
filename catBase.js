@@ -52,7 +52,7 @@ class Cat extends Sprite {
 		this.station = station;
 		this.color = randomColor();
 		this.toDoList = [this.wander()];
-	//	this.apmt=apmt
+		this.apmt=apmt
 	}
 
 	wander() {
@@ -156,11 +156,11 @@ class Cat extends Sprite {
 class Apmt {
 	constructor() {
 		//station objects
-		const kitchen = new Station('Kitchen');
-		const bathroom = new Station('Bathroom');
-		const computer = new Station('Computer');
-		const easle = new Station('Easle');
-		const couch = new Station('Couch');
+		const kitchen = new Kitchen('Kitchen', [], 0, 0, 50, 50);
+		const bathroom = new Station('Bathroom', [], 50, 0, 50, 50);
+		const computer = new Station('Computer', [], 100, 0, 50, 50);
+		const easle = new Station('Easle', [], 150, 0, 50, 50);
+		const couch = new Station('Couch', [], 200, 0, 50, 50);
 
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
@@ -186,7 +186,7 @@ class Apmt {
 class Station {
 	constructor(name,task, x, y, width, height) {
 		this.name = name;
-		this.task = task
+		this.task = task;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -204,10 +204,9 @@ class Station {
 }
 
 
-class kitchen extends Station{
-	constructor(name,catList) {
-
-		super(name);
+class Kitchen extends Station{
+	constructor(name,catList, x, y, width, height) {
+		super(name, x, y, width, height);
 		this.catList=[hungry,picky,screamy,sneaky];
 	//	 this.player=player    IDK how to actually do this but we need to get the player object like we get the cats in the line above
 		let hungry=this.catList[0];
@@ -226,12 +225,12 @@ class kitchen extends Station{
 		else if (id==97) {
 			screamy.toDoList.push(screamyFood());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyKitchen());
 		}
-		else if (true) {
-			food=food+1
-			else if (food%200=0) {
+		if (true) {
+			food=food+1;
+			if (food%200==0) {
 				player.toDoList.push(ohNom());
 			}
 		}
@@ -239,9 +238,9 @@ class kitchen extends Station{
 }
 
 
-class bathroom extends Station{
-	constructor(name,catList) {
-		super(name);
+class Bathroom extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
 		this.catList=[stinky,clumsy,sneaky];
 
 		let stinky=this.catList[0];
@@ -257,7 +256,7 @@ class bathroom extends Station{
 		else if (id==98){
 			clumsy.toDoList.push(clumsyBathroom());
 		}
-*/		else if (id==97) {
+*/		if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
 		else if (true)
@@ -269,16 +268,19 @@ class bathroom extends Station{
 }
 
 
-class computer extends Station{
-	constructor(name,catList) {
-		super(name);
+class Computer extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
 		this.catList=[lazy,cranky,needy,sneaky];
-
 		let lazy=this.catList[0];
 		let cranky=this.catList[1];
 		let needy=this.catList[2];
 		let sneaky=this.catList[3];
 	}
+
+
+
+
 
 	sendTask(id){
 /*		if (id==99) {
@@ -290,16 +292,16 @@ class computer extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyComp());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyComp());
 		}
 	}
 }
 
 
-class easle extends Station{
-	constructor(name,catList) {
-		super(name);
+class Easle extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
 		this.catList=[lazy,sneazy,clumsy,sneaky];
 
 		let lazy=this.catList[0];
@@ -318,16 +320,16 @@ class easle extends Station{
 		else if (id==97) {
 			clumsy.toDoList.push(clumsyEasle());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
 }
 
 
-class couch extends Station{
-	constructor(name,catList) {
-		super(name);
+class Couch extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
 		this.catList=[lazy,cranky,needy,sneaky];
 
 		let lazy=this.catList[0];
@@ -346,7 +348,7 @@ class couch extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyCouch());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
