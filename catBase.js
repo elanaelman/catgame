@@ -65,11 +65,11 @@ class Cat extends Sprite {
 class Apmt {
 	constructor() {
 		//station objects
-		const kitchen = new Station('Kitchen');
-		const bathroom = new Station('Bathroom');
-		const computer = new Station('Computer');
-		const easle = new Station('Easle');
-		const couch = new Station('Couch');
+		const kitchen = new Kitchen('Kitchen', [], 0, 0, 50, 50);
+		const bathroom = new Station('Bathroom', [], 50, 0, 50, 50);
+		const computer = new Station('Computer', [], 100, 0, 50, 50);
+		const easle = new Station('Easle', [], 150, 0, 50, 50);
+		const couch = new Station('Couch', [], 200, 0, 50, 50);
 
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
@@ -95,7 +95,7 @@ class Apmt {
 class Station {
 	constructor(name,task, x, y, width, height) {
 		this.name = name;
-		this.task = task
+		this.task = task;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -112,9 +112,9 @@ class Station {
 
 }
 
-class kitchen extends Station{
-	constructor(name,taskListCat) {
-		super(name);
+class Kitchen extends Station{
+	constructor(name,taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
 		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
 
 		//Testing
@@ -155,22 +155,34 @@ class kitchen extends Station{
 }
 
 
-class bathroom extends Station{
+class Bathroom extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
+	}
 	
 }
 
 
-class computer extends Station{
+class Computer extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
+	}
 	
 }
 
 
-class easle extends Station{
+class Easle extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
+	}
 	
 }
 
 
-class couch extends Station{
+class Couch extends Station{
+	constructor(name, taskListCat, x, y, width, height) {
+		super(name, x, y, width, height);
+	}
 	
 }
 
