@@ -226,12 +226,12 @@ class Kitchen extends Station{
 		else if (id==97) {
 			screamy.toDoList.push(screamyFood());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyKitchen());
 		}
-		else if (true) {
+		if (true) {
 			food=food+1
-			else if (food==200) {
+			elif (food==200) {
 				player.toDoList.push(ohNom());
 			}
 		}
@@ -256,7 +256,7 @@ class Bathroom extends Station{
 		else if (id==98){
 			clumsy.toDoList.push(clumsyBathroom());
 		}
-*/		else if (id==97) {
+*/		if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
 	}
@@ -287,7 +287,7 @@ class Computer extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyComp());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyComp());
 		}
 	}
@@ -315,7 +315,7 @@ class Easle extends Station{
 		else if (id==97) {
 			clumsy.toDoList.push(clumsyEasle());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
@@ -343,7 +343,7 @@ class Couch extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyCouch());
 		}
-*/		else if (id==96) {
+*/		if (id==96) {
 			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
