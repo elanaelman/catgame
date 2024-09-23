@@ -44,19 +44,19 @@ class Player extends Sprite {
 
 
 class Cat extends Sprite {
-	constructor(name,station,apmt) {
+	constructor(name,apmt) {
 
-		super("cat.svg", station.x, station.y, 50, 50);
+		super("cat.jpg", 0, 0, 50, 50);
 
 		this.name = name;
-		this.station = station;
+		this.station;
 		this.color = randomColor();
-		this.toDoList = [this.wander()];
+		this.toDoList = [];
 		this.apmt=apmt
 	}
 
 	wander() {
-		let room=apmt.stationList[randInt(5)];
+		let room=this.apmt.stationList[randInt(5)];
 		//start moving your xy coordinates to dest room xy coordinates
 	}
 
@@ -155,30 +155,36 @@ class Cat extends Sprite {
 
 class Apmt {
 	constructor() {
+		//cats object
+		const hungry = new Cat('Hungry');
+		const lazy = new Cat('Lazy');
+		const cranky = new Cat('Cranky');
+		const needy = new Cat('Needy');
+		const screamy = new Cat('Screamy');
+		const stinky = new Cat('Stinky');
+		const clumsy = new Cat('Clumsy');
+		const sneazy = new Cat('Sneazy');
+		const sneaky = new Cat('Sneaky');
+		const picky = new Cat('Picky');
+		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
+
 		//station objects
-		const kitchen = new Kitchen('Kitchen', [], 0, 0, 50, 50);
-		const bathroom = new Station('Bathroom', [], 50, 0, 50, 50);
-		const computer = new Station('Computer', [], 100, 0, 50, 50);
-		const easle = new Station('Easle', [], 150, 0, 50, 50);
-		const couch = new Station('Couch', [], 200, 0, 50, 50);
+		const kitchen = new Kitchen('Kitchen', [hungry, picky, screamy, sneaky], 0, 0, 50, 50);
+		const bathroom = new Station('Bathroom', [stinky, clumsy, sneaky], 50, 0, 50, 50);
+		const computer = new Station('Computer', [lazy, cranky, needy, sneaky], 100, 0, 50, 50);
+		const easle = new Station('Easle', [lazy, sneazy, clumsy, sneaky], 150, 0, 50, 50);
+		const couch = new Station('Couch', [lazy, cranky, needy, sneaky], 200, 0, 50, 50);
 
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
-		//cats object
-		const hungry = new Cat('Hungry', kitchen);
-		const lazy = new Cat('Lazy', couch);
-		const cranky = new Cat('Cranky', computer);
-		const needy = new Cat('Needy', computer);
-		const screamy = new Cat('Screamy', kitchen);
-		const stinky = new Cat('Stinky', bathroom);
-		const clumsy = new Cat('Clumsy', easle);
-		const sneazy = new Cat('Sneazy', bathroom);
-		const sneaky = new Cat('Sneaky', easle);
-		const picky = new Cat('Picky', couch);
-		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
+
 
 		//test
 		//		this.hungryList=[];
+	}
+
+	randomRoom() {
+		return this.stationList[randint(5)];
 	}
 }
 
@@ -207,7 +213,7 @@ class Station {
 class Kitchen extends Station{
 	constructor(name,catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		this.catList=[hungry,picky,screamy,sneaky];
+		this.catList=catList;
 	//	 this.player=player    IDK how to actually do this but we need to get the player object like we get the cats in the line above
 		let hungry=this.catList[0];
 		let picky=this.catList[1];
@@ -239,9 +245,9 @@ class Kitchen extends Station{
 
 
 class Bathroom extends Station{
-	constructor(name, taskListCat, x, y, width, height) {
+	constructor(name, catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		this.catList=[stinky,clumsy,sneaky];
+		this.catList=catList;
 
 		let stinky=this.catList[0];
 		let clumsy=this.catList[1];
@@ -269,9 +275,9 @@ class Bathroom extends Station{
 
 
 class Computer extends Station{
-	constructor(name, taskListCat, x, y, width, height) {
+	constructor(name, catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		this.catList=[lazy,cranky,needy,sneaky];
+		this.catList=catList;
 		let lazy=this.catList[0];
 		let cranky=this.catList[1];
 		let needy=this.catList[2];
@@ -300,9 +306,9 @@ class Computer extends Station{
 
 
 class Easle extends Station{
-	constructor(name, taskListCat, x, y, width, height) {
+	constructor(name, catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		this.catList=[lazy,sneazy,clumsy,sneaky];
+		this.catList=catList;
 
 		let lazy=this.catList[0];
 		let sneazy=this.catList[1];
@@ -328,9 +334,9 @@ class Easle extends Station{
 
 
 class Couch extends Station{
-	constructor(name, taskListCat, x, y, width, height) {
+	constructor(name, catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		this.catList=[lazy,cranky,needy,sneaky];
+		this.catList=catList;
 
 		let lazy=this.catList[0];
 		let cranky=this.catList[1];
@@ -373,5 +379,3 @@ function randomColor(){
 	}
 }
 
-
-alert('test');
