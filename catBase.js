@@ -58,7 +58,7 @@ class Cat extends Sprite {
 		//start moving your xy coordinates to dest room xy coordinates
 	}
 
-//*	clumsyBathroom() {
+/*	clumsyBathroom() {
 
 	}
 
@@ -76,8 +76,9 @@ class Cat extends Sprite {
 */
 	hungryFood() {
 		//start moving to kitchen
+		//create player task 'Hungry wants food' at the kitchen
 	}
-//*
+/*
 	lazyComp() {
 
 	}
@@ -135,7 +136,7 @@ class Cat extends Sprite {
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
-//*
+/*
 	sneazyEasle() {
 
 	}
@@ -201,10 +202,12 @@ class Station {
 }
 
 class kitchen extends Station{
+	static food=0;
 	constructor(name,catList) {
+
 		super(name);
 		this.catList=[hungry,picky,screamy,sneaky];
-
+	//	 this.player=player    IDK how to actually do this but we need to get the player object like we get the cats in the line above
 		let hungry=this.catList[0];
 		let picky=this.catList[1];
 		let screamy=this.catList[2];
@@ -212,17 +215,23 @@ class kitchen extends Station{
 	}
 
 	sendTask(id){
-		if (id = 99) {
+		if (id==99) {
 			hungry.toDoList.push(hungryFood());
 		}
-//*		else if (id = 98){
+/*		else if (id==98){
 			picky.toDoList.push(pickyFood());
 		}
-		else if (id = 97) {
+		else if (id==97) {
 			screamy.toDoList.push(screamyFood());
 		}
-*/		else if (id = 96) {
+*/		else if (id==96) {
 			sneaky.toDoList.push(sneakyKitchen());
+		}
+		else if (true) {
+			food=food+1
+			else if (food==200) {
+				player.toDoList.push(ohNom());
+			}
 		}
 	}
 }
@@ -239,13 +248,13 @@ class bathroom extends Station{
 	}
 
 	sendTask(id){
-//*		if (id = 99) {
+/*		if (id==99) {
 			stinky.toDoList.push(stinkyBathroom());
 		}
-		else if (id = 98){
+		else if (id==98){
 			clumsy.toDoList.push(clumsyBathroom());
 		}
-*/		else if (id = 97) {
+*/		else if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
 	}
@@ -264,16 +273,16 @@ class computer extends Station{
 	}
 
 	sendTask(id){
-//*		if (id = 99) {
+/*		if (id==99) {
 			lazy.toDoList.push(lazyComp());
 		}
-		else if (id = 98){
+		else if (id==98){
 			cranky.toDoList.push(crankyComp());
 		}
-		else if (id = 97) {
+		else if (id==97) {
 			needy.toDoList.push(needyComp());
 		}
-*/		else if (id = 96) {
+*/		else if (id==96) {
 			sneaky.toDoList.push(sneakyComp());
 		}
 	}
@@ -292,16 +301,16 @@ class easle extends Station{
 	}
 
 	sendTask(id){
-//*		if (id = 99) {
+/*		if (id==99) {
 			lazy.toDoList.push(lazyEasle());
 		}
-		else if (id = 98){
+		else if (id==98){
 			sneazy.toDoList.push(sneazyEasle());
 		}
-		else if (id = 97) {
+		else if (id==97) {
 			clumsy.toDoList.push(clumsyEasle());
 		}
-*/		else if (id = 96) {
+*/		else if (id==96) {
 			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
@@ -320,16 +329,16 @@ class couch extends Station{
 	}
 
 	sendTask(id){
-//*		if (id = 99) {
+/*		if (id==99) {
 			lazy.toDoList.push(lazyCouch());
 		}
-		else if (id = 98){
+		else if (id==98){
 			cranky.toDoList.push(crankyCouch());
 		}
-		else if (id = 97) {
+		else if (id==97) {
 			needy.toDoList.push(needyCouch());
 		}
-*/		else if (id = 96) {
+*/		else if (id==96) {
 			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
