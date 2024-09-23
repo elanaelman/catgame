@@ -261,7 +261,7 @@ class Bathroom extends Station{
 		}
 		else if (true)
 			teeth=teeth+1;
-			else if (teeth%200=0) {
+			else if (teeth%200==0) {
 				player.toDoList.push(brushyBrushy());
 			}
 	}
