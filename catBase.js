@@ -15,6 +15,8 @@ class Screen {
 		}
 	}
 }
+
+
 class Sprite {
 	constructor(img_name, x, y, width, height) {
 		this.img = new Image();
@@ -30,7 +32,6 @@ class Sprite {
 }
 
 
-
 class Player extends Sprite {
 	constructor(x, y) {
 		super("vampire.svg", x, y, 50, 50);
@@ -40,6 +41,7 @@ class Player extends Sprite {
 		//go to the place you click
 	}
 }
+
 
 class Cat extends Sprite {
 	constructor(name,station,apmt) {
@@ -201,19 +203,18 @@ class Station {
 
 }
 
+
 class Kitchen extends Station{
-	constructor(name,taskListCat, x, y, width, height) {
+	constructor(name,catList, x, y, width, height) {
 		super(name, x, y, width, height);
-		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
-		this.food=0;
 		this.catList=[hungry,picky,screamy,sneaky];
 	//	 this.player=player    IDK how to actually do this but we need to get the player object like we get the cats in the line above
 		let hungry=this.catList[0];
 		let picky=this.catList[1];
 		let screamy=this.catList[2];
 		let sneaky=this.catList[3];
+		let food=0;
 	}
-
 	sendTask(id){
 		if (id==99) {
 			hungry.toDoList.push(hungryFood());
@@ -228,7 +229,11 @@ class Kitchen extends Station{
 			sneaky.toDoList.push(sneakyKitchen());
 		}
 		if (true) {
+<<<<<<< HEAD
 			food=food+1
+=======
+			food=food+1;
+>>>>>>> a6b37217fd025019e64c9f96b7b6f5b42264fd60
 			if (food%200==0) {
 				player.toDoList.push(ohNom());
 			}
@@ -245,6 +250,7 @@ class Bathroom extends Station{
 		let stinky=this.catList[0];
 		let clumsy=this.catList[1];
 		let sneaky=this.catList[2];
+		let teeth=-100;
 	}
 
 	sendTask(id){
@@ -257,6 +263,11 @@ class Bathroom extends Station{
 */		if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
+		else if (true)
+			teeth=teeth+1;
+			else if (teeth%200=0) {
+				player.toDoList.push(brushyBrushy());
+			}
 	}
 }
 
@@ -365,3 +376,6 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
+
+
+alert('test');
