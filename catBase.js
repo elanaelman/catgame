@@ -205,9 +205,7 @@ class Kitchen extends Station{
 	constructor(name,taskListCat, x, y, width, height) {
 		super(name, x, y, width, height);
 		//this.taskListCat=[hungryFood,pickyFood,screamyFood,sneakyKitchen];
-	static food=0;
-
-		super(name);
+		this.food=0;
 		this.catList=[hungry,picky,screamy,sneaky];
 	//	 this.player=player    IDK how to actually do this but we need to get the player object like we get the cats in the line above
 		let hungry=this.catList[0];
@@ -231,7 +229,7 @@ class Kitchen extends Station{
 		}
 		if (true) {
 			food=food+1
-			elif (food==200) {
+			if (food%200==0) {
 				player.toDoList.push(ohNom());
 			}
 		}
