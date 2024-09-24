@@ -1,22 +1,3 @@
-class Screen {
-	constructor(canvas, context, spriteList) {
-		this.canvas = canvas;
-		this.context = context;
-		this.spriteList = spriteList;
-	}
-
-	drawObject(img, x, y, width, height) {
-		ctx.drawImage(img, x, y, width, height);
-	}
-
-	onUpdate() {
-		for (const sprite of this.spriteList) {
-			this.drawObject(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
-		}
-	}
-}
-
-
 class Sprite {
 	constructor(img_name, x, y, width, height) {
 		this.img = new Image();
@@ -25,7 +6,7 @@ class Sprite {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		//TODO add moved flag
+		this.moved = true;
 	}
 
 	//kitchen: 320, 20, 50, 50
@@ -35,9 +16,30 @@ class Sprite {
 class Player extends Sprite {
 	constructor(x, y) {
 		super("vampire.svg", x, y, 50, 50);
+		
+		//temp
+		this.direction = "right";
 	}
 
-	goDo() {
+	onUpdate = (deltaTime) => {
+		let dist = deltaTime * 0.1;
+
+		if (this.x < 0) {
+			this.direction = "right";
+		}
+		else if (this.x > 200) {
+			this.direction = "left";
+		}
+
+		if (this.direction == "left") {
+			this.x -= dist;
+		} else {
+			this.x += dist;
+		}
+		this.moved = true;
+	}
+
+	goDo = () => {
 		//go to the place you click
 	}
 }
