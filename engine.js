@@ -39,6 +39,9 @@ class Game {
 	}
 
 	render = () => {
+		//TODO Need to clear selectively instead of whole screen if using moved property
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
 		for (const sprite of this.spriteList) {
 			if (sprite.moved) {
 				this.drawSprite(sprite);

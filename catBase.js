@@ -57,99 +57,99 @@ class Cat extends Sprite {
 		this.apmt=apmt
 	}
 
-	wander() {
+	wander = () => {
 		let room=this.apmt.stationList[randInt(5)];
 		//start moving your xy coordinates to dest room xy coordinates
 	}
 
-/*	clumsyBathroom() {
+/*	clumsyBathroom = () => {
 
 	}
 
-	clumsyEasle() {
+	clumsyEasle = () => {
 
 	}
 
-	crankyComp() {
+	crankyComp = () => {
 
 	}
 
-	crankyCouch() {
+	crankyCouch = () => {
 
 	}
 */
-	hungryFood() {
+	hungryFood = () => {
 		//start moving to kitchen
 		//create player task 'Hungry wants food' at the kitchen
 	}
 /*
-	lazyComp() {
+	lazyComp = () => {
 
 	}
 
-	lazyCouch() {
+	lazyCouch = () => {
 
 	}
 
-	needyComp() {
+	needyComp = () => {
 
 	}
 
-	needyCouch() {
+	needyCouch = () => {
 
 	}
 
-	pickyFood() {
+	pickyFood = () => {
 
 	}
 
-	screamyFood() {
+	screamyFood = () => {
 
 	}
 */
-	sneakyKitchen() {
+	sneakyKitchen = () => {
 		//move to kitchen and disapear
 		//create invisible top-priority task at kitchen 'sneaky suprise'
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 	}
 
-	sneakyBathroom() {
+	sneakyBathroom = () => {
 		//move to bathroom and disapear
 		//create invisible top-priority task at bathroom 'sneaky suprise'
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
-	sneakyEasle() {
+	sneakyEasle = () => {
 		//move to easle and disapear
 		//create invisible top-priority task at easle 'sneaky suprise'
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
-	sneakyComp() {
+	sneakyComp = () => {
 		//move to computer and disapear
 		//create invisible top-priority task at computer 'sneaky suprise'
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 
-	sneakyCouch() {
+	sneakyCouch = () => {
 		//move to couch and disapear
 		//create invisible top-priority task at couch 'sneaky suprise'
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
 /*
-	sneazyEasle() {
+	sneazyEasle = () => {
 
 	}
 
-	stinkyBathroom() {
+	stinkyBathroom = () => {
 
 	}
 */
-	onUpdate() {
+	onUpdate = () => {
 		//read toDoList and do it
 	}
 }
@@ -185,7 +185,7 @@ class Apmt {
 		//		this.hungryList=[];
 	}
 
-	randomRoom() {
+	randomRoom = () => {
 		return this.stationList[randint(5)];
 	}
 }
@@ -200,12 +200,12 @@ class Station {
 		this.width = width;
 		this.height = height;
 	}
-	playerTask() {
+	playerTask = () => {
 		console.log(this.name,'has an alert!');
 		// pass task to player
 	}
 
-	onUpdate() {
+	onUpdate = () => {
 		let seed=randInt(100);
 	}
 
@@ -223,7 +223,7 @@ class Kitchen extends Station{
 		let sneaky=this.catList[3];
 		let food=0;
 	}
-	sendTask(id){
+	sendTask = (id) => {
 		if (id==99) {
 			hungry.toDoList.push(hungryFood());
 		}
@@ -257,7 +257,7 @@ class Bathroom extends Station{
 		let teeth=-100;
 	}
 
-	sendTask(id){
+	sendTask = (id) => {
 /*		if (id==99) {
 			stinky.toDoList.push(stinkyBathroom());
 		}
@@ -290,7 +290,7 @@ class Computer extends Station{
 
 
 
-	sendTask(id){
+	sendTask = (id) => {
 /*		if (id==99) {
 			lazy.toDoList.push(lazyComp());
 		}
@@ -318,7 +318,7 @@ class Easle extends Station{
 		let sneaky=this.catList[3];
 	}
 
-	sendTask(id){
+	sendTask = (id) => {
 /*		if (id==99) {
 			lazy.toDoList.push(lazyEasle());
 		}
@@ -346,7 +346,7 @@ class Couch extends Station{
 		let sneaky=this.catList[3];
 	}
 
-	sendTask(id){
+	sendTask = (id) => {
 /*		if (id==99) {
 			lazy.toDoList.push(lazyCouch());
 		}
