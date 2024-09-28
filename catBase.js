@@ -19,6 +19,8 @@ class Player extends Sprite {
 		
 		//temp
 		this.direction = "right";
+		let taskList = [testFunction];
+		let toDoList = [];
 	}
 
 	onUpdate = (deltaTime) => {
@@ -42,6 +44,12 @@ class Player extends Sprite {
 	goDo = () => {
 		//go to the place you click
 	}
+
+	testFunction = () => {
+		createText.
+	}
+
+	
 }
 
 
