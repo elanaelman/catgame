@@ -1,3 +1,5 @@
+let testXY = [300,200];
+
 class Ghost {
 	apmt;
 
@@ -29,21 +31,14 @@ class Sprite extends Ghost {
 	}
 
 	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
-}
 
-
-class Player extends Sprite {
-	constructor(x, y) {
-		super("vampire.svg", x, y, 50, 50);
-		
-		//temp
-		this.direction = "right";
-		let taskList = [testFunction];
-		let toDoList = [];
-	}
-
-	onUpdate = (deltaTime) => {
+	
+	goTo = (position) => {
+		this.x=position[0];
+		this.y=position[1];
+/*
 		let dist = deltaTime * 0.1;
+
 
 		if (this.x < 0) {
 			this.direction = "right";
@@ -58,17 +53,62 @@ class Player extends Sprite {
 			this.x += dist;
 		}
 		this.moved = true;
+		//translate to position, position should be a list of x and y coordinates.
+*/
+	}
+
+}
+
+
+class Player extends Sprite {
+	constructor(x, y) {
+		super("vampire.svg", x, y, 50, 50);
+		this.direction = "right";
+		let taskList = {
+			"testTask":["hello world",testButtonEffect(),testboxList.testTask,"kitchenButton"];
+		}
+		let textBoxList = {
+			"testTask":[830-534,10];
+		}
+		let toDoList = [];
+	}
+
+	onUpdate = () => {
+
+		goTo(position)
+
+//		ping();
+
+		createTask(toDoList);
 	}
 
 	goDo = () => {
-		//go to the place you click
+		goTo(the place you click);
 	}
 
-	testFunction = () => {
-		createText.
+	createTask = (toDos) => {
+		let text = taskList.(toDos[0])[0];
+		let effect = taskList.(toDos[0])[1];
+		let textbox = taskList.(toDos[0])[2];
+		let button = taskList.(toDos[0])[3];
+
+		cxt.fillText(text,textbox[0],textbox[1]);
+		document.getElementByID(button).onClick = effect;
 	}
 
-	
+/*
+	ping = () => {		//listens for other things to tell it to do something
+		let inbound = //any strings that have been sent for the player
+		for (let i=0; i<inbound.length; i++) {
+			toDoList.push(inbound[i]);
+		}
+	}
+*/
+	testButtonEffect = () => {
+		let textbox = taskList.(toDos[0])[2];
+		ctx.fillText("button!",textbox[0],textbox[1]);
+	}
+
 }
 
 
@@ -90,6 +130,8 @@ class Cat extends Sprite {
 
 	addTask = (trigger) => {
 		switch (trigger) {
+			case "Test":
+				testPush();
 			case "Easle":
 				sneakyComp();
 				break;
@@ -101,6 +143,12 @@ class Cat extends Sprite {
 	wander = () => {
 		let room=this.apmt.stationList[randInt(5)];
 		//start moving your xy coordinates to dest room xy coordinates
+	}
+
+	testPush = () => {
+		goTo(testXY);
+		push("testFunctionPlayer");
+		goTo([0,0]);
 	}
 
 /*	clumsyBathroom = () => {
