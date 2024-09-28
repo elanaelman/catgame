@@ -1,15 +1,34 @@
-class Sprite {
-	constructor(img_name, x, y, width, height) {
+class Ghost {
+	apmt;
+
+	constructor(apmt) {
+		this.apmt = apmt;
+	}
+
+	//Every Ghost object must define an onUpdate(deltaTime) function.
+}
+
+class Sprite extends Ghost {
+
+	constructor(img_name, color, width, height) {
 		this.img = new Image();
 		this.img.src = img_name;
-		this.x = x;
-		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.ready = false;
 		this.moved = true;
 	}
 
-	//kitchen: 320, 20, 50, 50
+	//Subclasses should call super.onStart() at the END of their onStart functions.
+	onStart = (apmt, x, y) => {
+		this.apmt = apmt;
+		this.station = station;
+		this.x = station.x;
+		this.y = station.y;
+		this.ready = true;
+	}
+
+	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
 }
 
 
@@ -63,6 +82,20 @@ class Cat extends Sprite {
 		this.color = randomColor();
 		this.toDoList = [];
 		this.apmt=apmt
+	}
+
+	onUpdate = (deltaTime) => {
+		//do some stuff
+	}
+
+	addTask = (trigger) => {
+		switch (trigger) {
+			case "Easle":
+				sneakyComp();
+				break;
+			case "Food":
+				hungryFood();
+		}
 	}
 
 	wander = () => {
@@ -199,7 +232,7 @@ class Apmt {
 }
 
 
-class Station {
+class Station extends Ghost{
 	constructor(name,task, x, y, width, height) {
 		this.name = name;
 		this.task = task;
@@ -220,7 +253,7 @@ class Station {
 }
 
 
-class Kitchen extends Station{
+class Kitchen extends Station {
 	constructor(name,catList, x, y, width, height) {
 		super(name, x, y, width, height);
 		this.catList=catList;
