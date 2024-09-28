@@ -5,6 +5,7 @@ class Game {
 	canvas;
 	ctx;
 	lastTime;
+	player;
 
 	constructor(canvas) {
 		this.canvas = canvas;
@@ -12,8 +13,8 @@ class Game {
 		this.lastTime = window.performance.now();
 
 		this.player = new Player(0,0);
-		this.spriteList = [this.player]
-		this.objectList = [this.player]
+		this.spriteList = [this.player];
+		this.objectList = [this.player];
 
 	}
 

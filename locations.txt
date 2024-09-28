@@ -1,0 +1,38 @@
+screenTL: 534,80
+screenBR: 1134,480
+
+KItext_TL: 830,90
+KItext_BR: 930,130
+
+KIbutton_TL: 750, 120
+KIbutton_BR: 950, 210
+
+EAtext_TL:960,90
+EAtext_BR:1060, 130
+
+EAbutton_TL:1000,120
+EAbutton_BR: 1050,190
+
+COMtext_TL:560,260
+COMtext_BR:660,300
+
+COMbutton_TL: 560,330
+COMbutton_TR:660,240
+COMbutton_BR:750,280
+COMbutton_BL:660,450
+
+COUtext_TL: 930,340
+COUtext_BR:1030,380
+
+COUbutton_TL: 860,280
+COUbutton_TR:980,300
+COUbutton_BR:905,470
+COUbutton_BL:800,465
+
+BRtext_TL: 590,150
+BRtext_BR: 690,190
+
+BRbutton_TL:700,180
+BRbutton_TR:730,155
+BRbutton_BR:750,230
+BRbutton_BL:715,260
