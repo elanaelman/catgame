@@ -34,6 +34,7 @@ class Sprite extends Ghost {
 
 	
 	goTo = (position) => {
+		let pitPat=
 		this.x=position[0];
 		this.y=position[1];
 /*
@@ -470,3 +471,4 @@ function randomColor(){
 	}
 }
 
+alert("I compiled!");
