@@ -63,10 +63,6 @@ class Game {
 
 	drawSprite = (sprite) => {
 		this.ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
-
-		if (sprite.name == "Player") {
-			console.log(sprite);
-		}
 	}
 
 	endGame = () => {
