@@ -22,11 +22,11 @@ class Sprite extends Ghost {
 	height;
 	ready;
 	moved;
-	
+
 	constructor(img_name, color, width, height, apmt) {
 		super();
 		this.img = new Image();
-		this.img.src = "images/"+img_name;
+		this.img.src = "images/" + img_name;
 		this.width = width;
 		this.height = height;
 		this.ready = false;
@@ -41,48 +41,6 @@ class Sprite extends Ghost {
 	}
 
 	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
-
-class Player extends Sprite {
-	constructor(x, y, apmt) {
-		super("vampire.svg", x, y, 50, 50, apmt);
-		
-		//temp
-		this.direction = "right";
-	}
-
-	onStart = () => {
-		//TODO reach here...
-		alert("player start");
-		super.onStart();
-	}
-
-	onUpdate = (deltaTime) => {
-	
-	goTo = (position) => {
-		let pitPat=
-		this.x=position[0];
-		this.y=position[1];
-/*
-		let dist = deltaTime * 0.1;
-
-
-		if (this.x < 0) {
-			this.direction = "right";
-		}
-		else if (this.x > 200) {
-			this.direction = "left";
-		}
-
-		if (this.direction == "left") {
-			this.x -= dist;
-		} else {
-			this.x += dist;
-		}
-		this.moved = true;
-		//translate to position, position should be a list of x and y coordinates.
-*/
-	}
-
 }
 
 
@@ -91,12 +49,41 @@ class Player extends Sprite {
 		super("vampire.svg", x, y, 50, 50);
 		this.direction = "right";
 		let taskList = {
-			"testTask":["hello world",testButtonEffect(),testboxList.testTask,"kitchenButton"];
+			"testTask":["hello world",testButtonEffect(),testboxList.testTask,"kitchenButton"]
 		}
 		let textBoxList = {
-			"testTask":[830-534,10];
+			"testTask":[830-534,10]
 		}
 		let toDoList = [];
+	}
+
+	goTo = (position) => {
+		let pitPat =
+			this.x = position[0];
+		this.y = position[1];
+		/*
+				let dist = deltaTime * 0.1;
+		
+		
+				if (this.x < 0) {
+					this.direction = "right";
+				}
+				else if (this.x > 200) {
+					this.direction = "left";
+				}
+		
+				if (this.direction == "left") {
+					this.x -= dist;
+				} else {
+					this.x += dist;
+				}
+				this.moved = true;
+				//translate to position, position should be a list of x and y coordinates.
+		*/
+	}
+
+	onStart = (apmt) => {
+		this.apmt = apmt;
 	}
 
 	onUpdate = () => {
@@ -109,14 +96,14 @@ class Player extends Sprite {
 	}
 
 	goDo = () => {
-		goTo(the place you click);
+		//goTo(the place you click);
 	}
 
 	createTask = (toDos) => {
-		let text = taskList.(toDos[0])[0];
-		let effect = taskList.(toDos[0])[1];
-		let textbox = taskList.(toDos[0])[2];
-		let button = taskList.(toDos[0])[3];
+		let text = taskList.toDos[0][0];
+		let effect = taskList.toDos[0][1];
+		let textbox = taskList.toDos[0][2];
+		let button = taskList.toDos[0][3];
 
 		cxt.fillText(text,textbox[0],textbox[1]);
 		document.getElementByID(button).onClick = effect;
@@ -131,7 +118,7 @@ class Player extends Sprite {
 	}
 */
 	testButtonEffect = () => {
-		let textbox = taskList.(toDos[0])[2];
+		let textbox = taskList.toDos[0][2];
 		ctx.fillText("button!",textbox[0],textbox[1]);
 	}
 
