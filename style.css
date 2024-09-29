@@ -4,6 +4,6 @@
 
 canvas {
     border: 1px solid black;
-    background: url('apartment_sketch.jpg');
+    background: url('images/apartment_sketch.jpg');
     background-size: 600px 400px;
 }

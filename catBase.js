@@ -1,18 +1,30 @@
 class Ghost {
 	apmt;
 
-	constructor(apmt) {
+
+	//Subclasses should call super.onStart() at the END of their onStart functions.
+	onStart = (apmt) => {
 		this.apmt = apmt;
+		this.ready = true;
 	}
 
 	//Every Ghost object must define an onUpdate(deltaTime) function.
+	//Every Ghost must assign to apmt
 }
 
 class Sprite extends Ghost {
-
-	constructor(img_name, color, width, height) {
+	img;
+	x;
+	y;
+	width;
+	height;
+	ready;
+	moved;
+	
+	constructor(img_name, color, width, height, apmt) {
+		super();
 		this.img = new Image();
-		this.img.src = img_name;
+		this.img.src = "images/"+img_name;
 		this.width = width;
 		this.height = height;
 		this.ready = false;
@@ -21,11 +33,9 @@ class Sprite extends Ghost {
 
 	//Subclasses should call super.onStart() at the END of their onStart functions.
 	onStart = (apmt, x, y) => {
-		this.apmt = apmt;
-		this.station = station;
-		this.x = station.x;
-		this.y = station.y;
-		this.ready = true;
+		this.x = x;
+		this.y = y;
+		super.onStart(apmt);
 	}
 
 	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
@@ -33,11 +43,17 @@ class Sprite extends Ghost {
 
 
 class Player extends Sprite {
-	constructor(x, y) {
-		super("vampire.svg", x, y, 50, 50);
+	constructor(x, y, apmt) {
+		super("vampire.svg", x, y, 50, 50, apmt);
 		
 		//temp
 		this.direction = "right";
+	}
+
+	onStart = () => {
+		//TODO reach here...
+		alert("player start");
+		super.onStart();
 	}
 
 	onUpdate = (deltaTime) => {
@@ -67,14 +83,15 @@ class Player extends Sprite {
 class Cat extends Sprite {
 	constructor(name,apmt) {
 
-		super("cat.jpg", 0, 0, 50, 50);
+		super("cat.jpg", 0, 0, 50, 50, apmt);
 
 		this.name = name;
-		this.station;
 		this.color = randomColor();
 		this.toDoList = [];
 		this.apmt=apmt
 	}
+
+	
 
 	onUpdate = (deltaTime) => {
 		//do some stuff
@@ -189,7 +206,13 @@ class Cat extends Sprite {
 
 
 class Apmt {
+	catList;
+	stationList;
+	player;
+
 	constructor() {
+		this.player = new Player(0, 0);
+
 		//cats object
 		const hungry = new Cat('Hungry');
 		const lazy = new Cat('Lazy');
@@ -209,13 +232,21 @@ class Apmt {
 		const computer = new Station('Computer', [lazy, cranky, needy, sneaky], 100, 0, 50, 50);
 		const easle = new Station('Easle', [lazy, sneazy, clumsy, sneaky], 150, 0, 50, 50);
 		const couch = new Station('Couch', [lazy, cranky, needy, sneaky], 200, 0, 50, 50);
-
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
+		//
 
 
 		//test
 		//		this.hungryList=[];
+	}
+
+	getObjectList = () => {
+		return this.catList.concat(this.stationList, [this.player]);
+	}
+
+	getSpriteList = () => {
+		return this.catList.concat([this.player]);
 	}
 
 	randomRoom = () => {
@@ -225,7 +256,8 @@ class Apmt {
 
 
 class Station extends Ghost{
-	constructor(name,task, x, y, width, height) {
+	constructor(name, task, x, y, width, height) {
+		super();
 		this.name = name;
 		this.task = task;
 		this.x = x;
