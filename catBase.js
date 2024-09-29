@@ -5,7 +5,7 @@ class Ghost {
 
 
 	//Subclasses should call super.onStart() at the END of their onStart functions.
-	onStart = (apmt) => {
+	onStart(apmt) {
 		this.apmt = apmt;
 		this.ready = true;
 	}
@@ -23,6 +23,9 @@ class Sprite extends Ghost {
 	ready;
 	moved;
 
+	destination; //in pixels
+	speed; //pixels per millisecond
+
 	constructor(img_name, color, width, height, apmt) {
 		super();
 		this.img = new Image();
@@ -34,29 +37,58 @@ class Sprite extends Ghost {
 	}
 
 	//Subclasses should call super.onStart() at the END of their onStart functions.
-	onStart = (apmt, x, y) => {
+	onStart(x, y, apmt) {
 		this.x = x;
 		this.y = y;
 		super.onStart(apmt);
 	}
 
-	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
+	move(deltaTime) {
+		if ((destination != null) && (speed != 0)) {
+
+			let dir = direction(this.x, this.y, this.destination.x, this.destination.y);
+			let nextX = this.x + (dir[0]*speed);
+			let nextY = this.y + (dir[1]*speed);
+			
+			if (distance(this.x, this.y, this.destination.x, this.destination.y)
+				<= distance(this.x, this.y, nextX, nextY)) {
+				//Stop at the destination if we would overshoot it.
+				this.x = destination.x;
+				this.y = destination.y;
+				this.destination = null;
+			} else {
+				this.x += dir[0] * speed;
+				this.y += dir[1] * speed;
+			}
+			this.moved = true;
+		} else {
+			this.moved = false;
+		}
+	}
+
+	onUpdate(deltaTime) {
+		this.move(deltaTime);
+	}
+	
+	//If a subclass calls onUpdate(deltaTime), that function should call the super.OnUpdate().
 }
 
 
 class Player extends Sprite {
-	constructor(x, y) {
-		super("vampire.svg", x, y, 50, 50);
+	constructor() {
+		super("vampire.svg", 50, 50);
 		this.direction = "right";
-		let taskList = {
-			"testTask":["hello world",testButtonEffect(),testboxList.testTask,"kitchenButton"]
-		}
 		let textBoxList = {
-			"testTask":[830-534,10]
+			"testTask": [830 - 534, 10]
+		}
+		let taskList = {
+			"testTask":["hello world",this.testButtonEffect,textBoxList.testTask,"kitchenButton"]
 		}
 		let toDoList = [];
 	}
 
+	//NOTE hi alex! Please see the 'move' function in Sprite. 
+	//We should probably add a 'goTo' function to Sprite which sets destination and speed(?).
 	goTo = (position) => {
 		let pitPat =
 			this.x = position[0];
@@ -82,17 +114,13 @@ class Player extends Sprite {
 		*/
 	}
 
-	onStart = (apmt) => {
-		this.apmt = apmt;
-	}
-
 	onUpdate = () => {
 
-		goTo(position)
+		//this.goTo(position)
 
 //		ping();
 
-		createTask(toDoList);
+		//this.createTask(this.toDoList);
 	}
 
 	goDo = () => {
@@ -100,10 +128,10 @@ class Player extends Sprite {
 	}
 
 	createTask = (toDos) => {
-		let text = taskList.toDos[0][0];
-		let effect = taskList.toDos[0][1];
-		let textbox = taskList.toDos[0][2];
-		let button = taskList.toDos[0][3];
+		let text = toDos[0][0];
+		let effect = toDos[0][1];
+		let textbox = toDos[0][2];
+		let button = toDos[0][3];
 
 		cxt.fillText(text,textbox[0],textbox[1]);
 		document.getElementByID(button).onClick = effect;
@@ -126,16 +154,14 @@ class Player extends Sprite {
 
 
 class Cat extends Sprite {
-	constructor(name,apmt) {
+	constructor(name) {
 
-		super("cat.jpg", 0, 0, 50, 50, apmt);
+		super("cat.jpg", 50, 50);
 
 		this.name = name;
 		this.color = randomColor();
 		this.toDoList = [];
-		this.apmt=apmt
 	}
-
 	
 
 	onUpdate = (deltaTime) => {
