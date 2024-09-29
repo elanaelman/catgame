@@ -47,8 +47,8 @@ class Sprite extends Ghost {
 		if ((destination != null) && (speed != 0)) {
 
 			let dir = direction(this.x, this.y, this.destination.x, this.destination.y);
-			let nextX = this.x + (dir[0]*speed);
-			let nextY = this.y + (dir[1]*speed);
+			let nextX = this.x + (dir[0]*speed*deltaTime);
+			let nextY = this.y + (dir[1]*speed*deltaTime);
 			
 			if (distance(this.x, this.y, this.destination.x, this.destination.y)
 				<= distance(this.x, this.y, nextX, nextY)) {
@@ -57,8 +57,8 @@ class Sprite extends Ghost {
 				this.y = destination.y;
 				this.destination = null;
 			} else {
-				this.x += dir[0] * speed;
-				this.y += dir[1] * speed;
+				this.x = nextX;
+				this.y = nextY;
 			}
 			this.moved = true;
 		} else {
