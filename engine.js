@@ -23,7 +23,7 @@ class Game {
 
 	start = () => {
 		for (const obj of this.objectList) {
-			obj.onStart();
+			obj.onStart(this.apmt);
 		}
 		this.main(window.performance.now());
 	}
@@ -54,16 +54,19 @@ class Game {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 		for (const sprite of this.spriteList) {
-			if (sprite.moved) {
+			//if (sprite.moved) {
 				this.drawSprite(sprite);
-				//sprite.moved = false;
 				// TODO: images don't show on the first drawSprite call if called too early (something isn't loaded yet?). So I turned this off for now.
-			}
+			//}
 		}
 	}
 
 	drawSprite = (sprite) => {
 		this.ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
+
+		if (sprite.name == "Player") {
+			console.log(sprite);
+		}
 	}
 
 	endGame = () => {

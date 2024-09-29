@@ -26,36 +26,31 @@ class Sprite extends Ghost {
 	destination; //in pixels
 	speed; //pixels per millisecond
 
-	constructor(img_name, color, width, height, apmt) {
+	constructor(img_name, x, y, width, height) {
 		super();
 		this.img = new Image();
 		this.img.src = "images/" + img_name;
+		this.x = x;
+		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.ready = false;
 		this.moved = true;
 	}
 
-	//Subclasses should call super.onStart() at the END of their onStart functions.
-	onStart(x, y, apmt) {
-		this.x = x;
-		this.y = y;
-		super.onStart(apmt);
-	}
-
 	move(deltaTime) {
-		if ((destination != null) && (speed != 0)) {
-
-			let dir = direction(this.x, this.y, this.destination.x, this.destination.y);
-			let nextX = this.x + (dir[0]*speed*deltaTime);
-			let nextY = this.y + (dir[1]*speed*deltaTime);
+		if ((this.destination != null) && (this.speed != 0)) {
+			let dir = direction(this.x, this.y, this.destination[0], this.destination[1]);
+			let nextX = this.x + (dir[0] * this.speed * deltaTime);
+			let nextY = this.y + (dir[1]*this.speed*deltaTime);
 			
-			if (distance(this.x, this.y, this.destination.x, this.destination.y)
+			if (distance(this.x, this.y, this.destination[0], this.destination[1])
 				<= distance(this.x, this.y, nextX, nextY)) {
 				//Stop at the destination if we would overshoot it.
-				this.x = destination.x;
-				this.y = destination.y;
+				this.x = this.destination[0];
+				this.y = this.destination[1];
 				this.destination = null;
+
 			} else {
 				this.x = nextX;
 				this.y = nextY;
@@ -69,6 +64,14 @@ class Sprite extends Ghost {
 	onUpdate(deltaTime) {
 		this.move(deltaTime);
 	}
+
+	setDestination(x, y) {
+		this.destination = [x, y];
+	}
+
+	setSpeed(speed) {
+		this.speed = speed;
+	}
 	
 	//If a subclass calls onUpdate(deltaTime), that function should call the super.OnUpdate().
 }
@@ -76,8 +79,9 @@ class Sprite extends Ghost {
 
 class Player extends Sprite {
 	constructor() {
-		super("vampire.svg", 50, 50);
-		this.direction = "right";
+		super("vampire.svg", 0, 0, 50, 50);
+		this.name = "Player";
+
 		let textBoxList = {
 			"testTask": [830 - 534, 10]
 		}
@@ -114,13 +118,21 @@ class Player extends Sprite {
 		*/
 	}
 
-	onUpdate = () => {
+	onStart(apmt) {
+		super.onStart(apmt);
+		this.setDestination(100, 100);
+		this.setSpeed(0.1);
+	}
+
+	onUpdate(deltaTime) {
 
 		//this.goTo(position)
 
 //		ping();
 
 		//this.createTask(this.toDoList);
+
+		super.onUpdate(deltaTime);
 	}
 
 	goDo = () => {
@@ -156,7 +168,7 @@ class Player extends Sprite {
 class Cat extends Sprite {
 	constructor(name) {
 
-		super("cat.jpg", 50, 50);
+		super("transCat.png", 0, 0, 50, 50);
 
 		this.name = name;
 		this.color = randomColor();
@@ -164,8 +176,9 @@ class Cat extends Sprite {
 	}
 	
 
-	onUpdate = (deltaTime) => {
+	onUpdate(deltaTime) {
 		//do some stuff
+		super.onUpdate(deltaTime);
 	}
 
 	addTask = (trigger) => {
@@ -290,7 +303,7 @@ class Apmt {
 	player;
 
 	constructor() {
-		this.player = new Player(0, 0);
+		this.player = new Player();
 
 		//cats object
 		const hungry = new Cat('Hungry');
@@ -344,13 +357,14 @@ class Station extends Ghost{
 		this.width = width;
 		this.height = height;
 	}
+
+	onUpdate(deltaTime) {
+		let seed = randInt(100);
+	}
+
 	playerTask = () => {
 		console.log(this.name,'has an alert!');
 		// pass task to player
-	}
-
-	onUpdate = () => {
-		let seed=randInt(100);
 	}
 
 }
