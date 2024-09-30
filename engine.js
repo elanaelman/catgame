@@ -44,7 +44,6 @@ class Game {
 	main = (timeOfAnimationFrame) => {
 		//Queue main again for the next screen refresh
 		//requestAnimationFrame passes a timestamp to main.
-		//Note that this timestamp is not avaialable during the first call to main.
 		this.animationFrame = window.requestAnimationFrame(this.main);
 
 		let deltaTime = timeOfAnimationFrame - this.lastTime;
@@ -67,15 +66,7 @@ class Game {
 		//TODO Need to clear selectively instead of whole screen if using moved property
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		if (kitchenBox=true){
-			for (let i=0; i<textBoxDraw.length; i++) {
-				this.ctx.beginPath();
-				this.ctx.moveTo(textBoxDraw[i][0],textBoxDraw[i][1]);
-				this.ctx.lineTo(textBoxDraw[i][2],textBoxDraw[i][3]);
-				this.ctx.lineTo(textBoxDraw[i][4],textBoxDraw[i][5]);
-				this.ctx.lineTo(textBoxDraw[i][6],textBoxDraw[i][7]);
-				this.ctx.lineTo(textBoxDraw[i][0],textBoxDraw[i][1]);
-				this.ctx.stroke();
-			}
+			this.drawTextBox(textBoxDraw);
 		}
 		console.log(0);
 
@@ -95,6 +86,18 @@ class Game {
 
 	drawText = (player) => {
 		this.ctx.fillText(player.task.taskText, player.task.x, player.task.y);
+	}
+
+	drawTextBox = (textBoxDraw) => {
+		for (let i = 0; i < textBoxDraw.length; i++) {
+			this.ctx.beginPath();
+			this.ctx.moveTo(textBoxDraw[i][0], textBoxDraw[i][1]);
+			this.ctx.lineTo(textBoxDraw[i][2], textBoxDraw[i][3]);
+			this.ctx.lineTo(textBoxDraw[i][4], textBoxDraw[i][5]);
+			this.ctx.lineTo(textBoxDraw[i][6], textBoxDraw[i][7]);
+			this.ctx.lineTo(textBoxDraw[i][0], textBoxDraw[i][1]);
+			this.ctx.stroke();
+		}
 	}
 
 	endGame = () => {
