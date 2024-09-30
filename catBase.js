@@ -36,10 +36,11 @@ class Sprite extends Ghost {
 		this.height = height;
 		this.ready = false;
 		this.moved = true;
+		this.pitPat = new Audio('walking.mp3');
 	}
 
 	move(deltaTime) {
-		if ((this.destination != null) && (this.speed != 0)) {
+/*		if ((this.destination != null) && (this.speed != 0)) {
 			let dir = direction(this.x, this.y, this.destination[0], this.destination[1]);
 			let nextX = this.x + (dir[0] * this.speed * deltaTime);
 			let nextY = this.y + (dir[1]*this.speed*deltaTime);
@@ -56,13 +57,34 @@ class Sprite extends Ghost {
 				this.y = nextY;
 			}
 			this.moved = true;
-		} else {
+*/
+		if (this.destination != null) {
+			this.pitPat.play();
+			setTimeout(updatePOS(),750);
+			} else {
 			this.moved = false;
 		}
 	}
 
+	updatePOS() {
+		this.x = this.destination[0];
+		this.y = this.destination[1];
+	}
+	
+	createTask() {
+		//let text = toDos[0][0];
+		//let effect = toDos[0][1];
+		//let textbox = toDos[0][2];
+		//let button = toDos[0][3];
+	
+		//this.apmt.cxt.fillText(text,textbox[0],textbox[1]);
+		apmt.cxt.fillText('test',300,200);
+		document.getElementById("kitchenButton").onClick = alert("I pushed a button");
+	}
+	
 	onUpdate(deltaTime) {
-		this.move(deltaTime);
+		//this.move(deltaTime);
+		this.createTask();
 	}
 
 	setDestination(x, y) {
@@ -83,7 +105,7 @@ class Player extends Sprite {
 		this.name = "Player";
 
 		let textBoxList = {
-			"testTask": [830 - 534, 10]
+			"testTask": [296, 10]
 		}
 		let taskList = {
 			"testTask":["hello world",this.testButtonEffect,textBoxList.testTask,"kitchenButton"]
@@ -91,32 +113,6 @@ class Player extends Sprite {
 		let toDoList = [];
 	}
 
-	//NOTE hi alex! Please see the 'move' function in Sprite. 
-	//We should probably add a 'goTo' function to Sprite which sets destination and speed(?).
-	goTo = (position) => {
-		let pitPat =
-			this.x = position[0];
-		this.y = position[1];
-		/*
-				let dist = deltaTime * 0.1;
-		
-		
-				if (this.x < 0) {
-					this.direction = "right";
-				}
-				else if (this.x > 200) {
-					this.direction = "left";
-				}
-		
-				if (this.direction == "left") {
-					this.x -= dist;
-				} else {
-					this.x += dist;
-				}
-				this.moved = true;
-				//translate to position, position should be a list of x and y coordinates.
-		*/
-	}
 
 	onStart(apmt) {
 		super.onStart(apmt);
@@ -139,16 +135,6 @@ class Player extends Sprite {
 		//goTo(the place you click);
 	}
 
-	createTask = (toDos) => {
-		let text = toDos[0][0];
-		let effect = toDos[0][1];
-		let textbox = toDos[0][2];
-		let button = toDos[0][3];
-
-		cxt.fillText(text,textbox[0],textbox[1]);
-		document.getElementByID(button).onClick = effect;
-	}
-
 /*
 	ping = () => {		//listens for other things to tell it to do something
 		let inbound = //any strings that have been sent for the player
@@ -159,7 +145,7 @@ class Player extends Sprite {
 */
 	testButtonEffect = () => {
 		let textbox = taskList.toDos[0][2];
-		ctx.fillText("button!",textbox[0],textbox[1]);
+		this.apmt.ctx.fillText("button!",textbox[0],textbox[1]);
 	}
 
 }
@@ -538,5 +524,3 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
-
-alert("I compiled!");
