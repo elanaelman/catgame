@@ -94,6 +94,15 @@ class Player extends Sprite {
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
 
+		this.textBoxList = {
+			"testBoxX": [100],
+			"testBoxY": [200]
+		}
+
+		this.taskList = {
+			"testTask":["hello world",this.textBoxList.testBoxX,this.textBoxList.testBoxY]
+		}
+
 		this.toDoList = [];
 
 		this.h=true;
@@ -112,14 +121,15 @@ class Player extends Sprite {
 		this.toDoList.append(todo);
 	}
 
-	createTask(text, x, y) {
-		this.text='text';
-		this.x=x;
-		this.y=y;
-		//document.getElementById("kitchenButton").onClick = alert("I pushed a button");
+	createTask() {
+		this.task = new Task(this.taskList.testTask);
 	}
 
 	onUpdate(deltaTime) {
+		if (this.h) {
+			this.createTask();
+			this.h = false;
+		}
 		if (this.toDoList.length > 0) {
 			console.log("Time for a task!");
 			console.log(this.toDoList.pop());
@@ -136,18 +146,11 @@ class Task extends Player{
 	coordinates;
 	buttonText;
 
-	constructor(taskText,x,y) {
+	constructor(task) {
 		super();
-		this.taskText=taskText;
-		this.x=x;
-		this.y=y;
-
-		this.textBoxList = {
-			"testTask": [100, 200]
-		}
-		this.taskList = {
-			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
-		}
+		this.taskText=task[0];
+		this.x=task[1];
+		this.y=task[2];
 	}
 	
 }
