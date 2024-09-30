@@ -6,12 +6,10 @@ class Apmt {
 	taskCooldown;
 	timeSinceLastTask;
 
-	constructor(ctx) {
+	constructor() {
 
 		this.taskCooldown = 100;
 		this.timeSinceLastTask = 0;
-
-		this.ctx=ctx;
 		
 		//player
 		this.player = new Player();

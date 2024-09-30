@@ -1,18 +1,5 @@
 let testXY = [300,200];
 
-class Task {
-	taskText;
-	buttonEffect;
-	coordinates;
-	buttonText;
-
-	constructor(taskText, buttonEffect, coordinates, buttonText) {
-		this.taskText = taskText;
-		this.buttonEffect = buttonEffect;
-		this.coordinates = coordinates;
-		this.buttonText = buttonText;
-	}
-}
 
 class Ghost {
 	apmt;
@@ -102,20 +89,15 @@ class Sprite extends Ghost {
 
 
 class Player extends Sprite {
-	constructor(apmt) {
+	constructor() {
 		
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
 
-		this.apmt=apmt;
-
-		this.textBoxList = {
-			"testTask": [296, 10]
-		}
-		this.taskList = {
-			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
-		}
 		this.toDoList = [];
+
+		this.task= new Task()
+
 		this.h=true;
 		console.log('player constructed');
 	}
@@ -132,24 +114,18 @@ class Player extends Sprite {
 		this.toDoList.append(todo);
 	}
 
-	createTask() {
-		//let text = toDos[0][0];
-		//let effect = toDos[0][1];
-		//let textbox = toDos[0][2];
-		//let button = toDos[0][3];
-	
-		//this.apmt.cxt.fillText(text,textbox[0],textbox[1]);
-		//this.apmt.ctx.strokeText('test',100,100);
-		this.apmt.ctx.fillStyle = "green";
-		this.apmt.ctx.fillRect(10, 10, 150, 100);
-		console.log('tasked');
+	createTask(text, x, y) {
+		this.text='text';
+		this.x=x;
+		this.y=y;
 		//document.getElementById("kitchenButton").onClick = alert("I pushed a button");
 	}
 
 	onUpdate(deltaTime) {
 		if (this.h) {
 			this.h=false;
-			this.createTask();
+			console.log(this.task.x);
+			//this.createTask(this.task.taskText,this.task.x,this.task.y);
 		}
 		if (this.toDoList.length > 0) {
 			console.log("Time for a task!");
@@ -157,48 +133,31 @@ class Player extends Sprite {
 		}
 	}
 
+}
 
-/*
-	onUpdate(deltaTime) {
+class Task extends Player{
+	taskText;
+	buttonEffect;
+	coordinates;
+	buttonText;
 
-		//this.goTo(position)
+	constructor(taskText, buttonEffect, x, y, buttonText) {
+		super();
+		this.taskText = 'testText';
+		this.buttonEffect = buttonEffect;
+		this.x = 100;
+		this.y = 200;
+		this.buttonText = buttonText;
 
-//		ping();
-
-		//this.createTask(this.toDoList);
-
-		super.onUpdate(deltaTime);
-	}
-
-	goDo = () => {
-		//goTo(the place you click);
-	}
-
-	createTask = (toDos) => {
-		let text = toDos[0][0];
-		let effect = toDos[0][1];
-		let textbox = toDos[0][2];
-		let button = toDos[0][3];
-
-		cxt.fillText(text,textbox[0],textbox[1]);
-		document.getElementByID(button).onClick = effect;
-	}
-
-
-/*
-	ping = () => {		//listens for other things to tell it to do something
-		let inbound = //any strings that have been sent for the player
-		for (let i=0; i<inbound.length; i++) {
-			toDoList.push(inbound[i]);
+		this.textBoxList = {
+			"testTask": [100, 200]
 		}
-	}
+		this.taskList = {
+			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
+		}
 
-	testButtonEffect = () => {
-		let textbox = taskList.toDos[0][2];
-		this.apmt.ctx.fillText("button!",textbox[0],textbox[1]);
 	}
-*/
-
+	
 }
 
 

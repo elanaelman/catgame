@@ -12,10 +12,11 @@ class Game {
 		this.name = 'game';
 		this.canvas = canvas;
 		this.ctx = canvas.getContext("2d");
-		this.ctx.font = "bold 200px serif";
+		this.ctx.font = "bold 100px serif";
 		this.lastTime = window.performance.now();
 
-		this.apmt = new Apmt(this.ctx);
+		this.apmt = new Apmt();
+		this.player = this.apmt.player;
 		
 		this.objectList = this.apmt.getObjectList();
 		this.spriteList = this.apmt.getSpriteList();
@@ -56,7 +57,7 @@ class Game {
 	render = () => {
 		//TODO Need to clear selectively instead of whole screen if using moved property
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+		this.drawText(this.player);
 		for (const sprite of this.spriteList) {
 			//if (sprite.moved) {
 				this.drawSprite(sprite);
@@ -67,6 +68,10 @@ class Game {
 
 	drawSprite = (sprite) => {
 		this.ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
+	}
+
+	drawText = (player) => {
+		this.ctx.fillText(player.text, player.x, player.y);
 	}
 
 	endGame = () => {
