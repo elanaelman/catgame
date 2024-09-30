@@ -1,21 +1,31 @@
 class Game {
 	animationFrame;
-	objectList;
-	spriteList;
 	canvas;
 	ctx;
 	lastTime;
-	player;
+	apmt;
+
+	objectList;
+	spriteListl;
 
 	constructor(canvas) {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext("2d");
 		this.lastTime = window.performance.now();
 
-		this.player = new Player(0,0);
-		this.spriteList = [this.player];
-		this.objectList = [this.player];
+		this.apmt = new Apmt();
+		
+		this.objectList = this.apmt.getObjectList();
+		this.spriteList = this.apmt.getSpriteList();
 
+	}
+
+
+	start = () => {
+		for (const obj of this.objectList) {
+			obj.onStart(this.apmt);
+		}
+		this.main(window.performance.now());
 	}
 
 
@@ -44,11 +54,10 @@ class Game {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 		for (const sprite of this.spriteList) {
-			if (sprite.moved) {
+			//if (sprite.moved) {
 				this.drawSprite(sprite);
-				//sprite.moved = false;
 				// TODO: images don't show on the first drawSprite call if called too early (something isn't loaded yet?). So I turned this off for now.
-			}
+			//}
 		}
 	}
 
@@ -67,8 +76,7 @@ class Game {
 function startGame() {
 	let canvas = document.getElementById("catCanvas");
 	let game = new Game(canvas);
-	game.main(window.performance.now());
-
+	game.start();
 }
 
 window.addEventListener("load", startGame);

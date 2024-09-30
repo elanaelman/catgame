@@ -3,95 +3,147 @@ let testXY = [300,200];
 class Ghost {
 	apmt;
 
-	constructor(apmt) {
+
+	//Subclasses should call super.onStart() at the END of their onStart functions.
+	onStart(apmt) {
 		this.apmt = apmt;
+		this.ready = true;
 	}
 
 	//Every Ghost object must define an onUpdate(deltaTime) function.
+	//Every Ghost must assign to apmt
 }
 
 class Sprite extends Ghost {
+	img;
+	x;
+	y;
+	width;
+	height;
+	ready;
+	moved;
 
-	constructor(img_name, color, width, height) {
+	destination; //in pixels
+	speed; //pixels per millisecond
+
+	constructor(img_name, x, y, width, height) {
+		super();
 		this.img = new Image();
-		this.img.src = img_name;
+		this.img.src = "images/" + img_name;
+		this.x = x;
+		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.ready = false;
 		this.moved = true;
 	}
 
-	//Subclasses should call super.onStart() at the END of their onStart functions.
-	onStart = (apmt, x, y) => {
-		this.apmt = apmt;
-		this.station = station;
-		this.x = station.x;
-		this.y = station.y;
-		this.ready = true;
-	}
+	move(deltaTime) {
+		if ((this.destination != null) && (this.speed != 0)) {
+			let dir = direction(this.x, this.y, this.destination[0], this.destination[1]);
+			let nextX = this.x + (dir[0] * this.speed * deltaTime);
+			let nextY = this.y + (dir[1]*this.speed*deltaTime);
+			
+			if (distance(this.x, this.y, this.destination[0], this.destination[1])
+				<= distance(this.x, this.y, nextX, nextY)) {
+				//Stop at the destination if we would overshoot it.
+				this.x = this.destination[0];
+				this.y = this.destination[1];
+				this.destination = null;
 
-	//Inherited from Ghost: Every object must define onUpdate(deltaTime).
-
-	
-	goTo = (position) => {
-		let pitPat=
-		this.x=position[0];
-		this.y=position[1];
-/*
-		let dist = deltaTime * 0.1;
-
-
-		if (this.x < 0) {
-			this.direction = "right";
-		}
-		else if (this.x > 200) {
-			this.direction = "left";
-		}
-
-		if (this.direction == "left") {
-			this.x -= dist;
+			} else {
+				this.x = nextX;
+				this.y = nextY;
+			}
+			this.moved = true;
 		} else {
-			this.x += dist;
+			this.moved = false;
 		}
-		this.moved = true;
-		//translate to position, position should be a list of x and y coordinates.
-*/
 	}
 
+	onUpdate(deltaTime) {
+		this.move(deltaTime);
+	}
+
+	setDestination(x, y) {
+		this.destination = [x, y];
+	}
+
+	setSpeed(speed) {
+		this.speed = speed;
+	}
+	
+	//If a subclass calls onUpdate(deltaTime), that function should call the super.OnUpdate().
 }
 
 
 class Player extends Sprite {
-	constructor(x, y) {
-		super("vampire.svg", x, y, 50, 50);
-		this.direction = "right";
-		let taskList = {
-			"testTask":["hello world",testButtonEffect(),testboxList.testTask,"kitchenButton"];
-		}
+	constructor() {
+		super("vampire.svg", 0, 0, 50, 50);
+		this.name = "Player";
+
 		let textBoxList = {
-			"testTask":[830-534,10];
+			"testTask": [830 - 534, 10]
+		}
+		let taskList = {
+			"testTask":["hello world",this.testButtonEffect,textBoxList.testTask,"kitchenButton"]
 		}
 		let toDoList = [];
 	}
 
-	onUpdate = () => {
+	//NOTE hi alex! Please see the 'move' function in Sprite. 
+	//We should probably add a 'goTo' function to Sprite which sets destination and speed(?).
+	goTo = (position) => {
+		let pitPat =
+			this.x = position[0];
+		this.y = position[1];
+		/*
+				let dist = deltaTime * 0.1;
+		
+		
+				if (this.x < 0) {
+					this.direction = "right";
+				}
+				else if (this.x > 200) {
+					this.direction = "left";
+				}
+		
+				if (this.direction == "left") {
+					this.x -= dist;
+				} else {
+					this.x += dist;
+				}
+				this.moved = true;
+				//translate to position, position should be a list of x and y coordinates.
+		*/
+	}
 
-		goTo(position)
+	onStart(apmt) {
+		super.onStart(apmt);
+		this.setDestination(100, 100);
+		this.setSpeed(0.1);
+	}
+
+	onUpdate(deltaTime) {
+
+		//this.goTo(position)
 
 //		ping();
 
-		createTask(toDoList);
+		//this.createTask(this.toDoList);
+
+		super.onUpdate(deltaTime);
 	}
 
 	goDo = () => {
-		goTo(the place you click);
+		//goTo(the place you click);
 	}
 
 	createTask = (toDos) => {
-		let text = taskList.(toDos[0])[0];
-		let effect = taskList.(toDos[0])[1];
-		let textbox = taskList.(toDos[0])[2];
-		let button = taskList.(toDos[0])[3];
+		let text = toDos[0][0];
+		let effect = toDos[0][1];
+		let textbox = toDos[0][2];
+		let button = toDos[0][3];
 
 		cxt.fillText(text,textbox[0],textbox[1]);
 		document.getElementByID(button).onClick = effect;
@@ -106,7 +158,7 @@ class Player extends Sprite {
 	}
 */
 	testButtonEffect = () => {
-		let textbox = taskList.(toDos[0])[2];
+		let textbox = taskList.toDos[0][2];
 		ctx.fillText("button!",textbox[0],textbox[1]);
 	}
 
@@ -114,19 +166,19 @@ class Player extends Sprite {
 
 
 class Cat extends Sprite {
-	constructor(name,apmt) {
+	constructor(name) {
 
-		super("cat.jpg", 0, 0, 50, 50);
+		super("transCat.png", 0, 0, 50, 50);
 
 		this.name = name;
-		this.station;
 		this.color = randomColor();
 		this.toDoList = [];
-		this.apmt=apmt
 	}
+	
 
-	onUpdate = (deltaTime) => {
+	onUpdate(deltaTime) {
 		//do some stuff
+		super.onUpdate(deltaTime);
 	}
 
 	addTask = (trigger) => {
@@ -246,7 +298,13 @@ class Cat extends Sprite {
 
 
 class Apmt {
+	catList;
+	stationList;
+	player;
+
 	constructor() {
+		this.player = new Player();
+
 		//cats object
 		const hungry = new Cat('Hungry');
 		const lazy = new Cat('Lazy');
@@ -266,13 +324,21 @@ class Apmt {
 		const computer = new Station('Computer', [lazy, cranky, needy, sneaky], 100, 0, 50, 50);
 		const easle = new Station('Easle', [lazy, sneazy, clumsy, sneaky], 150, 0, 50, 50);
 		const couch = new Station('Couch', [lazy, cranky, needy, sneaky], 200, 0, 50, 50);
-
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
+		//
 
 
 		//test
 		//		this.hungryList=[];
+	}
+
+	getObjectList = () => {
+		return this.catList.concat(this.stationList, [this.player]);
+	}
+
+	getSpriteList = () => {
+		return this.catList.concat([this.player]);
 	}
 
 	randomRoom = () => {
@@ -282,7 +348,8 @@ class Apmt {
 
 
 class Station extends Ghost{
-	constructor(name,task, x, y, width, height) {
+	constructor(name, task, x, y, width, height) {
+		super();
 		this.name = name;
 		this.task = task;
 		this.x = x;
@@ -290,13 +357,14 @@ class Station extends Ghost{
 		this.width = width;
 		this.height = height;
 	}
+
+	onUpdate(deltaTime) {
+		let seed = randInt(100);
+	}
+
 	playerTask = () => {
 		console.log(this.name,'has an alert!');
 		// pass task to player
-	}
-
-	onUpdate = () => {
-		let seed=randInt(100);
 	}
 
 }
