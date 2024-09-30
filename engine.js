@@ -43,6 +43,8 @@ class Game {
 	}
 
 	update = (dTime) => {
+		this.apmt.onUpdate(dTime);
+		console.log(this.objectList);
 		for (const obj of this.objectList) {
 			obj.onUpdate(dTime);
 		}
@@ -80,3 +82,5 @@ function startGame() {
 }
 
 window.addEventListener("load", startGame);
+
+console.log('start test');

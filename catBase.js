@@ -1,5 +1,19 @@
 let testXY = [300,200];
 
+class Task {
+	taskText;
+	buttonEffect;
+	coordinates;
+	buttonText;
+
+	constructor(taskText, buttonEffect, coordinates, buttonText) {
+		this.taskText = taskText;
+		this.buttonEffect = buttonEffect;
+		this.coordinates = coordinates;
+		this.buttonText = buttonText;
+	}
+}
+
 class Ghost {
 	apmt;
 
@@ -85,6 +99,7 @@ class Sprite extends Ghost {
 	onUpdate(deltaTime) {
 		//this.move(deltaTime);
 		this.createTask();
+		this.apmt.console.log('test');
 	}
 
 	setDestination(x, y) {
@@ -104,13 +119,13 @@ class Player extends Sprite {
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
 
-		let textBoxList = {
+		this.textBoxList = {
 			"testTask": [296, 10]
 		}
-		let taskList = {
-			"testTask":["hello world",this.testButtonEffect,textBoxList.testTask,"kitchenButton"]
+		this.taskList = {
+			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
 		}
-		let toDoList = [];
+		this.toDoList = [];
 	}
 
 
@@ -120,6 +135,20 @@ class Player extends Sprite {
 		this.setSpeed(0.1);
 	}
 
+
+	addTodo(todo) {
+		this.toDoList.append(todo);
+	}
+
+	onUpdate(deltaTime) {
+		if (this.toDoList.length > 0) {
+			console.log("Time for a task!");
+			console.log(this.toDoList.pop());
+		}
+	}
+
+
+/*
 	onUpdate(deltaTime) {
 
 		//this.goTo(position)
@@ -135,6 +164,17 @@ class Player extends Sprite {
 		//goTo(the place you click);
 	}
 
+	createTask = (toDos) => {
+		let text = toDos[0][0];
+		let effect = toDos[0][1];
+		let textbox = toDos[0][2];
+		let button = toDos[0][3];
+
+		cxt.fillText(text,textbox[0],textbox[1]);
+		document.getElementByID(button).onClick = effect;
+	}
+
+
 /*
 	ping = () => {		//listens for other things to tell it to do something
 		let inbound = //any strings that have been sent for the player
@@ -142,11 +182,12 @@ class Player extends Sprite {
 			toDoList.push(inbound[i]);
 		}
 	}
-*/
+
 	testButtonEffect = () => {
 		let textbox = taskList.toDos[0][2];
 		this.apmt.ctx.fillText("button!",textbox[0],textbox[1]);
 	}
+*/
 
 }
 
@@ -279,56 +320,6 @@ class Cat extends Sprite {
 */
 	onUpdate = () => {
 		//read toDoList and do it
-	}
-}
-
-
-class Apmt {
-	catList;
-	stationList;
-	player;
-
-	constructor() {
-		this.player = new Player();
-
-		//cats object
-		const hungry = new Cat('Hungry');
-		const lazy = new Cat('Lazy');
-		const cranky = new Cat('Cranky');
-		const needy = new Cat('Needy');
-		const screamy = new Cat('Screamy');
-		const stinky = new Cat('Stinky');
-		const clumsy = new Cat('Clumsy');
-		const sneazy = new Cat('Sneazy');
-		const sneaky = new Cat('Sneaky');
-		const picky = new Cat('Picky');
-		this.catList = [hungry, lazy, cranky, needy, screamy, stinky, clumsy, sneazy, sneaky, picky];
-
-		//station objects
-		const kitchen = new Kitchen('Kitchen', [hungry, picky, screamy, sneaky], 0, 0, 50, 50);
-		const bathroom = new Station('Bathroom', [stinky, clumsy, sneaky], 50, 0, 50, 50);
-		const computer = new Station('Computer', [lazy, cranky, needy, sneaky], 100, 0, 50, 50);
-		const easle = new Station('Easle', [lazy, sneazy, clumsy, sneaky], 150, 0, 50, 50);
-		const couch = new Station('Couch', [lazy, cranky, needy, sneaky], 200, 0, 50, 50);
-		this.stationList = [kitchen, bathroom, computer, easle, couch];
-
-		//
-
-
-		//test
-		//		this.hungryList=[];
-	}
-
-	getObjectList = () => {
-		return this.catList.concat(this.stationList, [this.player]);
-	}
-
-	getSpriteList = () => {
-		return this.catList.concat([this.player]);
-	}
-
-	randomRoom = () => {
-		return this.stationList[randint(5)];
 	}
 }
 
@@ -524,3 +515,6 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
+
+
+console.log('end test');
