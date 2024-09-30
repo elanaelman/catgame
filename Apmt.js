@@ -1,17 +1,20 @@
 class Apmt {
+	canvas;
 	catList;
 	stationList;
 	player;
 	taskCooldown;
 	timeSinceLastTask;
 
-	constructor() {
+	constructor(ctx) {
 
 		this.taskCooldown = 100;
 		this.timeSinceLastTask = 0;
 
+		this.ctx=ctx;
+		
+		//player
 		this.player = new Player();
-
 		//cats object
 		const hungry = new Cat('Hungry');
 		const lazy = new Cat('Lazy');
@@ -33,7 +36,6 @@ class Apmt {
 		const couch = new Station('Couch', [lazy, cranky, needy, sneaky], 200, 0, 50, 50);
 		this.stationList = [kitchen, bathroom, computer, easle, couch];
 
-		//
 
 
 		//test

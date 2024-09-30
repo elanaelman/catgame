@@ -4,16 +4,18 @@ class Game {
 	ctx;
 	lastTime;
 	apmt;
-
+	name;
 	objectList;
 	spriteListl;
 
 	constructor(canvas) {
+		this.name = 'game';
 		this.canvas = canvas;
 		this.ctx = canvas.getContext("2d");
+		this.ctx.font = "bold 200px serif";
 		this.lastTime = window.performance.now();
 
-		this.apmt = new Apmt();
+		this.apmt = new Apmt(this.ctx);
 		
 		this.objectList = this.apmt.getObjectList();
 		this.spriteList = this.apmt.getSpriteList();
@@ -44,7 +46,7 @@ class Game {
 
 	update = (dTime) => {
 		this.apmt.onUpdate(dTime);
-		console.log(this.objectList);
+		//console.log(this.objectList);
 		for (const obj of this.objectList) {
 			obj.onUpdate(dTime);
 		}
@@ -79,8 +81,7 @@ function startGame() {
 	let canvas = document.getElementById("catCanvas");
 	let game = new Game(canvas);
 	game.start();
+	console.log('game startd');
 }
 
 window.addEventListener("load", startGame);
-
-console.log('start test');

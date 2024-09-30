@@ -52,7 +52,7 @@ class Sprite extends Ghost {
 		this.moved = true;
 		this.pitPat = new Audio('walking.mp3');
 	}
-
+	
 	move(deltaTime) {
 /*		if ((this.destination != null) && (this.speed != 0)) {
 			let dir = direction(this.x, this.y, this.destination[0], this.destination[1]);
@@ -85,21 +85,8 @@ class Sprite extends Ghost {
 		this.y = this.destination[1];
 	}
 	
-	createTask() {
-		//let text = toDos[0][0];
-		//let effect = toDos[0][1];
-		//let textbox = toDos[0][2];
-		//let button = toDos[0][3];
-	
-		//this.apmt.cxt.fillText(text,textbox[0],textbox[1]);
-		apmt.cxt.fillText('test',300,200);
-		document.getElementById("kitchenButton").onClick = alert("I pushed a button");
-	}
-	
 	onUpdate(deltaTime) {
 		//this.move(deltaTime);
-		this.createTask();
-		this.apmt.console.log('test');
 	}
 
 	setDestination(x, y) {
@@ -115,9 +102,12 @@ class Sprite extends Ghost {
 
 
 class Player extends Sprite {
-	constructor() {
+	constructor(apmt) {
+		
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
+
+		this.apmt=apmt;
 
 		this.textBoxList = {
 			"testTask": [296, 10]
@@ -126,6 +116,8 @@ class Player extends Sprite {
 			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
 		}
 		this.toDoList = [];
+		this.h=true;
+		console.log('player constructed');
 	}
 
 
@@ -140,7 +132,25 @@ class Player extends Sprite {
 		this.toDoList.append(todo);
 	}
 
+	createTask() {
+		//let text = toDos[0][0];
+		//let effect = toDos[0][1];
+		//let textbox = toDos[0][2];
+		//let button = toDos[0][3];
+	
+		//this.apmt.cxt.fillText(text,textbox[0],textbox[1]);
+		//this.apmt.ctx.strokeText('test',100,100);
+		this.apmt.ctx.fillStyle = "green";
+		this.apmt.ctx.fillRect(10, 10, 150, 100);
+		console.log('tasked');
+		//document.getElementById("kitchenButton").onClick = alert("I pushed a button");
+	}
+
 	onUpdate(deltaTime) {
+		if (this.h) {
+			this.h=false;
+			this.createTask();
+		}
 		if (this.toDoList.length > 0) {
 			console.log("Time for a task!");
 			console.log(this.toDoList.pop());
@@ -515,6 +525,3 @@ function randomColor(){
 		case 2: return 'white'; break;
 	}
 }
-
-
-console.log('end test');
