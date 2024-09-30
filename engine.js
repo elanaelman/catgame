@@ -71,7 +71,7 @@ class Game {
 	}
 
 	drawText = (player) => {
-		this.ctx.fillText(player.text, player.x, player.y);
+		this.ctx.fillText(player.task.taskText, player.task.x, player.task.y);
 	}
 
 	endGame = () => {

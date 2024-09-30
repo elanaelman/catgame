@@ -96,8 +96,6 @@ class Player extends Sprite {
 
 		this.toDoList = [];
 
-		this.task= new Task()
-
 		this.h=true;
 		console.log('player constructed');
 	}
@@ -122,11 +120,6 @@ class Player extends Sprite {
 	}
 
 	onUpdate(deltaTime) {
-		if (this.h) {
-			this.h=false;
-			console.log(this.task.x);
-			//this.createTask(this.task.taskText,this.task.x,this.task.y);
-		}
 		if (this.toDoList.length > 0) {
 			console.log("Time for a task!");
 			console.log(this.toDoList.pop());
@@ -137,17 +130,17 @@ class Player extends Sprite {
 
 class Task extends Player{
 	taskText;
+	x;
+	y;
 	buttonEffect;
 	coordinates;
 	buttonText;
 
-	constructor(taskText, buttonEffect, x, y, buttonText) {
+	constructor(taskText,x,y) {
 		super();
-		this.taskText = 'testText';
-		this.buttonEffect = buttonEffect;
-		this.x = 100;
-		this.y = 200;
-		this.buttonText = buttonText;
+		this.taskText=taskText;
+		this.x=x;
+		this.y=y;
 
 		this.textBoxList = {
 			"testTask": [100, 200]
@@ -155,7 +148,6 @@ class Task extends Player{
 		this.taskList = {
 			"testTask":["hello world",this.testButtonEffect,this.textBoxList.testTask,"kitchenButton"]
 		}
-
 	}
 	
 }

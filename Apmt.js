@@ -1,5 +1,4 @@
 class Apmt {
-	canvas;
 	catList;
 	stationList;
 	player;
@@ -13,6 +12,7 @@ class Apmt {
 		
 		//player
 		this.player = new Player();
+		this.player.task = new Task('text',100,200);
 		//cats object
 		const hungry = new Cat('Hungry');
 		const lazy = new Cat('Lazy');
