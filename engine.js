@@ -43,6 +43,7 @@ class Game {
 	}
 
 	update = (dTime) => {
+		this.apmt.onUpdate(dTime);
 		for (const obj of this.objectList) {
 			obj.onUpdate(dTime);
 		}
