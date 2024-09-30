@@ -1,3 +1,11 @@
+let textBoxDraw = [		//textbox locations in order: kitchen, easle, couch, computer, bathroom
+						// locations are XY pairs starting top left and going
+	[296,10,396,10,396,40,296,40]
+];
+kitchenBox=false; //used to toggle boxes on and off in the future, just here for placeholding rn
+
+// I have set the player task to blank which is nothing, and toggled of the kitchen textbox
+
 class Game {
 	animationFrame;
 	canvas;
@@ -29,6 +37,7 @@ class Game {
 			obj.onStart(this.apmt);
 		}
 		this.main(window.performance.now());
+
 	}
 
 
@@ -57,7 +66,21 @@ class Game {
 	render = () => {
 		//TODO Need to clear selectively instead of whole screen if using moved property
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		if (kitchenBox=true){
+			for (let i=0; i<textBoxDraw.length; i++) {
+				this.ctx.beginPath();
+				this.ctx.moveTo(textBoxDraw[i][0],textBoxDraw[i][1]);
+				this.ctx.lineTo(textBoxDraw[i][2],textBoxDraw[i][3]);
+				this.ctx.lineTo(textBoxDraw[i][4],textBoxDraw[i][5]);
+				this.ctx.lineTo(textBoxDraw[i][6],textBoxDraw[i][7]);
+				this.ctx.lineTo(textBoxDraw[i][0],textBoxDraw[i][1]);
+				this.ctx.stroke();
+			}
+		}
+		console.log(0);
+
 		this.drawText(this.player);
+		
 		for (const sprite of this.spriteList) {
 			//if (sprite.moved) {
 				this.drawSprite(sprite);

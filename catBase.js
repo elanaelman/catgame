@@ -100,6 +100,7 @@ class Player extends Sprite {
 		}
 
 		this.taskList = {
+			"blank":["",0,0],
 			"testTask":["hello world",this.textBoxList.testBoxX,this.textBoxList.testBoxY]
 		}
 
@@ -122,7 +123,7 @@ class Player extends Sprite {
 	}
 
 	createTask() {
-		this.task = new Task(this.taskList.testTask);
+		this.task = new Task(this.taskList.blank);
 	}
 
 	onUpdate(deltaTime) {
