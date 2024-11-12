@@ -22,7 +22,7 @@ class Manager {
 			cat.generateTodos(deltaTime);
 
 			if (cat.currentAction == null) {
-				findCatsNextAction(cat);
+				this.findCatsNextAction(cat);
 			}
 
 		}
@@ -84,6 +84,11 @@ class Action {
 //todo: implement specific Actions
 
 class Ghost {
+	name;
+	constructor(name) {
+		this.name = name;
+	}
+
 	currentAction;
 	onUpdate(deltaTime) {
 		if (this.currentAction != null) {
@@ -96,8 +101,14 @@ class Ghost {
 }
 
 class Cat extends Ghost {
-	possibleTasks;	//list of actions
-	todos;	//list of actions. probably sort these by priority
+	possibleTasks;	//list of all possible actions
+	todos;	//list of planned actions. probably sort these by priority
+
+	constructor(name) {
+		super(name);
+		this.possibleTasks = [];
+		this.todos = [];
+	}
 
 	generateTodos(deltaTime) {
 		for (const task of this.possibleTasks) {
@@ -129,16 +140,26 @@ class Event {
 	station;
 	probability;
 	name;
+
 }
 
 class Station {
+	name;
 	possibleEvents;
 	availableEvents;
+
+
+	constructor(name) {
+		this.name = name;
+		this.possibleEvents = [];
+		this.availableEvents = [];
+	}
+
 	generateEvents(deltaTime) {
-		for (const event of possibleEvents) {
+		for (const event of this.possibleEvents) {
 			let p = Math.random();
 			if (p * deltaTime < event.probability) {
-				availableEvents.push(event);
+				this.availableEvents.push(event);
 			}
 		}
 	}

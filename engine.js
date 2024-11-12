@@ -2,7 +2,7 @@ let textBoxDraw = [		//textbox locations in order: kitchen, easle, couch, comput
 						// locations are XY pairs starting top left and going
 	[296,10,396,10,396,40,296,40]
 ];
-kitchenBox=false; //used to toggle boxes on and off in the future, just here for placeholding rn
+kitchenBox=true; //used to toggle boxes on and off in the future, just here for placeholding rn
 
 // I have set the player task to blank which is nothing, and toggled of the kitchen textbox
 
@@ -10,32 +10,46 @@ class Game {
 	animationFrame;
 	canvas;
 	ctx;
+
+	cats;
+	stations;
+
+	manager;
+
 	lastTime;
-	apmt;
 	name;
-	objectList;
-	spriteListl;
+	spriteList;
 
 	constructor(canvas) {
 		this.name = 'game';
 		this.canvas = canvas;
+
 		this.ctx = canvas.getContext("2d");
 		this.ctx.font = "bold 100px serif";
 		this.lastTime = window.performance.now();
 
-		this.apmt = new Apmt();
-		this.player = this.apmt.player;
-		
-		this.objectList = this.apmt.getObjectList();
-		this.spriteList = this.apmt.getSpriteList();
+		this.canvas.addEventListener("click", this.onClick);
+
+		this.spriteList = [];
+
+		let catNames = ["Hungry", "Lazy", "Cranky"];
+		let stationNames = ["Kitchen", "Computer"];
+
+		this.cats = catNames.map((name) => new Cat(name));
+		this.stations = stationNames.map((name) => new Station(name));
+
+		this.manager = new Manager(this.cats, this.stations, this.lastTime);
 
 	}
 
 
 	start = () => {
+		/*
 		for (const obj of this.objectList) {
 			obj.onStart(this.apmt);
 		}
+		*/
+
 		this.main(window.performance.now());
 
 	}
@@ -47,18 +61,9 @@ class Game {
 		this.animationFrame = window.requestAnimationFrame(this.main);
 
 		let deltaTime = timeOfAnimationFrame - this.lastTime;
-		this.update(deltaTime);
+		this.manager.onUpdate(deltaTime);
 		this.render();
 		this.lastTime = timeOfAnimationFrame;
-
-	}
-
-	update = (dTime) => {
-		this.apmt.onUpdate(dTime);
-		//console.log(this.objectList);
-		for (const obj of this.objectList) {
-			obj.onUpdate(dTime);
-		}
 
 	}
 
@@ -68,9 +73,8 @@ class Game {
 		if (kitchenBox=true){
 			this.drawTextBox(textBoxDraw);
 		}
-		console.log(0);
 
-		this.drawText(this.player);
+		//this.drawText(this.player);
 		
 		for (const sprite of this.spriteList) {
 			//if (sprite.moved) {
@@ -79,6 +83,15 @@ class Game {
 			//}
 		}
 	}
+
+
+	onClick = () => {
+
+		//Identify objects under mouse
+
+
+	}
+
 
 	drawSprite = (sprite) => {
 		this.ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);

@@ -1,21 +1,6 @@
 let testXY = [300,200];
 
-
-class Ghost {
-	apmt;
-
-
-	//Subclasses should call super.onStart() at the END of their onStart functions.
-	onStart(apmt) {
-		this.apmt = apmt;
-		this.ready = true;
-	}
-
-	//Every Ghost object must define an onUpdate(deltaTime) function.
-	//Every Ghost must assign to apmt
-}
-
-class Sprite extends Ghost {
+class Sprite {
 	img;
 	x;
 	y;
@@ -28,7 +13,6 @@ class Sprite extends Ghost {
 	speed; //pixels per millisecond
 
 	constructor(img_name, x, y, width, height) {
-		super();
 		this.img = new Image();
 		this.img.src = "images/" + img_name;
 		this.x = x;
@@ -67,7 +51,7 @@ class Sprite extends Ghost {
 		}
 	}
 
-	updatePOS() {
+	updatePos() {
 		this.x = this.destination[0];
 		this.y = this.destination[1];
 	}
@@ -87,8 +71,18 @@ class Sprite extends Ghost {
 	//If a subclass calls onUpdate(deltaTime), that function should call the super.OnUpdate().
 }
 
+class TaskBox {
+	constructor(taskText, textBoxX, textBoxY, buttonText, regionID, onclick) {
+		this.taskText = taskText; 
+		this.textBoxX = textBoxX;
+		this.textBoxY = textBoxY;
+		this.buttonText = buttonText;
+		this.regionID = regionID; //what is this for?
+		this.onclick = onclick;
+	}
+}
 
-class Player extends Sprite {
+class PlayerSprite extends Sprite {
 	constructor() {
 		
 		super("vampire.svg", 0, 0, 50, 50);
@@ -100,8 +94,8 @@ class Player extends Sprite {
 		}
 
 		this.taskList = {
-			"blank":["",0,0],
-			"testTask":["hello world",this.textBoxList.testBoxX,this.textBoxList.testBoxY]
+			"blank": new Task("", 0, 0),
+			"testTask": new Task("hello world", this.textBoxList.testBoxX, this.textBoxList.testBoxY, "testButtonText", "Kitchen", this.executeTestTask)
 		}
 
 		this.toDoList = [];
@@ -111,68 +105,45 @@ class Player extends Sprite {
 	}
 
 
-	onStart(apmt) {
-		super.onStart(apmt);
+	onStart() {
 		this.setDestination(100, 100);
 		this.setSpeed(0.1);
 	}
 
-
-	addTodo(todo) {
-		this.toDoList.append(todo);
-	}
-
-	createTask() {
-		this.task = new Task(this.taskList.blank);
-	}
-
 	onUpdate(deltaTime) {
+		super.onUpdate(deltaTime);
+
 		if (this.h) {
-			this.createTask();
+			this.addTodo();
 			this.h = false;
 		}
 		if (this.toDoList.length > 0) {
 			console.log("Time for a task!");
-			console.log(this.toDoList.pop());
+			this.toDoList.pop().onclick();
 		}
 	}
 
-}
-
-class Task extends Player{
-	taskText;
-	x;
-	y;
-	buttonEffect;
-	coordinates;
-	buttonText;
-
-	constructor(task) {
-		super();
-		this.taskText=task[0];
-		this.x=task[1];
-		this.y=task[2];
+	addTodo() {
+		this.toDoList.push(this.taskList.testTask);
 	}
-	
+
+	executeTestTask = () => {
+		console.log("executing testTask");
+	}
+
 }
 
 
-class Cat extends Sprite {
+class CatSprite extends Sprite {
 	constructor(name) {
 
 		super("transCat.png", 0, 0, 50, 50);
 
 		this.name = name;
 		this.color = randomColor();
-		this.toDoList = [];
-	}
-	
-
-	onUpdate(deltaTime) {
-		//do some stuff
-		super.onUpdate(deltaTime);
 	}
 
+/*
 	addTask = (trigger) => {
 		switch (trigger) {
 			case "Test":
@@ -196,7 +167,7 @@ class Cat extends Sprite {
 		goTo([0,0]);
 	}
 
-/*	clumsyBathroom = () => {
+	clumsyBathroom = () => {
 
 	}
 
@@ -211,12 +182,12 @@ class Cat extends Sprite {
 	crankyCouch = () => {
 
 	}
-*/
+
 	hungryFood = () => {
 		//start moving to kitchen
 		//create player task 'Hungry wants food' at the kitchen
 	}
-/*
+
 	lazyComp = () => {
 
 	}
@@ -240,7 +211,7 @@ class Cat extends Sprite {
 	screamyFood = () => {
 
 	}
-*/
+
 	sneakyKitchen = () => {
 		//move to kitchen and disapear
 		//create invisible top-priority task at kitchen 'sneaky suprise'
@@ -274,7 +245,6 @@ class Cat extends Sprite {
 		//create visible text at center of screen after 30 seconds 'where's sneaky'
 
 	}
-/*
 	sneazyEasle = () => {
 
 	}
@@ -289,9 +259,8 @@ class Cat extends Sprite {
 }
 
 
-class Station extends Ghost{
+class StationSprite {
 	constructor(name, task, x, y, width, height) {
-		super();
 		this.name = name;
 		this.task = task;
 		this.x = x;
@@ -301,7 +270,7 @@ class Station extends Ghost{
 	}
 
 	onUpdate(deltaTime) {
-		let seed = randInt(100);
+		//let seed = randInt(100);
 	}
 
 	playerTask = () => {
@@ -311,7 +280,7 @@ class Station extends Ghost{
 
 }
 
-
+/*
 class Kitchen extends Station {
 	constructor(name,catList, x, y, width, height) {
 		super(name, x, y, width, height);
@@ -327,13 +296,13 @@ class Kitchen extends Station {
 		if (id==99) {
 			hungry.toDoList.push(hungryFood());
 		}
-/*		else if (id==98){
+		else if (id==98){
 			picky.toDoList.push(pickyFood());
 		}
 		else if (id==97) {
 			screamy.toDoList.push(screamyFood());
 		}
-*/		if (id==96) {
+		if (id==96) {
 			sneaky.toDoList.push(sneakyKitchen());
 		}
 		if (true) {
@@ -358,13 +327,13 @@ class Bathroom extends Station{
 	}
 
 	sendTask = (id) => {
-/*		if (id==99) {
+		if (id==99) {
 			stinky.toDoList.push(stinkyBathroom());
 		}
 		else if (id==98){
 			clumsy.toDoList.push(clumsyBathroom());
 		}
-*/		if (id==97) {
+		if (id==97) {
 			sneaky.toDoList.push(sneakyBathroom());
 		}
 		else if (true)
@@ -391,7 +360,7 @@ class Computer extends Station{
 
 
 	sendTask = (id) => {
-/*		if (id==99) {
+		if (id==99) {
 			lazy.toDoList.push(lazyComp());
 		}
 		else if (id==98){
@@ -400,7 +369,7 @@ class Computer extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyComp());
 		}
-*/		if (id==96) {
+		if (id==96) {
 			sneaky.toDoList.push(sneakyComp());
 		}
 	}
@@ -419,7 +388,7 @@ class Easle extends Station{
 	}
 
 	sendTask = (id) => {
-/*		if (id==99) {
+		if (id==99) {
 			lazy.toDoList.push(lazyEasle());
 		}
 		else if (id==98){
@@ -428,7 +397,7 @@ class Easle extends Station{
 		else if (id==97) {
 			clumsy.toDoList.push(clumsyEasle());
 		}
-*/		if (id==96) {
+		if (id==96) {
 			sneaky.toDoList.push(sneakyEasle());
 		}
 	}
@@ -447,7 +416,7 @@ class Couch extends Station{
 	}
 
 	sendTask = (id) => {
-/*		if (id==99) {
+		if (id==99) {
 			lazy.toDoList.push(lazyCouch());
 		}
 		else if (id==98){
@@ -456,11 +425,12 @@ class Couch extends Station{
 		else if (id==97) {
 			needy.toDoList.push(needyCouch());
 		}
-*/		if (id==96) {
+		if (id==96) {
 			sneaky.toDoList.push(sneakyCouch());
 		}
 	}
 }
+*/
 
 
 
