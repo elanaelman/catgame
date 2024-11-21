@@ -32,11 +32,18 @@ class Game {
 
 		this.spriteList = [];
 
-		let catNames = ["Hungry", "Lazy", "Cranky"];
-		let stationNames = ["Kitchen", "Computer"];
+		let hungry = new Cat("Hungry");
+		let eat = new Action("Eat", 0.5, 1, true, false, "Food");
+		hungry.possibleTasks.push(eat);
+		this.cats = [hungry];
 
-		this.cats = catNames.map((name) => new Cat(name));
-		this.stations = stationNames.map((name) => new Station(name));
+		let office = new Station("Office");
+		let kitchen = new Station("Kitchen");
+		let food = new Event(1, "Food");
+		kitchen.possibleEvents.push(food);
+		let email = new Event(1, "Email");
+		office.possibleEvents.push(email);
+		this.stations = [office, kitchen];
 
 		this.manager = new Manager(this.cats, this.stations, this.lastTime);
 

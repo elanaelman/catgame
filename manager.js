@@ -1,5 +1,7 @@
 //Manager
 
+let debug = true;
+
 class Manager {
 	cats;
 	stations;
@@ -9,6 +11,9 @@ class Manager {
 		this.cats = cats;
 		this.stations = stations;
 		this.startTime = startTime;
+		if (debug) {
+			console.log("Manager constructed");
+		}
 	}
 
 	onUpdate(deltaTime) {
@@ -19,26 +24,37 @@ class Manager {
 
 		for (const cat of this.cats) {
 			cat.onUpdate(deltaTime);
+
+			if (debug) {
+				console.log("Updating cat: " + cat.name);
+			}
+
 			cat.generateTodos(deltaTime);
 
 			if (cat.currentAction == null) {
 				this.findCatsNextAction(cat);
 			}
-
 		}
 	}
 
 	findCatsNextAction(cat) {
-		for (const action of cat.todos) {
-			for (const station of this.station) {
-				for (const event of station.availableEvents) {
 
-					//This is disgusting, sorry. It's really "only" n^2.
-					if (action.matchesEvent == event.name) {
-						action.beginAction(event, this);
-						this.currentAction = action;
+		//This is disgusting, sorry. Complexity is total events * actions...
+		for (const action of cat.todos) {
+			for (const station of this.stations) {
+
+				let match = station.availableEvents.find(event => event.name == action.matchesEvent);
+
+				if (match != undefined) {
+
+					if (debug) {
+						console.log(`${cat.name} will begin action ${action.name} in ${station.name}`);
 					}
 
+
+					action.beginAction(match);
+					cat.setCurrentAction(action);
+					return;
 				}
 			}
 		}
@@ -46,55 +62,75 @@ class Manager {
 
 }
 
-// Specific actions should be subclasses of Action. 
-// Please call super.progressAction in a subclass that overwrites it.
 class Action {
 	//set on construction:
+	name;
 	probability;
 	priority;
 	retainedOnInterrupt;	//whether this returns to the todo list if interrupted
-	totalTime;
+	totalTime; //in seconds
 	finished;
 	matchesEvent;
 
 	//set when this becomes a cat's currentAction:
 	matchedEvent;	
-	actor;		
 	elapsedTime;
 
-	beginAction(matchedEvent, actor) {
-		finished = false;
+	constructor(name, probability, priority, retainedOnInterrupt, totalTime, finished, matchesEvent) {
+		this.name = name;
+		this.probability = probability;
+		this.priority = priority;
+		this.retainedOnInterrupt = retainedOnInterrupt;
+		this.totalTime = totalTime;
+		this.finished = finished;
+		this.matchesEvent = matchesEvent;
+	}
+
+	beginAction(matchedEvent) {
+		this.finished = false;
 		this.matchedEvent = matchedEvent;
-		this.actor = actor;
 		this.elapsedTime = 0;
-		matchedEvent.beginEvent();
 	}
 
 	progressAction(deltaTime) {
 		this.elapsedTime += deltaTime;
-		if (this.totalTime >= this.elapsedTime) {
+
+		if (this.totalTime <= this.elapsedTime) {
 			this.completeAction();
 		}
 	}
 
 	completeAction() {
-		this.matchedEvent.completeEvent();
+		this.finished = true;
 	}
+
 }
 //todo: implement specific Actions
 
 class Ghost {
 	name;
+	currentAction;
+
 	constructor(name) {
 		this.name = name;
 	}
 
-	currentAction;
+	setCurrentAction(action) {
+		this.currentAction = action;
+	}
+
 	onUpdate(deltaTime) {
 		if (this.currentAction != null) {
 			this.currentAction.progressAction(deltaTime);
-			if (this.currentAction.done) {
+			if (this.currentAction.finished) {
+				if (debug) {
+					console.log(`${this.name} has finished action ${this.currentAction.name}`);
+				}
 				this.currentAction = null;
+			} else {
+				if (debug) {
+					console.log(`${this.name} is continuing action ${this.currentAction.name}: time ${this.currentAction.elapsedTime}/${this.currentAction.totalTime}`)
+				}
 			}
 		}
 	}
@@ -103,6 +139,7 @@ class Ghost {
 class Cat extends Ghost {
 	possibleTasks;	//list of all possible actions
 	todos;	//list of planned actions. probably sort these by priority
+	sprite;
 
 	constructor(name) {
 		super(name);
@@ -114,10 +151,14 @@ class Cat extends Ghost {
 		for (const task of this.possibleTasks) {
 			let p = Math.random();
 			if (p * deltaTime < task.probability) {
-				this.todos.push(task);
+				//todo: sort list so this search is less bad
+				if (! this.todos.includes(t => t.name == task.name)) {
+					this.todos.push(task);
+					if (debug) {
+						console.log(this.name + ": Adding todo: " + task.name);
+					}
+				}
 			}
-
-			//todo: make sure task is not already in todo list
 		}
 	}
 
@@ -137,10 +178,13 @@ class Cat extends Ghost {
 }
 
 class Event {
-	station;
 	probability;
 	name;
 
+	constructor(probability, name) {
+		this.probability = probability;
+		this.name = name;
+	}
 }
 
 class Station {
@@ -158,9 +202,21 @@ class Station {
 	generateEvents(deltaTime) {
 		for (const event of this.possibleEvents) {
 			let p = Math.random();
+
 			if (p * deltaTime < event.probability) {
-				this.availableEvents.push(event);
+
+				//todo: sort list so this search is less bad
+				if (! this.availableEvents.includes(e => e.name == event.name)) {
+
+					this.availableEvents.push(event);
+
+					if (debug) {
+						console.log(this.name + ": Adding available event: " + event.name);
+					}
+				}
+
 			}
 		}
+
 	}
-}  
+}
