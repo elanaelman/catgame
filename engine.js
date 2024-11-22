@@ -39,9 +39,9 @@ class Game {
 
 		let office = new Station("Office");
 		let kitchen = new Station("Kitchen");
-		let food = new Event(1, "Food");
+		let food = new Event(0.01, "Food");
 		kitchen.possibleEvents.push(food);
-		let email = new Event(1, "Email");
+		let email = new Event(0.01, "Email");
 		office.possibleEvents.push(email);
 		this.stations = [office, kitchen];
 
