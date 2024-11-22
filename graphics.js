@@ -87,7 +87,7 @@ class PlayerSprite extends Sprite {
 		
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
-
+/*
 		this.textBoxList = {
 			"testBoxX": [100],
 			"testBoxY": [200]
@@ -106,7 +106,7 @@ class PlayerSprite extends Sprite {
 
 
 		this.toDoList = [];
-
+*/
 		this.h=true;
 		console.log('player constructed');
 	}
@@ -115,30 +115,13 @@ class PlayerSprite extends Sprite {
 	onStart() {
 		this.setDestination(100, 100);
 		this.setSpeed(0.1);
-	}
-
-	chores() {
-		if (randInt(99)>=98) {
-			this.toDoList.push("makeCoffee")
-		}
-	}
-
-	createTask(task) {
-		this.task = new Task(task);
+		
 	}
 
 	onUpdate(deltaTime) {
-		this.chores();
-		if (this.toDoList.length > 0) {
-			if (this.h) {
-				let toDo = this.toDoList[0];
-				console.log("Time for a task!");
-				this.createTask(this.taskList.toDo);
-				console.log(this.taskList.toDo);
-				this.h = false;
-			}
-		}
+		
 	}
+	
 
 }
 

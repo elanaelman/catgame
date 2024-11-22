@@ -1,9 +1,26 @@
 ﻿body {
-    color: red;
+    color: #420c14;
+    width: 750px;
+    height: 1200px;
 }
 
 canvas {
     border: 1px solid black;
     background: url('images/apartment_sketch.jpg');
     background-size: 600px 400px;
+}
+
+#HTMLtextBox {
+    width: 400px;
+    border: 2px solid black;
+    font-size: 16px;
+}
+
+center {
+    background-color: #b497d6;
+}
+
+h1 {
+    padding-top: 10px;
+    
 }

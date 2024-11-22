@@ -1,6 +1,6 @@
 //Manager
 
-let debug = true;
+let debug = false;
 
 class Manager {
 	cats;
@@ -154,6 +154,13 @@ class Cat extends Ghost {
 				//todo: sort list so this search is less bad
 				if (! this.todos.includes(t => t.name == task.name)) {
 					this.todos.push(task);
+					if (task.name == "Eat") {
+						document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
+						/*play a sound*/
+					}
+					if (task.name == "Keyboard") {
+						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
+					}
 					if (debug) {
 						console.log(this.name + ": Adding todo: " + task.name);
 					}
