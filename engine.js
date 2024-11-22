@@ -106,6 +106,7 @@ class Game {
 
 	drawText = (player) => {
 		this.ctx.fillText(player.task.taskText, player.task.x, player.task.y);
+		console.log(player.task.name);
 	}
 
 	drawTextBox = (textBoxDraw) => {

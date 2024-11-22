@@ -93,10 +93,17 @@ class PlayerSprite extends Sprite {
 			"testBoxY": [200]
 		}
 
-		this.taskList = {
-			"blank": new Task("", 0, 0),
-			"testTask": new Task("hello world", this.textBoxList.testBoxX, this.textBoxList.testBoxY, "testButtonText", "Kitchen", this.executeTestTask)
+		this.kitchenText = {
+			"kitchenTextX": [291],
+			"kitchenTextY": [35]
 		}
+
+		this.taskList = {
+			"blank":["",0,0,"blank"],
+			"testTask":["hello world",this.textBoxList.testBoxX,this.textBoxList.testBoxY,"testTask"],
+			"makeCoffee":["*Yawn...* I could sure use a cup of coffee.",this.textBoxList.kitchenTextX,this.textBoxList.kitchenTextY,"makeCoffee"]
+		}
+
 
 		this.toDoList = [];
 
@@ -110,21 +117,48 @@ class PlayerSprite extends Sprite {
 		this.setSpeed(0.1);
 	}
 
-	onUpdate(deltaTime) {
-		super.onUpdate(deltaTime);
-
-		if (this.h) {
-			this.addTodo();
-			this.h = false;
-		}
-		if (this.toDoList.length > 0) {
-			console.log("Time for a task!");
-			this.toDoList.pop().onclick();
+	chores() {
+		if (randInt(99)>=98) {
+			this.toDoList.push("makeCoffee")
 		}
 	}
 
-	addTodo() {
-		this.toDoList.push(this.taskList.testTask);
+	createTask(task) {
+		this.task = new Task(task);
+	}
+
+	onUpdate(deltaTime) {
+		this.chores();
+		if (this.toDoList.length > 0) {
+			if (this.h) {
+				let toDo = this.toDoList[0];
+				console.log("Time for a task!");
+				this.createTask(this.taskList.toDo);
+				console.log(this.taskList.toDo);
+				this.h = false;
+			}
+		}
+	}
+
+}
+
+class Task extends Ghost{
+	taskText;
+	x;
+	y;
+	name;
+	buttonEffect;
+	coordinates;
+	buttonText;
+
+	constructor(task) {
+		super();
+		this.taskText=task[0];
+		this.x=task[1];
+		this.y=task[2];
+		this.name=task[3];
+	
+	
 	}
 
 	executeTestTask = () => {
