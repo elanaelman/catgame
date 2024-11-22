@@ -52,6 +52,7 @@ class Manager {
 					}
 
 
+					station.consumeEvent(match);
 					action.beginAction(match);
 					cat.setCurrentAction(action);
 					return;
@@ -162,6 +163,12 @@ class Cat extends Ghost {
 		}
 	}
 
+	setCurrentAction(action) {
+		let index = this.todos.findIndex((a) => {a == action;});
+		this.todos.splice(index, 1);
+		super.setCurrentAction(action);
+	}
+
 	interrupt() {
 		if (this.currentAction != null) {
 			if (this.currentAction.retainedOnInterrupt) {
@@ -218,5 +225,10 @@ class Station {
 			}
 		}
 
+	}
+
+	consumeEvent(event) {
+		let index = this.availableEvents.findIndex((e) => {e == event;});
+		this.availableEvents.splice(index, 1);
 	}
 }

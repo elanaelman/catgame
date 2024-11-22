@@ -10,6 +10,20 @@ let stations = [kitchen];
 
 let manager = new Manager(cats, stations, 0);
 
+// time = window.performance.now()
+
+// function run(timeOfAnimationFrame) {
+// 	//Queue main again for the next screen refresh
+// 	//requestAnimationFrame passes a timestamp to main.
+// 	animationFrame = window.requestAnimationFrame(run);
+
+// 	deltaTime = timeOfAnimationFrame - time;
+// 	manager.onUpdate(deltaTime);
+// 	time = timeOfAnimationFrame;
+
+// }
+
+// run(time);
 
 manager.onUpdate(1);
 manager.onUpdate(1);
