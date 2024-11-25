@@ -2,7 +2,7 @@ let textBoxDraw = [		//textbox locations in order: kitchen, easle, couch, comput
 						// locations are XY pairs starting top left and going
 	[296,10,396,10,396,40,296,40]
 ];
-kitchenBox=true; //used to toggle boxes on and off in the future, just here for placeholding rn
+kitchenBox=false; //used to toggle boxes on and off in the future, just here for placeholding rn
 
 // I have set the player task to blank which is nothing, and toggled of the kitchen textbox
 
