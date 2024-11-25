@@ -1,5 +1,5 @@
 let hungry = new Cat("Hungry");
-let eat = new Action("Eat", 1, 1, true, 1, false, "Food");
+let eat = new Action("Eat", 0.5, 1, true, 1, false, "Food");
 hungry.possibleTasks.push(eat);
 let cats = [hungry];
 
@@ -25,5 +25,7 @@ let manager = new Manager(cats, stations, 0);
 
 // run(time);
 
+manager.onUpdate(1);
+manager.onUpdate(1);
 manager.onUpdate(1);
 manager.onUpdate(1);

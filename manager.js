@@ -17,6 +17,9 @@ class Manager {
 	}
 
 	onUpdate(deltaTime) {
+		if (debug) {
+			//console.log(`Next step: ${deltaTime} elapsed`)
+		}
 
 		for (const station of this.stations) {
 			station.generateEvents(deltaTime);
@@ -26,7 +29,7 @@ class Manager {
 			cat.onUpdate(deltaTime);
 
 			if (debug) {
-				console.log("Updating cat: " + cat.name);
+				//console.log("Updating cat: " + cat.name);
 			}
 
 			cat.generateTodos(deltaTime);
@@ -77,6 +80,7 @@ class Action {
 	matchedEvent;	
 	elapsedTime;
 
+	//todo: remove finished here? not sure why included
 	constructor(name, probability, priority, retainedOnInterrupt, totalTime, finished, matchesEvent) {
 		this.name = name;
 		this.probability = probability;
@@ -153,7 +157,16 @@ class Cat extends Ghost {
 			let p = Math.random();
 			if (p * deltaTime < task.probability) {
 				//todo: sort list so this search is less bad
-				if (! this.todos.includes(t => t.name == task.name)) {
+
+				//todo: what the heck is wrong with array.prototype.includes
+				let found = false;
+				for (const t of this.todos) {
+					if (t.name === task.name) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
 					this.todos.push(task);
 					if (debug) {
 						console.log(this.name + ": Adding todo: " + task.name);
@@ -212,9 +225,15 @@ class Station {
 
 			if (p * deltaTime < event.probability) {
 
-				//todo: sort list so this search is less bad
-				if (! this.availableEvents.includes(e => e.name == event.name)) {
-
+				//todo: what the heck is wrong with array.prototype.includes
+				let found = false;
+				for (const e of this.availableEvents) {
+					if (e.name === event.name) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
 					this.availableEvents.push(event);
 
 					if (debug) {
