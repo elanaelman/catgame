@@ -33,7 +33,8 @@ class Game {
 		this.spriteList = [];
 
 		let hungry = new Cat("Hungry");
-		let eat = new Action("Eat", 0.5, 1, true, 20, false, "Food");
+		let eat = new Action("Eat", 0.01, 1, true, 6000, "Food");
+		let play = new Action("Play", 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
 		this.cats = [hungry];
 
@@ -44,6 +45,10 @@ class Game {
 		let food = new Event(0.01, "Food");
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
+
+
+		let toy = new Event(0, "Toy");
+		//todo: make button call hungry.interrupt(toy);
 
 		this.manager = new Manager(this.cats, this.stations, this.lastTime);
 

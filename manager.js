@@ -1,6 +1,6 @@
 //Manager
 
-let debug = false;
+let debug = true;
 
 class Manager {
 	cats;
@@ -46,7 +46,7 @@ class Manager {
 		for (const action of cat.todos) {
 			for (const station of this.stations) {
 
-				let match = station.availableEvents.find(event => event.name == action.matchesEvent);
+				let match = station.availableEvents.find(event => event.name === action.matchesEvent);
 
 				if (match != undefined) {
 
@@ -80,14 +80,12 @@ class Action {
 	matchedEvent;	
 	elapsedTime;
 
-	//todo: remove finished here? not sure why included
-	constructor(name, probability, priority, retainedOnInterrupt, totalTime, finished, matchesEvent) {
+	constructor(name, probability, priority, retainedOnInterrupt, totalTime, matchesEvent) {
 		this.name = name;
 		this.probability = probability;
 		this.priority = priority;
 		this.retainedOnInterrupt = retainedOnInterrupt;
 		this.totalTime = totalTime;
-		this.finished = finished;
 		this.matchesEvent = matchesEvent;
 	}
 
@@ -132,10 +130,6 @@ class Ghost {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
 				this.currentAction = null;
-			} else {
-				if (debug) {
-					console.log(`${this.name} is continuing action ${this.currentAction.name}: time ${this.currentAction.elapsedTime}/${this.currentAction.totalTime}`)
-				}
 			}
 		}
 	}
@@ -189,16 +183,20 @@ class Cat extends Ghost {
 		super.setCurrentAction(action);
 	}
 
-	interrupt() {
-		if (this.currentAction != null) {
-			if (this.currentAction.retainedOnInterrupt) {
+	interrupt(event) {
+		//Note that interrupts CANNOT have retainedOnInterrupt == true.
+
+		let match = this.todos.find(action => event.name === action.matchesEvent);
+		if (match != undefined) {
+			if (this.currentAction != null && this.currentAction.retainedOnInterrupt) {
 				this.todos.push(this.currentAction);
 			} else {
-				//todo: is any cleanup needed otherwise? idk
+				//todo: notify station of interrupt
 			}
 		}
 
-		//todo: notify station of interrupt
+		this.setCurrentAction(action);
+
 
 		//todo: clear action or assign new one? engage with distraction?
 	}
@@ -209,7 +207,7 @@ class Event {
 	name;
 
 	constructor(probability, name) {
-		this.probability = probability;
+		this.probability = probability; //probability event triggered in 1 ms
 		this.name = name;
 	}
 }
@@ -231,6 +229,7 @@ class Station {
 			let p = Math.random();
 
 			if (p * deltaTime < event.probability) {
+				//todo: correctly calculate probability that event triggered
 
 				//todo: what the heck is wrong with array.prototype.includes
 				let found = false;
