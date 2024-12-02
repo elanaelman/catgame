@@ -28,10 +28,6 @@ class Manager {
 		for (const cat of this.cats) {
 			cat.onUpdate(deltaTime);
 
-			if (debug) {
-				//console.log("Updating cat: " + cat.name);
-			}
-
 			cat.generateTodos(deltaTime);
 
 			if (cat.currentAction == null) {
@@ -53,9 +49,6 @@ class Manager {
 					if (debug) {
 						console.log(`${cat.name} will begin action ${action.name} in ${station.name}`);
 					}
-
-
-					station.consumeEvent(match);
 					action.beginAction(match);
 					cat.setCurrentAction(action);
 					return;
@@ -104,7 +97,8 @@ class Action {
 	}
 
 	completeAction() {
-		this.finished = true;
+		//todo remove from todolist
+
 	}
 
 }
@@ -163,7 +157,7 @@ class Cat extends Ghost {
 				if (!found) {
 					this.todos.push(task);
 					if (task.name == "Eat") {
-						document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
+						//document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
 						/*play a sound*/
 					}
 					if (task.name == "Keyboard") {
@@ -184,31 +178,46 @@ class Cat extends Ghost {
 	}
 
 	interrupt(event) {
-		//Note that interrupts CANNOT have retainedOnInterrupt == true.
+		//Interrupts CANNOT have retainedOnInterrupt == true.
 
 		let match = this.todos.find(action => event.name === action.matchesEvent);
+
 		if (match != undefined) {
-			if (this.currentAction != null && this.currentAction.retainedOnInterrupt) {
-				this.todos.push(this.currentAction);
-			} else {
-				//todo: notify station of interrupt
+
+			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
+				removeTodo(this.currentAction);
 			}
+
+			match.beginAction(event);
+			this.setCurrentAction(match);
 		}
 
-		this.setCurrentAction(action);
 
 
 		//todo: clear action or assign new one? engage with distraction?
+	}
+
+	finishCurrentAction() {
+		this.currentAction.matchedEvent.station.consumeEvent(matchedEvent);
+		this.removeTodo(this.currentAction);
+		this.finished = true;
+	}
+
+	removeTodo(action) {
+		let index = this.todos.findIndex((a) => {a == action;});
+		this.todos.splice(index, 1);
 	}
 }
 
 class Event {
 	probability;
 	name;
+	station;
 
-	constructor(probability, name) {
+	constructor(probability, name, station) {
 		this.probability = probability; //probability event triggered in 1 ms
 		this.name = name;
+		this.station = station;
 	}
 }
 

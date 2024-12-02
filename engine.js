@@ -39,10 +39,10 @@ class Game {
 		this.cats = [hungry];
 
 		let office = new Station("Office");
-		let email = new Event(0.01, "Email");
+		let email = new Event(0.01, "Email", office);
 		office.possibleEvents.push(email);
 		let kitchen = new Station("Kitchen");
-		let food = new Event(0.01, "Food");
+		let food = new Event(0.01, "Food", kitchen);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 

@@ -1,14 +1,16 @@
 let hungry = new Cat("Hungry");
-let eat = new Action("Eat", 0.5, 1, true, 1, false, "Food");
+let eat = new Action("Eat", 1, 1, true, 1000, "Food");
 hungry.possibleTasks.push(eat);
 let cats = [hungry];
 
 let kitchen = new Station("Kitchen");
-let food = new Event(1, "Food");
+let food = new Event(1, "Food", kitchen);
 kitchen.possibleEvents.push(food);
 let stations = [kitchen];
 
 let manager = new Manager(cats, stations, 0);
+
+let distract = new Event(0, "Distraction", undefined)
 
 // time = window.performance.now()
 
@@ -27,5 +29,6 @@ let manager = new Manager(cats, stations, 0);
 
 manager.onUpdate(1);
 manager.onUpdate(1);
+hungry.interrupt(distract);
 manager.onUpdate(1);
 manager.onUpdate(1);
