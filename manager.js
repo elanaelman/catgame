@@ -1,4 +1,14 @@
-//Manager
+//This file defines core classes: Manager, Ghost, Cat, Action, Station, Event.
+//Manager keeps lists of cats and stations, and updates each cat and station each tick.
+//Ghost is a base class for Cat tracking current actions. I plan for Player to also extend Ghost.
+//Cat tracks possible action and todo lists, and may generate todos each tick.
+//Action represents a task cats may take on, including frequency, duration, and triggering event.
+//Station represents a region of the apartment providing events that cats may engage with.
+//	I plan for Player to also engage with stations and their events.
+//Event is an object which may trigger a cat's action.
+//	The player will be able to create and engage with events.
+
+//todo: document this file thoroughly. clean up intro comment.
 
 let debug = true;
 
@@ -17,9 +27,6 @@ class Manager {
 	}
 
 	onUpdate(deltaTime) {
-		if (debug) {
-			//console.log(`Next step: ${deltaTime} elapsed`)
-		}
 
 		for (const station of this.stations) {
 			station.generateEvents(deltaTime);

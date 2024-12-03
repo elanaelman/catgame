@@ -1,3 +1,9 @@
+//TODO: rework this file.
+//Very little of this code is functional.
+//I think we should keep the sprite class and add a sprite member of the Ghost class.
+
+
+
 let testXY = [300,200];
 
 class Sprite {
@@ -448,22 +454,3 @@ class Couch extends Station{
 	}
 }
 */
-
-
-
-
-
-
-function randInt(max) {
-	let value = Math.floor(Math.random() * max);
-	return value;
-}
-
-function randomColor(){
-	let colorType = Math.floor(Math.random()*3);
-	switch(colorType) {
-		case 0: return 'orange'; break;
-		case 1:	return 'black'; break;
-		case 2: return 'white'; break;
-	}
-}
