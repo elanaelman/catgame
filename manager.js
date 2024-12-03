@@ -183,6 +183,9 @@ class Cat extends Ghost {
 		let match = this.todos.find(action => event.name === action.matchesEvent);
 
 		if (match != undefined) {
+			if (debug) {
+				console.log(`Successfully interrupted ${this.name} doing ${this.currentAction.name} with ${event.name}`);
+			}
 
 			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
 				removeTodo(this.currentAction);
@@ -190,6 +193,10 @@ class Cat extends Ghost {
 
 			match.beginAction(event);
 			this.setCurrentAction(match);
+		} else {
+			if (debug) {
+				console.log(`Failed to distract ${this.name} doing ${this.currentAction.name} with ${event.name}`);
+			}
 		}
 
 
