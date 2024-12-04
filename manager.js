@@ -1,17 +1,14 @@
 //This file defines core classes: Manager, Ghost, Cat, Action, Station, Event.
-//Manager keeps lists of cats and stations, and updates each cat and station each tick.
-//Ghost is a base class for Cat tracking current actions. I plan for Player to also extend Ghost.
-//Cat tracks possible action and todo lists, and may generate todos each tick.
-//Action represents a task cats may take on, including frequency, duration, and triggering event.
-//Station represents a region of the apartment providing events that cats may engage with.
-//	I plan for Player to also engage with stations and their events.
-//Event is an object which may trigger a cat's action.
-//	The player will be able to create and engage with events.
+//Previously manager.js, I renamed to objects.js because I suck at planning
 
-//todo: document this file thoroughly. clean up intro comment.
 
+//Set to false to shut off console messages.
+//Note that I cleaned this upp so it doesn't flood now :) --Elana
 let debug = true;
 
+
+//Manager keeps lists of cats and stations, and updates each cat and station each tick.
+//It coordinates between cats and stations.
 class Manager {
 	cats;
 	stations;
@@ -44,8 +41,10 @@ class Manager {
 	}
 
 	findCatsNextAction(cat) {
-
 		//This is disgusting, sorry. Complexity is total events * actions...
+		//We could improve this by sorting both lists with, like, any metric, 
+		//	then using a binary search. That should bring it down to linear.
+		//	(Timing is irrelevant for this small a game, it just hurts my pride.) 
 		for (const action of cat.todos) {
 			for (const station of this.stations) {
 
@@ -56,8 +55,8 @@ class Manager {
 					if (debug) {
 						console.log(`${cat.name} will begin action ${action.name} in ${station.name}`);
 					}
-					action.beginAction(match);
-					cat.setCurrentAction(action);
+
+					cat.setCurrentAction(action, match);
 					return;
 				}
 			}
@@ -66,6 +65,8 @@ class Manager {
 
 }
 
+
+//Action represents a task cats may take on, including frequency, duration, and triggering event.
 class Action {
 	//set on construction:
 	name;
@@ -95,6 +96,8 @@ class Action {
 		this.elapsedTime = 0;
 	}
 
+	//For more detailed progression, define a class extending Action
+	//	and write your own progressAction. Please call super.progressAction at the end.
 	progressAction(deltaTime) {
 		this.elapsedTime += deltaTime;
 
@@ -103,14 +106,11 @@ class Action {
 		}
 	}
 
-	completeAction() {
-		//todo remove from todolist
-
-	}
-
 }
-//todo: implement specific Actions
 
+
+//Ghost is a base class for Cat tracking current actions.
+//I plan for Player to also extend Ghost.
 class Ghost {
 	name;
 	currentAction;
@@ -119,10 +119,13 @@ class Ghost {
 		this.name = name;
 	}
 
-	setCurrentAction(action) {
+	//If a subclass overwrites this, it should probably call super.setCurrentAction(...)
+	setCurrentAction(action, matchedEvent) {
+		action.beginAction(matchedEvent);
 		this.currentAction = action;
 	}
 
+	//If a subclass overwrites this, it should probably call super.onUpdate(...)
 	onUpdate(deltaTime) {
 		if (this.currentAction != null) {
 			this.currentAction.progressAction(deltaTime);
@@ -136,6 +139,11 @@ class Ghost {
 	}
 }
 
+//Cat tracks possible action and todo lists, and may generate todos each tick.
+//As noted in Ghost, I planned for Cat and a Player class to each extend Ghost.
+//	However, the methods currently in Cat seem applicable to the player also.
+//	Maybe we should combine Cat's current functionality back into Ghost,
+//	and separate Cat from Player only in terms of graphics?
 class Cat extends Ghost {
 	possibleTasks;	//list of all possible actions
 	todos;	//list of planned actions. probably sort these by priority
@@ -152,6 +160,7 @@ class Cat extends Ghost {
 			let p = Math.random();
 			if (p * deltaTime < task.probability) {
 				//todo: sort list so this search is less bad
+				//see comment in manager's findCatsNextAction
 
 				//todo: what the heck is wrong with array.prototype.includes
 				let found = false;
@@ -178,10 +187,10 @@ class Cat extends Ghost {
 		}
 	}
 
-	setCurrentAction(action) {
+	setCurrentAction(action, matchedEvent) {
 		let index = this.todos.findIndex((a) => {a == action;});
 		this.todos.splice(index, 1);
-		super.setCurrentAction(action);
+		super.setCurrentAction(action, matchedEvent);
 	}
 
 	interrupt(event) {
@@ -198,8 +207,7 @@ class Cat extends Ghost {
 				removeTodo(this.currentAction);
 			}
 
-			match.beginAction(event);
-			this.setCurrentAction(match);
+			this.setCurrentAction(match, event);
 		} else {
 			if (debug) {
 				console.log(`Failed to distract ${this.name} doing ${this.currentAction.name} with ${event.name}`);
@@ -223,6 +231,8 @@ class Cat extends Ghost {
 	}
 }
 
+//Event is an object which may trigger a cat's action.
+//	The player will be able to create and engage with events.
 class Event {
 	probability;
 	name;
@@ -235,6 +245,8 @@ class Event {
 	}
 }
 
+//Station represents a region of the apartment providing events that cats may engage with.
+//	I plan for Player to also engage with stations and their events.
 class Station {
 	name;
 	possibleEvents;
@@ -253,8 +265,12 @@ class Station {
 
 			if (p * deltaTime < event.probability) {
 				//todo: correctly calculate probability that event triggered
+				//Currently we do probability * elapsed time (in ms).
+				//Correct would be to find probability of triggering within 
+				//	x ms given the probability of triggering in one ms.
 
 				//todo: what the heck is wrong with array.prototype.includes
+				//SCREAM
 				let found = false;
 				for (const e of this.availableEvents) {
 					if (e.name === event.name) {
@@ -275,6 +291,7 @@ class Station {
 
 	}
 
+	//Get rid of an event. Intended to use after an action finishes with it.
 	consumeEvent(event) {
 		let index = this.availableEvents.findIndex((e) => {e == event;});
 		this.availableEvents.splice(index, 1);
