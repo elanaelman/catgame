@@ -1,5 +1,5 @@
 //This file defines core classes: Manager, Ghost, Cat, Action, Station, Event.
-//Previously manager.js, I renamed to objects.js because I suck at planning
+//We can probably rename this file to objects.js. I suck at planning. lmk what you think
 
 
 //Set to false to shut off console messages.
