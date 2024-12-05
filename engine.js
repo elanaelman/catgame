@@ -4,7 +4,7 @@ let textBoxDraw = [		//textbox locations in order: kitchen, easle, couch, comput
 						// locations are XY pairs starting top left and going
 	[296,10,396,10,396,40,296,40]
 ];
-kitchenBox=false; //used to toggle boxes on and off in the future, just here for placeholding rn
+kitchenBox=true; //used to toggle boxes on and off in the future, just here for placeholding rn
 
 // I have set the player task to blank which is nothing, and toggled of the kitchen textbox
 
@@ -41,7 +41,7 @@ class Game {
 		//Cat
 		let hungry = new Cat("Hungry");
 		let eat = new Action("Eat", 0.05, 1, true, 6000, "Food");
-		let play = new Action("Play", 1, , 0, false, 6000, "Toy");
+		let play = new Action("Play", 1, 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
 		this.cats = [hungry];
 		//Stations
@@ -125,6 +125,7 @@ class Game {
 
 	drawTextBox = (textBoxDraw) => {
 		for (let i = 0; i < textBoxDraw.length; i++) {
+			this.ctx.strokeStyle = 'red';
 			this.ctx.beginPath();
 			this.ctx.moveTo(textBoxDraw[i][0], textBoxDraw[i][1]);
 			this.ctx.lineTo(textBoxDraw[i][2], textBoxDraw[i][3]);

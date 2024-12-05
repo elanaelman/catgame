@@ -102,7 +102,7 @@ class Action {
 		this.elapsedTime += deltaTime;
 
 		if (this.totalTime <= this.elapsedTime) {
-			this.completeAction();
+			this.finished = true;
 		}
 	}
 
@@ -114,13 +114,19 @@ class Action {
 class Ghost {
 	name;
 	currentAction;
+	possibleTasks;	//list of all possible actions
+	todos;	//list of planned actions. probably sort these by priority
 
 	constructor(name) {
 		this.name = name;
+		this.possibleTasks = [];
+		this.todos = [];
 	}
 
 	//If a subclass overwrites this, it should probably call super.setCurrentAction(...)
 	setCurrentAction(action, matchedEvent) {
+		let index = this.todos.findIndex((a) => {a == action;});
+		this.todos.splice(index, 1);
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
 	}
@@ -136,23 +142,6 @@ class Ghost {
 				this.currentAction = null;
 			}
 		}
-	}
-}
-
-//Cat tracks possible action and todo lists, and may generate todos each tick.
-//As noted in Ghost, I planned for Cat and a Player class to each extend Ghost.
-//	However, the methods currently in Cat seem applicable to the player also.
-//	Maybe we should combine Cat's current functionality back into Ghost,
-//	and separate Cat from Player only in terms of graphics?
-class Cat extends Ghost {
-	possibleTasks;	//list of all possible actions
-	todos;	//list of planned actions. probably sort these by priority
-	sprite;
-
-	constructor(name) {
-		super(name);
-		this.possibleTasks = [];
-		this.todos = [];
 	}
 
 	generateTodos(deltaTime) {
@@ -185,12 +174,6 @@ class Cat extends Ghost {
 				}
 			}
 		}
-	}
-
-	setCurrentAction(action, matchedEvent) {
-		let index = this.todos.findIndex((a) => {a == action;});
-		this.todos.splice(index, 1);
-		super.setCurrentAction(action, matchedEvent);
 	}
 
 	interrupt(event) {
@@ -229,6 +212,10 @@ class Cat extends Ghost {
 		let index = this.todos.findIndex((a) => {a == action;});
 		this.todos.splice(index, 1);
 	}
+}
+
+class Cat extends Ghost {
+	sprite;
 }
 
 //Event is an object which may trigger a cat's action.
