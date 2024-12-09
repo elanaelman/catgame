@@ -22,7 +22,8 @@ class Game {
 
 	lastTime;
 	name;
-	spriteList;
+	//spriteList;
+	// ^ for now, we only draw cats, so I'm using cats also as the list of sprites
 
 	constructor(canvas) {
 		//Get screen elements:
@@ -34,27 +35,26 @@ class Game {
 
 		this.canvas.addEventListener("click", this.onClick);
 
-		//Idk, we gotta figure this one out
-		this.spriteList = [];
-
 		//Create game objects:
 		//Cat
-		let hungry = new Cat("Hungry");
+		let hungry = new Cat("Hungry", "C:/Users/Elana/Documents/GitHub/CatGame/images/transCat.png" , [0,0]);
 		let eat = new Action("Eat", 0.05, 1, true, 6000, "Food");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
+		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
 		let office = new Station("Office");
-		let email = new Event(0.05, "Email", office);
+		let email = new Event(0.05, "Email", office, [26, 250]);
 		office.possibleEvents.push(email);
 		let kitchen = new Station("Kitchen");
-		let food = new Event(0.01, "Food", kitchen);
+		let food = new Event(0.01, "Food", kitchen, [216, 40]);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 		//Interrupts
-		let toy = new Event(0, "Toy");
+		let toy = new Event(0, "Toy", null, [0, 0]);
 		//todo: make button call hungry.interrupt(toy);
+		document.getElementById("catToy").addEventListener('click', function() {hungry.interrupt(toy)});
 
 		//Package cats and stations together:
 		this.manager = new Manager(this.cats, this.stations, this.lastTime);
@@ -88,17 +88,15 @@ class Game {
 
 	//todo: all graphics stuff. no idea what still works here
 	render = () => {
-		//TODO Need to clear selectively instead of whole screen if using moved property
+		//TODO Should ideally clear selectively instead of whole screen, redraw only when necessary
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		if (kitchenBox=true){
 			this.drawTextBox(textBoxDraw);
 		}
-
-		//this.drawText(this.player);
 		
-		for (const sprite of this.spriteList) {
+		for (const cat of this.cats) {
 			//if (sprite.moved) {
-				this.drawSprite(sprite);
+				this.drawSprite(cat.sprite);
 				// TODO: images don't show on the first drawSprite call if called too early (something isn't loaded yet?). So I turned this off for now.
 			//}
 		}
@@ -115,7 +113,7 @@ class Game {
 
 
 	drawSprite = (sprite) => {
-		this.ctx.drawImage(sprite.img, sprite.x, sprite.y, sprite.width, sprite.height);
+		this.ctx.drawImage(sprite.image, sprite.x, sprite.y, sprite.width, sprite.height);
 	}
 
 	drawText = (player) => {

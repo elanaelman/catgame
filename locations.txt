@@ -1,38 +1,38 @@
 screenTL: 534,80
 screenBR: 1134,480
 
-KItext_TL: 830,90
-KItext_BR: 930,130
+KItext_TL: 296, 10
+KItext_BR: 396, 50
 
-KIbutton_TL: 750, 120
-KIbutton_BR: 950, 210
+KIbutton_TL: 216, 40
+KIbutton_BR: 416, 130
 
-EAtext_TL:960,90
-EAtext_BR:1060, 130
+EAtext_TL: 426, 10
+EAtext_BR: 526, 50
 
-EAbutton_TL:1000,120
-EAbutton_BR: 1050,190
+EAbutton_TL: 466, 40
+EAbutton_BR: 516, 110
 
-COMtext_TL:560,260
-COMtext_BR:660,300
+COMtext_TL: 26, 180
+COMtext_BR: 126, 220
 
-COMbutton_TL: 560,330
-COMbutton_TR:660,240
-COMbutton_BR:750,280
-COMbutton_BL:660,450
+COMbutton_TL: 26, 250
+COMbutton_TR: 126, 160
+COMbutton_BR: 216, 200
+COMbutton_BL: 126, 370
 
-COUtext_TL: 930,340
-COUtext_BR:1030,380
+COUtext_TL: 396, 260
+COUtext_BR: 496, 300
 
-COUbutton_TL: 860,280
-COUbutton_TR:980,300
-COUbutton_BR:905,470
-COUbutton_BL:800,465
+COUbutton_TL: 860,280 --> 326, 200
+COUbutton_TR: --> 446, 220
+COUbutton_BR: 371, 390
+COUbutton_BL:266, 385
 
-BRtext_TL: 590,150
-BRtext_BR: 690,190
+BRtext_TL: 56, 70
+BRtext_BR:156, 110
 
-BRbutton_TL:700,180
-BRbutton_TR:730,155
-BRbutton_BR:750,230
-BRbutton_BL:715,260
+BRbutton_TL:166, 100
+BRbutton_TR:196, 75
+BRbutton_BR:216, 150
+BRbutton_BL:181, 180

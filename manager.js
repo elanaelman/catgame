@@ -129,6 +129,7 @@ class Ghost {
 		this.todos.splice(index, 1);
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
+		this.sprite.move(matchedEvent.position);
 	}
 
 	//If a subclass overwrites this, it should probably call super.onUpdate(...)
@@ -178,12 +179,12 @@ class Ghost {
 
 	interrupt(event) {
 		//Interrupts CANNOT have retainedOnInterrupt == true.
-
+		console.log(this.todos);
 		let match = this.todos.find(action => event.name === action.matchesEvent);
 
 		if (match != undefined) {
 			if (debug) {
-				console.log(`Successfully interrupted ${this.name} doing ${this.currentAction.name} with ${event.name}`);
+				console.log(`Successfully interrupted ${this.name} with ${event.name}`);
 			}
 
 			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
@@ -193,7 +194,7 @@ class Ghost {
 			this.setCurrentAction(match, event);
 		} else {
 			if (debug) {
-				console.log(`Failed to distract ${this.name} doing ${this.currentAction.name} with ${event.name}`);
+				console.log(`Failed to distract ${this.name} with ${event.name}`);
 			}
 		}
 
@@ -216,6 +217,33 @@ class Ghost {
 
 class Cat extends Ghost {
 	sprite;
+
+	constructor(name, image, position) {
+		super(name);
+		this.sprite = new Sprite(image, position);
+	}
+}
+
+class Sprite {
+	image;
+	x;
+	y;
+	width;
+	height;
+
+	constructor(img, position) {
+		this.image = new Image();
+		this.image.src = img;
+		this.width = 100;
+		this.height = 50;
+		this.x = position[0];
+		this.y = position[1];
+	}
+
+	move(newPosition) {
+		this.x = newPosition[0];
+		this.y = newPosition[1];
+	}
 }
 
 //Event is an object which may trigger a cat's action.
@@ -224,11 +252,13 @@ class Event {
 	probability;
 	name;
 	station;
+	position;
 
-	constructor(probability, name, station) {
+	constructor(probability, name, station, position) {
 		this.probability = probability; //probability event triggered in 1 ms
 		this.name = name;
 		this.station = station;
+		this.position = position;
 	}
 }
 
