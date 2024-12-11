@@ -14,7 +14,7 @@ class Manager {
 	stations;
 	startTime;
 
-	constructor(cats, stations, startTime) {
+	constructor(cats, player, stations, startTime) {
 		this.cats = cats;
 		this.stations = stations;
 		this.startTime = startTime;
@@ -163,7 +163,7 @@ class Ghost {
 				if (!found) {
 					this.todos.push(task);
 					if (task.name == "Eat") {
-						//document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
+						document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
 						/*play a sound*/
 					}
 					if (task.name == "Keyboard") {
@@ -216,6 +216,15 @@ class Ghost {
 }
 
 class Cat extends Ghost {
+	sprite;
+
+	constructor(name, image, position) {
+		super(name);
+		this.sprite = new Sprite(image, position);
+	}
+}
+
+class Player extends Ghost {
 	sprite;
 
 	constructor(name, image, position) {

@@ -93,26 +93,7 @@ class PlayerSprite extends Sprite {
 		
 		super("vampire.svg", 0, 0, 50, 50);
 		this.name = "Player";
-/*
-		this.textBoxList = {
-			"testBoxX": [100],
-			"testBoxY": [200]
-		}
 
-		this.kitchenText = {
-			"kitchenTextX": [291],
-			"kitchenTextY": [35]
-		}
-
-		this.taskList = {
-			"blank":["",0,0,"blank"],
-			"testTask":["hello world",this.textBoxList.testBoxX,this.textBoxList.testBoxY,"testTask"],
-			"makeCoffee":["*Yawn...* I could sure use a cup of coffee.",this.textBoxList.kitchenTextX,this.textBoxList.kitchenTextY,"makeCoffee"]
-		}
-
-
-		this.toDoList = [];
-*/
 		this.h=true;
 		console.log('player constructed');
 	}

@@ -1,11 +1,5 @@
 //todo: summary comment 8-)
 
-let textBoxDraw = [		//textbox locations in order: kitchen, easle, couch, computer, bathroom
-						// locations are XY pairs starting top left and going
-	[296,10,396,10,396,40,296,40]
-];
-kitchenBox=true; //used to toggle boxes on and off in the future, just here for placeholding rn
-
 // I have set the player task to blank which is nothing, and toggled of the kitchen textbox
 
 
@@ -14,7 +8,7 @@ class Game {
 	animationFrame;
 	canvas;
 	ctx;
-
+	player;
 	cats;
 	stations;
 
@@ -37,12 +31,14 @@ class Game {
 
 		//Create game objects:
 		//Cat
-		let hungry = new Cat("Hungry", "C:/Users/Elana/Documents/GitHub/CatGame/images/transCat.png" , [0,0]);
-		let eat = new Action("Eat", 0.05, 1, true, 6000, "Food");
+		let lucy = new Player("Lucy", "images/vampire.svg", [100,100]);
+		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
+		let eat = new Action("Eat", 0.005, 1, true, 6000, "Food");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
+		this.player = [lucy];
 		//Stations
 		let office = new Station("Office");
 		let email = new Event(0.05, "Email", office, [26, 250]);
@@ -90,25 +86,12 @@ class Game {
 	render = () => {
 		//TODO Should ideally clear selectively instead of whole screen, redraw only when necessary
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		if (kitchenBox=true){
-			this.drawTextBox(textBoxDraw);
-		}
-		
 		for (const cat of this.cats) {
 			//if (sprite.moved) {
 				this.drawSprite(cat.sprite);
 				// TODO: images don't show on the first drawSprite call if called too early (something isn't loaded yet?). So I turned this off for now.
 			//}
 		}
-	}
-
-	//Called when user clicks the window.
-	//I think we're removing this in favor of buttons
-	onClick = () => {
-
-		//Identify objects under mouse
-
-
 	}
 
 
@@ -119,19 +102,6 @@ class Game {
 	drawText = (player) => {
 		this.ctx.fillText(player.task.taskText, player.task.x, player.task.y);
 		console.log(player.task.name);
-	}
-
-	drawTextBox = (textBoxDraw) => {
-		for (let i = 0; i < textBoxDraw.length; i++) {
-			this.ctx.strokeStyle = 'red';
-			this.ctx.beginPath();
-			this.ctx.moveTo(textBoxDraw[i][0], textBoxDraw[i][1]);
-			this.ctx.lineTo(textBoxDraw[i][2], textBoxDraw[i][3]);
-			this.ctx.lineTo(textBoxDraw[i][4], textBoxDraw[i][5]);
-			this.ctx.lineTo(textBoxDraw[i][6], textBoxDraw[i][7]);
-			this.ctx.lineTo(textBoxDraw[i][0], textBoxDraw[i][1]);
-			this.ctx.stroke();
-		}
 	}
 
 	//Stop the game loop
