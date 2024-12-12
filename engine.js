@@ -32,13 +32,13 @@ class Game {
 		//Create game objects:
 		//Cat
 		let lucy = new Player("Lucy", "images/vampire.svg", [100,100]);
+		this.player = [lucy];
 		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
 		let eat = new Action("Eat", 0.005, 1, true, 6000, "Food");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
-		this.player = [lucy];
 		//Stations
 		let office = new Station("Office");
 		let email = new Event(0.05, "Email", office, [26, 250]);
@@ -49,11 +49,14 @@ class Game {
 		this.stations = [office, kitchen];
 		//Interrupts
 		let toy = new Event(0, "Toy", null, [0, 0]);
-		//todo: make button call hungry.interrupt(toy);
+		
+
 		document.getElementById("catToy").addEventListener('click', function() {hungry.interrupt(toy)});
+		//todo: debug. something doesn't seem right with the catFood button.
+		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
 
 		//Package cats and stations together:
-		this.manager = new Manager(this.cats, this.stations, this.lastTime);
+		this.manager = new Manager(this.cats, this.player, this.stations, this.lastTime);
 
 	}
 
