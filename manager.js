@@ -11,11 +11,13 @@ let debug = true;
 //It coordinates between cats and stations.
 class Manager {
 	cats;
+	player;
 	stations;
 	startTime;
 
 	constructor(cats, player, stations, startTime) {
 		this.cats = cats;
+		this.player = player;
 		this.stations = stations;
 		this.startTime = startTime;
 		if (debug) {
@@ -115,11 +117,13 @@ class Ghost {
 	name;
 	currentAction;
 	possibleTasks;	//list of all possible actions
+	possibleEvents;
 	todos;	//list of planned actions. probably sort these by priority
 
 	constructor(name) {
 		this.name = name;
 		this.possibleTasks = [];
+		this.possibleEvents = [];
 		this.todos = [];
 	}
 
@@ -168,6 +172,31 @@ class Ghost {
 					}
 					if (task.name == "Keyboard") {
 						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
+					}
+					if (debug) {
+						console.log(this.name + ": Adding todo: " + task.name);
+					}
+				}
+			}
+		}
+	for (const event of this.possibleEvents) {
+			let p = Math.random();
+			if (p * deltaTime < event.probability) {
+				//todo: sort list so this search is less bad
+				//see comment in manager's findCatsNextAction
+
+				//todo: what the heck is wrong with array.prototype.includes
+				let found = false;
+				for (const t of this.todos) {
+					if (t.name === task.name) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					this.todos.push(event);
+					if (event.name == 'Email') {
+						document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
 					}
 					if (debug) {
 						console.log(this.name + ": Adding todo: " + task.name);

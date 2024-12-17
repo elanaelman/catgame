@@ -89,6 +89,10 @@ class Game {
 	render = () => {
 		//TODO Should ideally clear selectively instead of whole screen, redraw only when necessary
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		for (const player of this.player) {
+			this.drawSprite(player.sprite);
+		}
+		
 		for (const cat of this.cats) {
 			//if (sprite.moved) {
 				this.drawSprite(cat.sprite);

@@ -89,29 +89,20 @@ class TaskBox {
 	}
 }
 
-class PlayerSprite extends Sprite {
-	constructor() {
-		
-		super("vampire.svg", 0, 0, 50, 50);
-		this.name = "Player";
-
-		this.h=true;
-		console.log('player constructed');
-	}
 
 
-	onStart() {
+onStart() {
 		this.setDestination(100, 100);
 		this.setSpeed(0.1);
 		
-	}
+}
 
-	onUpdate(deltaTime) {
+onUpdate(deltaTime) {
 		
-	}
+}
 	
 
-}
+
 
 class Task extends Ghost{
 	taskText;
@@ -138,8 +129,22 @@ class Task extends Ghost{
 
 }
 
+/*
+class PlayerSprite extends Sprite {
+	constructor(name) {
+		
+		super("vampire.svg", 0, 0, 50, 50);
+		this.name = "Player";
 
-class CatSprite extends Sprite {
+		this.h=true;
+		console.log('player constructed');
+	}
+
+
+}
+*/
+
+/*class CatSprite extends Sprite {
 	constructor(name) {
 
 		super("transCat.png", 0, 0, 50, 50);
@@ -147,6 +152,7 @@ class CatSprite extends Sprite {
 		this.name = name;
 		this.color = randomColor();
 	}
+*/
 
 /*
 	addTask = (trigger) => {

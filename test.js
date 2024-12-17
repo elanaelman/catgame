@@ -20,6 +20,7 @@ function run() {
 	canvas = document.getElementById("catCanvas");
 	ctx = canvas.getContext("2d");	
 	sprite = hungry.sprite;
+	playerSprite = player.sprite
 	ctx.drawImage(sprite.image, sprite.x, sprite.y);
 	// manager.onUpdate(1);
 	// hungry.interrupt(distract);
