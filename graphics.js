@@ -1,6 +1,7 @@
 //TODO: rework this file.
 //Very little of this code is functional.
 //I think we should keep the sprite class and add a sprite member of the Ghost class.
+//Currently NOT included in home.html
 
 
 

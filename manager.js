@@ -294,9 +294,6 @@ class Station {
 				//Currently we do probability * elapsed time (in ms).
 				//Correct would be to find probability of triggering within 
 				//	x ms given the probability of triggering in one ms.
-
-				//todo: what the heck is wrong with array.prototype.includes
-				//SCREAM
 				let found = false;
 				for (const e of this.availableEvents) {
 					if (e.name === event.name) {
@@ -305,16 +302,21 @@ class Station {
 					}
 				}
 				if (!found) {
-					this.availableEvents.push(event);
-
-					if (debug) {
-						console.log(this.name + ": Adding available event: " + event.name);
-					}
+					this.addAvailableEvent(event);
 				}
-
 			}
-		}
 
+		}
+	}
+
+	addAvailableEvent(event) {
+		//todo: what the heck is wrong with array.prototype.includes
+		//SCREAM
+		this.availableEvents.push(event);
+
+		if (debug) {
+			console.log(this.name + ": Adding available event: " + event.name);
+		}
 	}
 
 	//Get rid of an event. Intended to use after an action finishes with it.
