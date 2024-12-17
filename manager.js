@@ -112,25 +112,20 @@ class Action {
 
 
 //Ghost is a base class for Cat tracking current actions.
-//I plan for Player to also extend Ghost.
 class Ghost {
 	name;
 	currentAction;
 	possibleTasks;	//list of all possible actions
-	possibleEvents;
 	todos;	//list of planned actions. probably sort these by priority
 
 	constructor(name) {
 		this.name = name;
 		this.possibleTasks = [];
-		this.possibleEvents = [];
 		this.todos = [];
 	}
 
 	//If a subclass overwrites this, it should probably call super.setCurrentAction(...)
 	setCurrentAction(action, matchedEvent) {
-		let index = this.todos.findIndex((a) => {a == action;});
-		this.todos.splice(index, 1);
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
 		this.sprite.move(matchedEvent.position);
@@ -144,7 +139,7 @@ class Ghost {
 				if (debug) {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
-				this.currentAction = null;
+				this.finishCurrentAction();
 			}
 		}
 	}
@@ -172,31 +167,6 @@ class Ghost {
 					}
 					if (task.name == "Keyboard") {
 						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
-					}
-					if (debug) {
-						console.log(this.name + ": Adding todo: " + task.name);
-					}
-				}
-			}
-		}
-	for (const event of this.possibleEvents) {
-			let p = Math.random();
-			if (p * deltaTime < event.probability) {
-				//todo: sort list so this search is less bad
-				//see comment in manager's findCatsNextAction
-
-				//todo: what the heck is wrong with array.prototype.includes
-				let found = false;
-				for (const t of this.todos) {
-					if (t.name === task.name) {
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					this.todos.push(event);
-					if (event.name == 'Email') {
-						document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
 					}
 					if (debug) {
 						console.log(this.name + ": Adding todo: " + task.name);
@@ -233,8 +203,10 @@ class Ghost {
 	}
 
 	finishCurrentAction() {
-		this.currentAction.matchedEvent.station.consumeEvent(matchedEvent);
+		let matchedEvent = this.currentAction.matchedEvent;
+		matchedEvent.station.consumeEvent(matchedEvent);
 		this.removeTodo(this.currentAction);
+		this.currentAction = null;
 		this.finished = true;
 	}
 

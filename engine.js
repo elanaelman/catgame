@@ -30,21 +30,24 @@ class Game {
 		this.canvas.addEventListener("click", this.onClick);
 
 		//Create game objects:
-		//Cat
+		//Player
 		let lucy = new Player("Lucy", "images/vampire.svg", [100,100]);
-		this.player = [lucy];
+		let checkEmail = new Action("Check Email", 0, 0, true, 1000, "Email");
+		lucy.possibleTasks.push(checkEmail);
+		this.player = lucy;
+		//Cat
 		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
-		let eat = new Action("Eat", 0.005, 1, true, 6000, "Food");
+		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy");
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
 		let office = new Station("Office");
-		let email = new Event(0.05, "Email", office, [26, 250]);
+		let email = new Event(1, "Email", office, [26, 250]);
 		office.possibleEvents.push(email);
 		let kitchen = new Station("Kitchen");
-		let food = new Event(0.01, "Food", kitchen, [216, 40]);
+		let food = new Event(0, "Food", kitchen, [216, 40]);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 		//Interrupts
@@ -52,8 +55,10 @@ class Game {
 		
 
 		document.getElementById("catToy").addEventListener('click', function() {hungry.interrupt(toy)});
-		//todo: debug. something doesn't seem right with the catFood button.
 		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
+
+		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
+		document.getElementById("checkEmail").addEventListener('click', function() {lucy.setCurrentAction(checkEmail, email)});
 
 		//Package cats and stations together:
 		this.manager = new Manager(this.cats, this.player, this.stations, this.lastTime);
@@ -89,9 +94,7 @@ class Game {
 	render = () => {
 		//TODO Should ideally clear selectively instead of whole screen, redraw only when necessary
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		for (const player of this.player) {
-			this.drawSprite(player.sprite);
-		}
+		this.drawSprite(this.player.sprite);
 		
 		for (const cat of this.cats) {
 			//if (sprite.moved) {
