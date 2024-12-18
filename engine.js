@@ -55,7 +55,7 @@ class Game {
 
 		
 
-		document.getElementById("catToy").addEventListener('click', function name() {hungry.interrupt(toy)})
+		document.getElementById("catToy").addEventListener('click', function() {hungry.interrupt(toy)})
 		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
 
 		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
