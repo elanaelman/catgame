@@ -20,6 +20,7 @@ class Game {
 	// ^ for now, we only draw cats, so I'm using cats also as the list of sprites
 
 	constructor(canvas) {
+	alert("hi?")
 		//Get screen elements:
 		this.name = 'game';
 		this.canvas = canvas;
@@ -32,13 +33,13 @@ class Game {
 		//Create game objects:
 		//Player
 		let lucy = new Player("Lucy", "images/vampire.svg", [100,100]);
-		let checkEmail = new Action("Check Email", 0, 0, true, 1000, "Email");
+		let checkEmail = new Action("Check Email", 1, 0, true, 100, "Email");
 		lucy.possibleTasks.push(checkEmail);
 		this.player = lucy;
 		//Cat
 		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
-		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food");
-		let play = new Action("Play", 1, 0, false, 6000, "Toy");
+		let eat = new Action("Eat", 0.1, 1, true, 600, "Food");
+		let play = new Action("Play", 1, 0, false, 600, "Toy");
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
@@ -51,15 +52,18 @@ class Game {
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 		//Interrupts
-		let toy = new Event(0, "Toy", null, [0, 0]);
+		let playerStation = new Station("Player Station");
+		let toy = new Event(0, "Toy", playerStation, [0, 0]);
+		playerStation.possibleEvents.push(toy);
 
 		
 
-		document.getElementById("catToy").addEventListener('click', function() {hungry.interrupt(toy)});
+		//todo fix likely bug: player stuck offering toy forever if cat not interested
+		document.getElementById("catToy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
 		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
 
 		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
-		document.getElementById("checkEmail").addEventListener('click', function() {lucy.setCurrentAction(checkEmail, email)});
+		document.getElementById("checkEmail").addEventListener('click', function() {lucy.attemptAction(checkEmail, email)});
 
 		//Package cats and stations together:
 		this.manager = new Manager(this.cats, this.player, this.stations, this.lastTime);
@@ -84,7 +88,7 @@ class Game {
 		//requestAnimationFrame passes a timestamp to main.
 		this.animationFrame = window.requestAnimationFrame(this.main);
 
-		let deltaTime = timeOfAnimationFrame - this.lastTime;
+		let deltaTime = Math.max(0, timeOfAnimationFrame - this.lastTime);
 		this.manager.onUpdate(deltaTime);
 		this.render();
 		this.lastTime = timeOfAnimationFrame;

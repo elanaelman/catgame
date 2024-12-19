@@ -156,7 +156,10 @@ class Ghost {
 				for (const t of this.todos) {
 					if (t.name === task.name) {
 						found = true;
+						//console.log(`Task ${task.name} matches T ${t.name}`);
 						break;
+					} else {
+						//console.log(`Task ${task.name} does not match T ${t.name}`);
 					}
 				}
 				if (!found) {
@@ -178,7 +181,6 @@ class Ghost {
 
 	interrupt(event) {
 		//Interrupts CANNOT have retainedOnInterrupt == true.
-		console.log(this.todos);
 		let match = this.todos.find(action => event.name === action.matchesEvent);
 
 		if (match != undefined) {
@@ -231,6 +233,12 @@ class Player extends Ghost {
 	constructor(name, image, position) {
 		super(name);
 		this.sprite = new Sprite(image, position);
+	}
+
+	attemptAction(action, matchedEvent) {
+		if ( (action != null) && (matchedEvent != null) ) {
+			this.setCurrentAction(action, matchedEvent);
+		}
 	}
 }
 
@@ -290,7 +298,9 @@ class Station {
 		for (const event of this.possibleEvents) {
 			let p = Math.random();
 
+			//todo: fix bug: deltaTime may be negative on first tick
 			if (p * deltaTime < event.probability) {
+
 				//todo: correctly calculate probability that event triggered
 				//Currently we do probability * elapsed time (in ms).
 				//Correct would be to find probability of triggering within 
