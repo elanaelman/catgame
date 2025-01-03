@@ -146,11 +146,18 @@ class Ghost {
 			}
 		}
 	}
+	
+	//p is the probability of event occuring in 1 ms
+	//deltaTime is measured in ms
+	//P MUST BE BETWEEN 0 AND 1
+	probabilizer(p, deltaTime) {
+		return 1-Math.pow(1-p, deltaTime);
+	}
 
 	generateTodos(deltaTime) {
 		for (const task of this.possibleTasks) {
-			let p = Math.random();
-			if (p * deltaTime < task.probability) {
+			let r = Math.random();
+			if (r < this.probabilizer(task.probability, deltaTime)) {
 				//todo: sort list so this search is less bad
 				//see comment in manager's findCatsNextAction
 
@@ -202,10 +209,6 @@ class Ghost {
 				console.log(`Failed to distract ${this.name} with ${event.name}`);
 			}
 		}
-
-
-
-		//todo: clear action or assign new one? engage with distraction?
 	}
 
 	finishCurrentAction() {
