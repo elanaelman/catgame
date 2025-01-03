@@ -139,6 +139,9 @@ class Ghost {
 				if (debug) {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
+				if (this.currentAction.name == "Eat") {
+					document.getElementById("HTMLtextBox").textContent = "The cat lets out a content purr"
+				}
 				this.finishCurrentAction();
 			}
 		}
@@ -314,6 +317,10 @@ class Station {
 				}
 				if (!found) {
 					this.addAvailableEvent(event);
+					if (event.name == "Email") {
+						document.getElementById("HTMLtextBox").textContent = "You get an email from a friend; its about DND"; //expation idea -- the user sets things about the player like favorite activity that form fill in places like this 
+						/*play a sound*/
+					}
 				}
 			}
 

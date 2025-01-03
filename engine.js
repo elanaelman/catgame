@@ -45,7 +45,7 @@ class Game {
 		this.cats = [hungry];
 		//Stations
 		let office = new Station("Office");
-		let email = new Event(1, "Email", office, [26, 250]);
+		let email = new Event(0.1, "Email", office, [26, 250]);
 		office.possibleEvents.push(email);
 		let kitchen = new Station("Kitchen");
 		let food = new Event(0, "Food", kitchen, [216, 40]);
@@ -62,7 +62,7 @@ class Game {
 		document.getElementById("catToy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
 		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
 
-		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you";
+		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you"; --- done, Alex, 1/3/25
 		document.getElementById("checkEmail").addEventListener('click', function() {lucy.attemptAction(checkEmail, email)});
 
 		//Package cats and stations together:
@@ -107,6 +107,9 @@ class Game {
 				// TODO: images don't show on the first drawSprite call if called too early (something isn't loaded yet?). So I turned this off for now.
 			//}
 		}
+		/*for (const player of this.player) {
+			if 
+		}*/
 	}
 
 
