@@ -322,7 +322,7 @@ class Station {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
 						/*play a sound*/
-						writeBox("You get an email from a friend; its about DND"); 						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");
+						writeBox("You get an email from a friend; its about DND");
 						mailSprite(1);
 					}
 				}
