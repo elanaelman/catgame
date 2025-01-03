@@ -16,6 +16,7 @@ canvas {
     width: 400px;
     border: 2px solid black;
     font-size: 16px;
+    white-space: pre-wrap;
 }
 
 center {

@@ -44,15 +44,15 @@ class Game {
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
-		let office = new Station("Office");
+		let office = new Station("Office",);
 		let email = new Event(0.1, "Email", office, [26, 250]);
 		office.possibleEvents.push(email);
-		let kitchen = new Station("Kitchen");
+		let kitchen = new Station("Kitchen",);
 		let food = new Event(0, "Food", kitchen, [216, 40]);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 		//Interrupts
-		let playerStation = new Station("Player Station");
+		let playerStation = new Station("Player Station",);
 		let toy = new Event(0, "Toy", playerStation, [0, 0]);
 		playerStation.possibleEvents.push(toy);
 

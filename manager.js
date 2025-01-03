@@ -140,7 +140,7 @@ class Ghost {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
 				if (this.currentAction.name == "Eat") {
-					document.getElementById("HTMLtextBox").textContent = "The cat lets out a content purr"
+					writeBox("The cat lets out a content purr")
 				}
 				this.finishCurrentAction();
 			}
@@ -168,7 +168,7 @@ class Ghost {
 				if (!found) {
 					this.todos.push(task);
 					if (task.name == "Eat") {
-						document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
+						writeBox("The cat lets out a pittiful meow"); 
 						/*play a sound*/
 					}
 					if (task.name == "Keyboard") {
@@ -289,12 +289,14 @@ class Station {
 	name;
 	possibleEvents;
 	availableEvents;
+	sprites;
 
 
-	constructor(name) {
+	constructor(name,sprites) {
 		this.name = name;
 		this.possibleEvents = [];
 		this.availableEvents = [];
+		this.sprites = sprites;
 	}
 
 	generateEvents(deltaTime) {
@@ -318,8 +320,9 @@ class Station {
 				if (!found) {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
-						document.getElementById("HTMLtextBox").textContent = "You get an email from a friend; its about DND"; //expation idea -- the user sets things about the player like favorite activity that form fill in places like this 
 						/*play a sound*/
+						writeBox("You get an email from a friend; its about DND"); 						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");						writeBox("You get an email from a friend; its about DND");
+						mailSprite(1);
 					}
 				}
 			}
@@ -342,4 +345,30 @@ class Station {
 		let index = this.availableEvents.findIndex((e) => {e == event;});
 		this.availableEvents.splice(index, 1);
 	}
+}
+
+
+let lines = 0;
+function writeBox(text) {
+	let cuts = document.getElementById("HTMLtextBox").textContent.split('\n');
+	if ((typeof text == "string")&&(lines < 2)) {
+		document.getElementById("HTMLtextBox").textContent += '\n';
+		document.getElementById("HTMLtextBox").textContent += text;
+		lines += 1;
+	}else if ((typeof text == "string")&&(lines >= 2)) {
+		cuts = document.getElementById("HTMLtextBox").textContent.split('\n');
+		cuts.splice(0,1);
+		cuts = cuts.join('\n');
+		
+		document.getElementById("HTMLtextBox").textContent = cuts;
+		document.getElementById("HTMLtextBox").textContent += "\n";
+		document.getElementById("HTMLtextBox").textContent += text;		
+	}
+}
+
+function mailSprite(tf) {
+	if (tf == 1) {
+
+	}
+
 }
