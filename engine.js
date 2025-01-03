@@ -20,7 +20,6 @@ class Game {
 	// ^ for now, we only draw cats, so I'm using cats also as the list of sprites
 
 	constructor(canvas) {
-	alert("hi?")
 		//Get screen elements:
 		this.name = 'game';
 		this.canvas = canvas;
@@ -62,7 +61,6 @@ class Game {
 		document.getElementById("catToy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
 		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
 
-		//TODO: document.getElementById("HTMLtextBox").textContent = "Work is emailing you"; --- done, Alex, 1/3/25
 		document.getElementById("checkEmail").addEventListener('click', function() {lucy.attemptAction(checkEmail, email)});
 
 		//Package cats and stations together:

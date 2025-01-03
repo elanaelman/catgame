@@ -159,14 +159,11 @@ class Ghost {
 				for (const t of this.todos) {
 					if (t.name === task.name) {
 						found = true;
-						//console.log(`Task ${task.name} matches T ${t.name}`);
 						break;
-					} else {
-						//console.log(`Task ${task.name} does not match T ${t.name}`);
 					}
 				}
 				if (!found) {
-					this.todos.push(task);
+					this.addTodo(task);
 					if (task.name == "Eat") {
 						document.getElementById("HTMLtextBox").textContent = "The cat lets out a pittiful meow"; 
 						/*play a sound*/
@@ -174,11 +171,15 @@ class Ghost {
 					if (task.name == "Keyboard") {
 						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
 					}
-					if (debug) {
-						console.log(this.name + ": Adding todo: " + task.name);
-					}
 				}
 			}
+		}
+	}
+
+	addTodo(task) {
+		this.todos.push(task);
+		if (debug) {
+			console.log(this.name + ": Adding todo: " + task.name);
 		}
 	}
 
@@ -216,7 +217,7 @@ class Ghost {
 	}
 
 	removeTodo(action) {
-		let index = this.todos.findIndex((a) => {a == action;});
+		let index = this.todos.findIndex((a) => a==action);
 		this.todos.splice(index, 1);
 	}
 }
@@ -341,5 +342,8 @@ class Station {
 	consumeEvent(event) {
 		let index = this.availableEvents.findIndex((e) => {e == event;});
 		this.availableEvents.splice(index, 1);
+		if (debug) {
+			console.log(event.name + " is no longer available in " + this.name);
+		}
 	}
 }
