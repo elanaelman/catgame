@@ -191,27 +191,6 @@ class Ghost {
 		}
 	}
 
-	interrupt(event) {
-		//Interrupts CANNOT have retainedOnInterrupt == true.
-		let match = this.todos.find(action => event.name === action.matchesEvent);
-
-		if (match != undefined) {
-			if (debug) {
-				console.log(`Successfully interrupted ${this.name} with ${event.name}`);
-			}
-
-			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
-				removeTodo(this.currentAction);
-			}
-
-			this.setCurrentAction(match, event);
-		} else {
-			if (debug) {
-				console.log(`Failed to distract ${this.name} with ${event.name}`);
-			}
-		}
-	}
-
 	finishCurrentAction() {
 		let matchedEvent = this.currentAction.matchedEvent;
 		matchedEvent.station.consumeEvent(matchedEvent);
@@ -232,6 +211,37 @@ class Cat extends Ghost {
 	constructor(name, image, position) {
 		super(name);
 		this.sprite = new Sprite(image, position);
+	}
+
+	setCurrentAction(action, matchedEvent) {
+		super.setCurrentAction(action, matchedEvent);
+		matchedEvent.station.addCat(this);
+	}
+
+	finishCurrentAction() {
+		this.currentAction.matchedEvent.station.removeCat(this);
+		super.finishCurrentAction();
+	}
+
+	interrupt(event) {
+		//Interrupts CANNOT have retainedOnInterrupt == true.
+		let match = this.todos.find(action => event.name === action.matchesEvent);
+
+		if (match != undefined) {
+			if (debug) {
+				console.log(`Successfully interrupted ${this.name} with ${event.name}`);
+			}
+
+			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
+				removeTodo(this.currentAction);
+			}
+
+			this.setCurrentAction(match, event);
+		} else {
+			if (debug) {
+				console.log(`Failed to distract ${this.name} with ${event.name}`);
+			}
+		}
 	}
 }
 
