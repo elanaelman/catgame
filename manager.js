@@ -129,7 +129,7 @@ class Ghost {
 	setCurrentAction(action, matchedEvent) {
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
-		this.sprite.move(matchedEvent.position);
+		this.sprite.move(matchedEvent.station.position);
 	}
 
 	//If a subclass overwrites this, it should probably call super.onUpdate(...)
