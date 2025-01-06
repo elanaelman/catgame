@@ -376,6 +376,7 @@ function writeBox(text) {
 	if ((typeof text == "string")&&(lines < 2)) {
 		document.getElementById("HTMLtextBox").textContent += '\n';
 		document.getElementById("HTMLtextBox").textContent += text;
+		ding();
 		lines += 1;
 	}else if ((typeof text == "string")&&(lines >= 2)) {
 		cuts = document.getElementById("HTMLtextBox").textContent.split('\n');
@@ -385,8 +386,15 @@ function writeBox(text) {
 		document.getElementById("HTMLtextBox").textContent = cuts;
 		document.getElementById("HTMLtextBox").textContent += "\n";
 		document.getElementById("HTMLtextBox").textContent += text;		
+		ding();
 	}
 }
+
+function ding() {
+	let ding = new Audio('sounds/ding.mp3');
+	ding.play();
+}
+
 
 function mailSprite(tf) {
 	if (tf == 1) {
