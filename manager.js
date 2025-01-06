@@ -280,13 +280,11 @@ class Event {
 	probability;
 	name;
 	station;
-	position;
 
-	constructor(probability, name, station, position) {
+	constructor(probability, name, station) {
 		this.probability = probability; //probability event triggered in 1 ms
 		this.name = name;
 		this.station = station;
-		this.position = position;
 	}
 }
 
@@ -297,14 +295,16 @@ class Station {
 	possibleEvents;
 	availableEvents;
 	sprites;
+	position;
 	stationCats;
 
-	constructor(name, sprites) {
+	constructor(name, sprites, position) {
 		this.name = name;
 		this.possibleEvents = [];
 		this.availableEvents = [];
 		this.stationCats = [];
 		this.sprites = sprites;
+		this.position = position;
 	}
 
 	generateEvents(deltaTime) {
