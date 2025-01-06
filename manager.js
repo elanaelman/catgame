@@ -324,9 +324,7 @@ class Station {
 				if (!found) {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
-						/*play a sound*/
 						writeBox("You get an email from a friend; its about DND");
-						mailSprite(1);
 					}
 				}
 			}
@@ -380,10 +378,18 @@ function ding() {
 	ding.play();
 }
 
-
-function mailSprite(tf) {
-	if (tf == 1) {
-
+let alternator = 0;
+function toggleSprite(station) { //this both toggles the sprite 
+	if (station.name == "office") {
+		office = 1;
+	}else if (station.name == "kitchen") {
+		kitchen = 1;
+	}
+	if (office == 1) {
+		this.drawSprite(office.sprite);
+	}
+	if (kitchen ==1) {
+		this.drawSprite(kitchen.sprite);
 	}
 
 }

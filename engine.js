@@ -43,7 +43,7 @@ class Game {
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
-		let office = new Station("Office",);
+		let office = new Station("Office","images/email.jpg");
 		let email = new Event(0.1, "Email", office, [26, 250]);
 		office.possibleEvents.push(email);
 		let kitchen = new Station("Kitchen",);
