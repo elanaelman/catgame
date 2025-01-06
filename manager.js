@@ -83,13 +83,14 @@ class Action {
 	matchedEvent;	
 	elapsedTime;
 
-	constructor(name, probability, priority, retainedOnInterrupt, totalTime, matchesEvent) {
+	constructor(name, probability, priority, retainedOnInterrupt, totalTime, matchesEvent, preventedBy) {
 		this.name = name;
 		this.probability = probability;
 		this.priority = priority;
 		this.retainedOnInterrupt = retainedOnInterrupt;
 		this.totalTime = totalTime;
 		this.matchesEvent = matchesEvent;
+		this.preventedBy = preventedBy;
 	}
 
 	beginAction(matchedEvent) {
@@ -244,6 +245,7 @@ class Player extends Ghost {
 
 	attemptAction(action, matchedEvent) {
 		if ( (action != null) && (matchedEvent != null) ) {
+			if (action.preventedBy)
 			this.setCurrentAction(action, matchedEvent);
 		}
 	}
@@ -268,6 +270,7 @@ class Sprite {
 	move(newPosition) {
 		this.x = newPosition[0];
 		this.y = newPosition[1];
+		//todo: do by station instead of position
 	}
 }
 
@@ -294,12 +297,13 @@ class Station {
 	possibleEvents;
 	availableEvents;
 	sprites;
+	stationCats;
 
-
-	constructor(name,sprites) {
+	constructor(name, sprites) {
 		this.name = name;
 		this.possibleEvents = [];
 		this.availableEvents = [];
+		this.stationCats = [];
 		this.sprites = sprites;
 	}
 
@@ -350,6 +354,17 @@ class Station {
 		this.availableEvents.splice(index, 1);
 		if (debug) {
 			console.log(event.name + " is no longer available in " + this.name);
+		}
+	}
+
+	addCat(cat) {
+		this.stationCats.push(cat);
+	}
+
+	removeCat(cat) {
+		let index = this.stationCats.findIndex((c) => c.name == cat.name);
+		if (index >= 0) {
+			this.stationCats.splice(index, 1);
 		}
 	}
 }
