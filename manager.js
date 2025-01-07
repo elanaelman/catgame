@@ -339,6 +339,7 @@ class Station {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
 						writeBox("You get an email from a friend; its about DND");
+						this.station.name = 1;
 					}
 				}
 			}
@@ -401,20 +402,4 @@ function writeBox(text) {
 function ding() {
 	let ding = new Audio('sounds/ding.mp3');
 	ding.play();
-}
-
-let alternator = 0;
-function toggleSprite(station) { //this both toggles the sprite 
-	if (station.name == "office") {
-		office = 1;
-	}else if (station.name == "kitchen") {
-		kitchen = 1;
-	}
-	if (office == 1) {
-		this.drawSprite(office.sprite);
-	}
-	if (kitchen ==1) {
-		this.drawSprite(kitchen.sprite);
-	}
-
 }
