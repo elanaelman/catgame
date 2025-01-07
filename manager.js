@@ -255,9 +255,25 @@ class Player extends Ghost {
 
 	attemptAction(action, matchedEvent) {
 		if ( (action != null) && (matchedEvent != null) ) {
-			if (action.preventedBy)
-			this.setCurrentAction(action, matchedEvent);
+			if (!this.isActionPrevented(action, matchedEvent.station)) {
+				this.setCurrentAction(action, matchedEvent);
+			} else if (debug) {
+				console.log(`Player action ${action.name} prevented by a cat action`);
+			}
 		}
+	}
+
+	isActionPrevented(action, station) {
+		let prevented = false;
+
+		for (cat in station.stationCats) {
+			if (cat.currentAction.name === action.preventedBy) {
+				prevented = true;
+				break;
+			}
+		}
+
+		return prevented;
 	}
 }
 
