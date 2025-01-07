@@ -43,10 +43,10 @@ class Game {
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
-		let office = new Station("Office", ["images/email.jpg"], [26, 250]);
+		let office = new Station("Office", ["images/email.jpg"], [26, 250], false);
 		let email = new Event(0.1, "Email", office);
 		office.possibleEvents.push(email);
-		let kitchen = new Station("Kitchen",[], [216, 40]);
+		let kitchen = new Station("Kitchen",[], [216, 40], false);
 		let food = new Event(0, "Food", kitchen);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
@@ -98,7 +98,12 @@ class Game {
 		//TODO Should ideally clear selectively instead of whole screen, redraw only when necessary
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.drawSprite(this.player.sprite);
-		this.drawSprite(this.office.sprites);
+		for (const station of this.stations) {
+			if (station.name.toggle == 1) {
+				this.drawSprite(this.station.name);
+			}
+		}
+			
 		
 		for (const cat of this.cats) {
 			//if (sprite.moved) {
