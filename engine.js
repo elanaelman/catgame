@@ -44,10 +44,10 @@ class Game {
 		this.cats = [hungry];
 		//Stations
 <<<<<<< HEAD
-		let office = new Station("Office","images/email.jpg");
+		let office = new Station("Office",);
 		let email = new Event(0.1, "Email", office, [26, 250]);
 =======
-		let office = new Station("Office", [], [26, 250]);
+		let office = new Station("Office", ["images/email.jpg"], [26, 250]);
 		let email = new Event(0.1, "Email", office);
 >>>>>>> 88003560e3365f5f32321426cedbb7302b86230b
 		office.possibleEvents.push(email);
