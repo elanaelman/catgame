@@ -174,7 +174,8 @@ class Ghost {
 					this.addTodo(task);
 					if (task.name == "Eat") {
 						writeBox("The cat lets out a pittiful meow"); 
-						/*play a sound*/
+						console.log(this);
+						
 					}
 					if (task.name == "Keyboard") {
 						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
