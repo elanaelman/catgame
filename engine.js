@@ -36,22 +36,25 @@ class Game {
 		lucy.possibleTasks.push(checkEmail);
 		this.player = lucy;
 		//Cat
+		//todo: when hungry, eat food if available, otherwise bother lucy
 		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
 		let eat = new Action("Eat", 0.1, 1, true, 600, "Food");
 		let play = new Action("Play", 1, 0, false, 600, "Toy");
+		let sleepy = new Cat("Sleepy", "images/transCat.png", [0,0]);
+		let sleep = new Action("Sleep", 1, 1, false, 60000, "*");	//What's the triggering event?
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		this.cats = [hungry];
 		//Stations
-		let office = new Station("Office", ["images/email.jpg"], [26, 250], false);
+		let office = new Station("Office", "images/email.jpg", [26, 250], false);
 		let email = new Event(0.1, "Email", office);
 		office.possibleEvents.push(email);
-		let kitchen = new Station("Kitchen",[], [216, 40], false);
+		let kitchen = new Station("Kitchen", "images/email.jpg", [216, 40], false);
 		let food = new Event(0, "Food", kitchen);
 		kitchen.possibleEvents.push(food);
 		this.stations = [office, kitchen];
 		//Interrupts
-		let playerStation = new Station("Player Station", [], [0, 0]);
+		let playerStation = new Station("Player Station", "images/email.jpg", [0, 0], false);
 		let toy = new Event(0, "Toy", playerStation);
 		playerStation.possibleEvents.push(toy);
 
@@ -99,8 +102,8 @@ class Game {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.drawSprite(this.player.sprite);
 		for (const station of this.stations) {
-			if (station.name.toggle == 1) {
-				this.drawSprite(this.station.name);
+			if (station.toggle == 1) {
+				this.drawSprite(station.sprite);
 			}
 		}
 			

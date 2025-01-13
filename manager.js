@@ -320,17 +320,19 @@ class Station {
 	name;
 	possibleEvents;
 	availableEvents;
-	sprites;
+	sprite;
 	position;
 	stationCats;
+	toggle;
 
-	constructor(name, sprites, position) {
+	constructor(name, sprite, position, toggle) {
 		this.name = name;
 		this.possibleEvents = [];
 		this.availableEvents = [];
 		this.stationCats = [];
-		this.sprites = sprites;
+		this.sprite = new Sprite(sprite, position);
 		this.position = position;
+		this.toggle = toggle;
 	}
 
 	generateEvents(deltaTime) {
@@ -355,7 +357,7 @@ class Station {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
 						writeBox("You get an email from a friend; its about DND");
-						this.station.name = 1;
+						this.toggle = true;
 					}
 				}
 			}
