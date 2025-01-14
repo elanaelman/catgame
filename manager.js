@@ -50,7 +50,7 @@ class Manager {
 		for (const action of cat.todos) {
 			for (const station of this.stations) {
 
-				let match = station.availableEvents.find(event => actionMatchesEvent(action, event));
+				let match = station.availableEvents.find(event => actionMatchesEvent(action, event) || (action.matchesEvent == null));
 
 				if (match != undefined) {
 
@@ -227,18 +227,7 @@ class Cat extends Ghost {
 
 	interrupt(event) {
 		//Interrupts CANNOT have retainedOnInterrupt == true.
-		//let match = this.todos.find(action => actionMatchesEvent(action, event));
-		let match = null;
-		for (const action of this.todos) {
-			let result = actionMatchesEvent(action, event);
-			if (result) {
-				console.log(`${action.matchesEvent} matches ${event.name}`);
-				match = action;
-			} else {
-				console.log(`${action.matchesEvent} does not match ${event.name}`);
-			}
-
-		}
+		let match = this.todos.find(action => actionMatchesEvent(action, event));
 
 		if (match != undefined) {
 			if (debug) {
@@ -436,6 +425,5 @@ function ding() {
 }
 
 function actionMatchesEvent(action, event) {
-	let result = (event.name === action.matchesEvent) || ("*" === action.matchesEvent);
-	return result;
+	return event.name === action.matchesEvent;
 }
