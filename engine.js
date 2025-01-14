@@ -60,7 +60,7 @@ class Game {
 		let food = new Event(0, "Food", kitchen);
 		kitchen.possibleEvents.push(food);
 		//Interrupts
-		let playerStation = new Station("Player Station", "images/email.jpg", [0, 0], false);
+		let playerStation = new Station("Player Station", [], [0, 0]);
 		let toy = new Event(0, "Toy", playerStation);
 		playerStation.possibleEvents.push(toy);
 
