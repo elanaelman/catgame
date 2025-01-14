@@ -175,6 +175,7 @@ class Ghost {
 					this.addTodo(task);
 					if (task.name == "Eat") {
 						writeBox("The cat lets out a pittiful meow");
+						kitchen.toggle = true;
 						
 					}
 					if (task.name == "Keyboard") {
