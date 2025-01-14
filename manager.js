@@ -173,8 +173,7 @@ class Ghost {
 				if (!found) {
 					this.addTodo(task);
 					if (task.name == "Eat") {
-						writeBox("The cat lets out a pittiful meow"); 
-						console.log(this);
+						writeBox("The cat lets out a pittiful meow");
 						
 					}
 					if (task.name == "Keyboard") {
