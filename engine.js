@@ -54,6 +54,7 @@ class Game {
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
 		sleepy.possibleTasks.push(sleep);
+		sleepy.possibleTasks.push(play);
 		//Stations
 		let email = new Event(0.1, "Email", office);
 		office.possibleEvents.push(email);

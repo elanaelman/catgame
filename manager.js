@@ -53,11 +53,6 @@ class Manager {
 				let match = station.availableEvents.find(event => actionMatchesEvent(action, event) || (action.matchesEvent == null));
 
 				if (match != undefined) {
-
-					if (debug) {
-						console.log(`${cat.name} will begin action ${action.name} in ${station.name}`);
-					}
-
 					cat.setCurrentAction(action, match);
 					return;
 				}
@@ -128,6 +123,11 @@ class Ghost {
 
 	//If a subclass overwrites this, it should probably call super.setCurrentAction(...)
 	setCurrentAction(action, matchedEvent) {
+
+		if (debug) {
+			console.log(`${this.name} will begin action ${action.name} in ${matchedEvent.station.name}`);
+		}
+
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
 		this.sprite.move(matchedEvent.station.position);
