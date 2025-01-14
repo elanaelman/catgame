@@ -217,11 +217,9 @@ class Cat extends Ghost {
 
 	setCurrentAction(action, matchedEvent) {
 		super.setCurrentAction(action, matchedEvent);
-		matchedEvent.station.addCat(this);
 	}
 
 	finishCurrentAction() {
-		this.currentAction.matchedEvent.station.removeCat(this);
 		super.finishCurrentAction();
 	}
 
@@ -268,8 +266,8 @@ class Player extends Ghost {
 	isActionPrevented(action, station) {
 		let prevented = false;
 
-		for (const cat of station.stationCats) {
-			if (cat.currentAction.name === action.preventedBy) {
+		for (const cat of cats) {
+			if ( (cat.currentAction != null) && (cat.currentAction.name === action.preventedBy) ) {
 				prevented = true;
 				break;
 			}
@@ -324,14 +322,12 @@ class Station {
 	availableEvents;
 	sprite;
 	position;
-	stationCats;
 	toggle;
 
 	constructor(name, sprite, position, toggle) {
 		this.name = name;
 		this.possibleEvents = [];
 		this.availableEvents = [];
-		this.stationCats = [];
 		this.sprite = new Sprite(sprite, position);
 		this.position = position;
 		this.toggle = toggle;
@@ -383,17 +379,6 @@ class Station {
 		this.availableEvents.splice(index, 1);
 		if (debug) {
 			console.log(event.name + " is no longer available in " + this.name);
-		}
-	}
-
-	addCat(cat) {
-		this.stationCats.push(cat);
-	}
-
-	removeCat(cat) {
-		let index = this.stationCats.findIndex((c) => c.name == cat.name);
-		if (index >= 0) {
-			this.stationCats.splice(index, 1);
 		}
 	}
 }
