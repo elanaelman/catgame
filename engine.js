@@ -32,19 +32,21 @@ class Game {
 		//Create game objects:
 		//Player
 		let lucy = new Player("Lucy", "images/vampire.svg", [100,100]);
-		let checkEmail = new Action("Check Email", 1, 0, true, 100, "Email");
+		let checkEmail = new Action("Check Email", 1, 0, true, 100, "Email", "Sleep");
 		lucy.possibleTasks.push(checkEmail);
 		this.player = lucy;
 		//Cat
 		//todo: when hungry, eat food if available, otherwise bother lucy
 		let hungry = new Cat("Hungry", "images/transCat.png" , [0,0]);
-		let eat = new Action("Eat", 0.1, 1, true, 600, "Food");
-		let play = new Action("Play", 1, 0, false, 600, "Toy");
+		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food", null);
+		let play = new Action("Play", 1, 0, false, 6000, "Toy", null);
 		let sleepy = new Cat("Sleepy", "images/transCat.png", [0,0]);
-		let sleep = new Action("Sleep", 1, 1, false, 60000, "*");	//What's the triggering event?
+		let sleep = new Action("Sleep", 1, 1, false, 60000, "*", null);
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
-		this.cats = [hungry];
+		sleepy.possibleTasks.push(sleep);
+		//this.cats = [hungry, sleepy];
+		this.cats = [sleepy];
 		//Stations
 		let office = new Station("Office", "images/email.jpg", [26, 250], false);
 		let email = new Event(0.1, "Email", office);
@@ -61,8 +63,9 @@ class Game {
 		
 
 		//todo fix likely bug: player stuck offering toy forever if cat not interested
-		document.getElementById("catToy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
-		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});
+		document.getElementById("catToyHungry").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
+		document.getElementById("catToySleepy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); sleepy.interrupt(toy)});
+		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});	
 
 		document.getElementById("checkEmail").addEventListener('click', function() {lucy.attemptAction(checkEmail, email)});
 

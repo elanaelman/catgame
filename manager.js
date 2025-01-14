@@ -50,7 +50,7 @@ class Manager {
 		for (const action of cat.todos) {
 			for (const station of this.stations) {
 
-				let match = station.availableEvents.find(event => event.name === action.matchesEvent);
+				let match = station.availableEvents.find(event => actionMatchesEvent(action, event));
 
 				if (match != undefined) {
 
@@ -78,6 +78,7 @@ class Action {
 	totalTime; //in seconds
 	finished;
 	matchesEvent;
+	preventedBy;
 
 	//set when this becomes a cat's currentAction:
 	matchedEvent;	
@@ -225,7 +226,18 @@ class Cat extends Ghost {
 
 	interrupt(event) {
 		//Interrupts CANNOT have retainedOnInterrupt == true.
-		let match = this.todos.find(action => event.name === action.matchesEvent);
+		//let match = this.todos.find(action => actionMatchesEvent(action, event));
+		let match = null;
+		for (const action of this.todos) {
+			let result = actionMatchesEvent(action, event);
+			if (result) {
+				console.log(`${action.matchesEvent} matches ${event.name}`);
+				match = action;
+			} else {
+				console.log(`${action.matchesEvent} does not match ${event.name}`);
+			}
+
+		}
 
 		if (match != undefined) {
 			if (debug) {
@@ -233,7 +245,7 @@ class Cat extends Ghost {
 			}
 
 			if (this.currentAction != null && (! this.currentAction.retainedOnInterrupt)) {
-				removeTodo(this.currentAction);
+				this.removeTodo(this.currentAction);
 			}
 
 			this.setCurrentAction(match, event);
@@ -266,7 +278,7 @@ class Player extends Ghost {
 	isActionPrevented(action, station) {
 		let prevented = false;
 
-		for (cat in station.stationCats) {
+		for (const cat of station.stationCats) {
 			if (cat.currentAction.name === action.preventedBy) {
 				prevented = true;
 				break;
@@ -420,4 +432,9 @@ function writeBox(text) {
 function ding() {
 	let ding = new Audio('sounds/ding.mp3');
 	ding.play();
+}
+
+function actionMatchesEvent(action, event) {
+	let result = (event.name === action.matchesEvent) || ("*" === action.matchesEvent);
+	return result;
 }
