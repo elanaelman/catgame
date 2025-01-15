@@ -133,6 +133,7 @@ class Ghost {
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
 		this.sprite.move(matchedEvent.station.position);
+		matchedEvent.station.toggle = false;
 	}
 
 	//If a subclass overwrites this, it should probably call super.onUpdate(...)
@@ -147,7 +148,13 @@ class Ghost {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
 				if (this.currentAction.name == "Eat") {
-					writeBox(`${cat.name} lets out a content purr`);
+					writeBox(`${this.name} lets out a content purr`);
+					kitchen.toggle = false;
+				}
+
+				if (this.currentAction.name == "Check Email") {
+					writeBox("There's a game scheduled for this weekend");
+					office.toggle = false;
 				}
 				this.finishCurrentAction();
 			}
@@ -184,7 +191,7 @@ class Ghost {
 						
 					}
 					if (task.name == "Keyboard") {
-						/*this task doenst exist but I think it should be what we use for it stoping you from checking your email */
+						/*this task doenst exist but I think it should be what we use for it stoping you from checking your  */
 					}
 				}
 			}
@@ -360,7 +367,7 @@ class Station {
 					this.addAvailableEvent(event);
 					if (event.name == "Email") {
 						writeBox("You get an email from a friend; its about DND");
-						this.toggle = true;
+						office.toggle = true;
 					}
 				}
 			}
