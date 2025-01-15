@@ -31,6 +31,8 @@ class Manager {
 			station.generateEvents(deltaTime);
 		}
 
+		this.player.onUpdate();
+
 		for (const cat of this.cats) {
 			cat.onUpdate(deltaTime);
 
@@ -135,6 +137,9 @@ class Ghost {
 
 	//If a subclass overwrites this, it should probably call super.onUpdate(...)
 	onUpdate(deltaTime) {
+		// if (this.name === "Lucy") {
+		// 	console.log(`Lucy: ${this.currentAction}`);
+		// }
 		if (this.currentAction != null) {
 			this.currentAction.progressAction(deltaTime);
 			if (this.currentAction.finished) {
@@ -142,7 +147,7 @@ class Ghost {
 					console.log(`${this.name} has finished action ${this.currentAction.name}`);
 				}
 				if (this.currentAction.name == "Eat") {
-					writeBox("The cat lets out a content purr")
+					writeBox(`${cat.name} lets out a content purr`);
 				}
 				this.finishCurrentAction();
 			}
