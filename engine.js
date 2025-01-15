@@ -47,7 +47,7 @@ class Game {
 		let checkEmail = new Action("Check Email", 1, 0, true, 100, "Email", "Sleep");
 		lucy.possibleTasks.push(checkEmail);
 		//Cat
-		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food", null);
+		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food", "Play");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy", null);
 		let sleep = new Action("Sleep", 1, 1, false, 60000, null, null);
 		//todo: when hungry, eat food if available, otherwise bother lucy
