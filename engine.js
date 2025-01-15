@@ -50,9 +50,12 @@ class Game {
 		let eat = new Action("Eat", 0.1, 1, true, 6000, "Food", "Play");
 		let play = new Action("Play", 1, 0, false, 6000, "Toy", null);
 		let sleep = new Action("Sleep", 1, 1, false, 60000, null, null);
-		//todo: when hungry, eat food if available, otherwise bother lucy
+		let scream = new Action("Scream", 0, 5, false, 600000000, null, null);
+		//todo: start action scream when adding eat to todo list, unless food available
+		//todo: stop screaming on action eat
 		hungry.possibleTasks.push(eat);
 		hungry.possibleTasks.push(play);
+		hungry.possibleTasks.push(scream);
 		sleepy.possibleTasks.push(sleep);
 		sleepy.possibleTasks.push(play);
 		//Stations
