@@ -146,6 +146,11 @@ class Ghost {
 					writeBox("The cat lets out a content purr")
 					kitchen.toggle = false;
 				}
+
+				if (this.currentAction.name == "Check Email") {
+					writeBox("There's a game scheduled for this weekend")
+					office.toggle = false;
+				}
 				this.finishCurrentAction();
 			}
 		}
