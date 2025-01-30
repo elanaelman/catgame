@@ -50,13 +50,18 @@ class Manager {
 		//	then using a binary search. That should bring it down to linear.
 		//	(Timing is irrelevant for this small a game, it just hurts my pride.) 
 		for (const action of cat.todos) {
-			for (const station of this.stations) {
+			if (isIndependent(action)) {
+				cat.setCurrentAction(action, null);
+				return;
+			} else {
+				for (const station of this.stations) {
 
-				let match = station.availableEvents.find(event => actionMatchesEvent(action, event) || (action.matchesEvent == null));
+					let match = station.availableEvents.find(event => actionMatchesEvent(action, event) || (action.matchesEvent == null));
 
-				if (match != undefined) {
-					cat.setCurrentAction(action, match);
-					return;
+					if (match != undefined) {
+						cat.setCurrentAction(action, match);
+						return;
+					}
 				}
 			}
 		}
@@ -81,6 +86,7 @@ class Action {
 	matchedEvent;	
 	elapsedTime;
 
+	//todo: remove retainedOnInterrupt
 	constructor(name, probability, priority, retainedOnInterrupt, totalTime, matchesEvent, preventedBy) {
 		this.name = name;
 		this.probability = probability;
@@ -116,24 +122,40 @@ class Ghost {
 	currentAction;
 	possibleTasks;	//list of all possible actions
 	todos;	//list of planned actions. probably sort these by priority
+	sprite;
+	homePosition;
 
-	constructor(name) {
+	constructor(name, image, position) {
 		this.name = name;
 		this.possibleTasks = [];
 		this.todos = [];
+		this.sprite = new Sprite(image, position);
+		this.homePosition = position;
 	}
+
+
+	addPossibleTasks(taskList) {
+		this.possibleTasks.concat(taskList);
+		this.possibleTasks.sort((a, b) => (b.priority-a.priority));
+	}
+
 
 	//If a subclass overwrites this, it should probably call super.setCurrentAction(...)
 	setCurrentAction(action, matchedEvent) {
 
 		if (debug) {
-			console.log(`${this.name} will begin action ${action.name} in ${matchedEvent.station.name}`);
+			console.log(`${this.name} will begin action ${action.name}`);
 		}
 
 		action.beginAction(matchedEvent);
 		this.currentAction = action;
-		this.sprite.move(matchedEvent.station.position);
-		matchedEvent.station.toggle = false;
+		if (matchedEvent == null) {
+			this.sprite.move(this.homePosition);
+		} else {
+			this.sprite.move(matchedEvent.station.position);
+			matchedEvent.station.toggle = false;
+		}
+
 	}
 
 	//If a subclass overwrites this, it should probably call super.onUpdate(...)
@@ -205,7 +227,9 @@ class Ghost {
 
 	finishCurrentAction() {
 		let matchedEvent = this.currentAction.matchedEvent;
-		matchedEvent.station.consumeEvent(matchedEvent);
+		if (matchedEvent != null) {
+			matchedEvent.station.consumeEvent(matchedEvent);
+		}
 		this.removeTodo(this.currentAction);
 		this.currentAction = null;
 		this.finished = true;
@@ -218,12 +242,6 @@ class Ghost {
 }
 
 class Cat extends Ghost {
-	sprite;
-
-	constructor(name, image, position) {
-		super(name);
-		this.sprite = new Sprite(image, position);
-	}
 
 	interrupt(event) {
 		//Interrupts CANNOT have retainedOnInterrupt == true.
@@ -248,12 +266,6 @@ class Cat extends Ghost {
 }
 
 class Player extends Ghost {
-	sprite;
-
-	constructor(name, image, position) {
-		super(name);
-		this.sprite = new Sprite(image, position);
-	}
 
 	attemptAction(action, matchedEvent) {
 		if ( (action != null) && (matchedEvent != null) ) {
@@ -409,6 +421,10 @@ function writeBox(text) {
 function ding() {
 	let ding = new Audio('sounds/ding.mp3');
 	ding.play();
+}
+
+function isIndependent(action, event) {
+	return event == null;
 }
 
 function actionMatchesEvent(action, event) {
