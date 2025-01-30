@@ -29,10 +29,6 @@ h1 {
 }
 
 /* Dropdown mamagment -- Ripped from internet: https://www.w3schools.com/howto/howto_js_dropdown.asp */.dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
     border: none;
     cursor: pointer;
   }
