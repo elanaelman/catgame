@@ -52,7 +52,6 @@ class Game {
 		let sleep = new Action("Sleep", 1, 1, false, 60000, null, null);
 		//todo: remove assumption of matching events per action
 		let scream = new Action("Scream", 1, 0, false, 600000000, null, "Eat");
-
 		//todo: start action scream when adding eat to todo list, unless food available
 		//todo: stop screaming on action eat
 		//hungry.possibleTasks.push(eat);
