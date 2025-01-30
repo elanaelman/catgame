@@ -133,9 +133,9 @@ class Ghost {
 		this.homePosition = position;
 	}
 
-
+	//todo: sorting should be for todos, not possible tasks!
 	addPossibleTasks(taskList) {
-		this.possibleTasks.concat(taskList);
+		this.possibleTasks = this.possibleTasks.concat(taskList);
 		this.possibleTasks.sort((a, b) => (b.priority-a.priority));
 	}
 
@@ -423,8 +423,8 @@ function ding() {
 	ding.play();
 }
 
-function isIndependent(action, event) {
-	return event == null;
+function isIndependent(action) {
+	return action.matchesEvent == null;
 }
 
 function actionMatchesEvent(action, event) {
