@@ -136,7 +136,6 @@ class Ghost {
 	//todo: sorting should be for todos, not possible tasks!
 	addPossibleTasks(taskList) {
 		this.possibleTasks = this.possibleTasks.concat(taskList);
-		this.possibleTasks.sort((a, b) => (b.priority-a.priority));
 	}
 
 
@@ -220,6 +219,7 @@ class Ghost {
 
 	addTodo(task) {
 		this.todos.push(task);
+		this.todos.sort((a, b) => (b.priority-a.priority));
 		if (debug) {
 			console.log(this.name + ": Adding todo: " + task.name);
 		}
