@@ -53,13 +53,8 @@ class Game {
 		//todo: remove assumption of matching events per action
 		let scream = new Action("Scream", 1, 0, false, 600000000, null, "Eat");
 		//todo: start action scream when adding eat to todo list, unless food available
-		//todo: stop screaming on action eat
-		//hungry.possibleTasks.push(eat);
-		//hungry.possibleTasks.push(play);
-		//hungry.possibleTasks.push(scream);
 		hungry.addPossibleTasks([eat, play, scream]);
-		sleepy.possibleTasks.push(sleep);
-		sleepy.possibleTasks.push(play);
+		sleepy.addPossibleTasks([sleep, play]);
 		//Stations
 		let email = new Event(0.1, "Email", office);
 		office.possibleEvents.push(email);
@@ -75,7 +70,7 @@ class Game {
 		//todo fix likely bug: player stuck offering toy forever if cat not interested
 		document.getElementById("catToyHungry").addEventListener('click', function() {playerStation.addAvailableEvent(toy); hungry.interrupt(toy)});
 		document.getElementById("catToySleepy").addEventListener('click', function() {playerStation.addAvailableEvent(toy); sleepy.interrupt(toy)});
-		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food)});	
+		document.getElementById("catFood").addEventListener('click', function() {kitchen.addAvailableEvent(food); hungry.interrupt(food)});	
 
 		document.getElementById("checkEmail").addEventListener('click', function() {lucy.attemptAction(checkEmail, email)});
 
