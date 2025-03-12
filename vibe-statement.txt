@@ -5,4 +5,66 @@ Vibe Statement for Cats Underfoot
 * Cats should be cute
 * Ideally, cats should be modular, i.e. we can match any cat tail to any cat body
 * Pastel colors
-* Pixel, watercolor, calligraphy brush, colored pencil, ballpoint pen
+* Style: pixel, watercolor, calligraphy brush, colored pencil, or ballpoint pen?
+
+* two cats (or one cat in two colors)
+	* standing
+	* sleeping
+	* sitting
+	* meowing (applied to other poses?)
+	* reaching pose, "standing"
+* person
+	* standing
+	* sitting at computer
+	* standing at counter for cat food
+* background
+	* couch, table, bathroom, rug, desk
+* kitchen
+	* two food bowls: one empty, one with cat food
+* computer
+	* two screens: one blue, one with an email notification
+* fish tank
+* artist easel
+
+* cute exclamation point (notification icon)
+
+
+
+
+
+
+
+resources:
+* time
+* money/resources
+* work reputation
+* tools
+
+tools:
+* fish tank
+* rolly track
+* feather on string
+* quick feeder
+* mouse robot
+
+game stages:
+1. work to afford second cat
+2. second cat means you need more time
+3. buy standalone toy to keep cats happy
+4. three cats but short on money
+etc
+
+UI elements:
+* journal (front page has todos; history/extra info log)
+	cat personality pages
+* status bars for money and time, etc
+* shop
+* settings
+* inventory
+
+shelter cat project minigame ???
+cat affection stat
+painting minigame
+colorblind pallate etc
+
+
