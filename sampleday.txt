@@ -1,0 +1,10 @@
+Start state: Hungry is watching the fishtank, Sleepy is on your keyboard
+
+1. Time to work. (Go to art stuff)
+*. A bird flies past the window.
+2. Hungry gets hungry.
+3. Your energy level falls. (To make yourself coffee, you must first feed Hungry.)
+4. You get an email. (Distract Sleepy.)
+* Hungry sits on your lap, makes a blinky face.
+5. Both cats start doing zoomies. (Play with them to resolve.)
+6. You get tired. (Go to sleep; Sleepy will fall asleep with you.)
